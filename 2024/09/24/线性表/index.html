@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="time will tell">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://sbwrn.github.io/2024/09/24/线性表/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="定义由n(n&gt;&#x3D;0)个数据特性相同的元素构成的有限序列称为线性表，(n&#x3D;0)的时候被称为空表。 一个数据元素可以是简单的一个数据，一个符号，也可以是复杂的若干个数据项的组合 类型定义12345ADT List&#123;    数据对象:D&#x3D;&#123;a[i]|a[i]是元素，i&#x3D;1，2，3,...，n&#125;    数据关系:R1&#x3D;&#123;&lt;a[i-1]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性表">
+<meta property="og:url" content="https://sbwrn.github.io/2024/09/24/%E7%BA%BF%E6%80%A7%E8%A1%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="定义由n(n&gt;&#x3D;0)个数据特性相同的元素构成的有限序列称为线性表，(n&#x3D;0)的时候被称为空表。 一个数据元素可以是简单的一个数据，一个符号，也可以是复杂的若干个数据项的组合 类型定义12345ADT List&#123;    数据对象:D&#x3D;&#123;a[i]|a[i]是元素，i&#x3D;1，2，3,...，n&#125;    数据关系:R1&#x3D;&#123;&lt;a[i-1]">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/1.png">
+<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/2.png">
+<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/3.png">
+<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/4.png">
+<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/5.png">
+<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/6.png">
+<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/7.png">
+<meta property="article:published_time" content="2024-09-24T12:54:52.065Z">
+<meta property="article:modified_time" content="2024-07-24T03:22:39.609Z">
+<meta property="article:author" content="anybody">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/1.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            线性表 -
+        
+        日薄西山
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"sbwrn.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"18px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"What makes us normal is knowing that we're not normal.","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/sbwrn/sbwrn.github.io","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.1","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"GITHUB":{"path":"https://github.com/sbwrn/sbwrn.github.io","icon":"fa-brands fa-github"},"GALLERY":{"icon":"fa-solid fa-images","path":"/masonry/"},"Links":{"icon":"fa-regular fa-link","submenus":{"Link1":"https://xxy1103.github.io/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"time will tell everything+","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":300},"tags":{"enable":true,"limit":300}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                日薄西山
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                                        >
+                                    <i class="fa-brands fa-github fa-fw"></i>
+                                    GITHUB
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-images fa-fw"></i>
+                                    GALLERY
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://xxy1103.github.io/">
+                                                    LINK1
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                        >
+                            <span>
+                                GITHUB
+                            </span>
+                            
+                                <i class="fa-brands fa-github fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                GALLERY
+                            </span>
+                            
+                                <i class="fa-solid fa-images fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://xxy1103.github.io/">LINK1</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">20</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">线性表</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/redefine-avatar.svg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">time will tell</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-09-24 20:54:52</span>
+        <span class="mobile">2024-09-24 20:54:52</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-07-24 11:22:39</span>
+            <span class="mobile">2024-07-24 11:22:39</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>由n(n&gt;&#x3D;0)个数据特性相同的元素构成的有限序列称为线性表，(n&#x3D;0)的时候被称为空表。</p>
+<p>一个数据元素可以是简单的一个数据，一个符号，也可以是复杂的若干个数据项的组合</p>
+<h4 id="类型定义"><a href="#类型定义" class="headerlink" title="类型定义"></a>类型定义</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ADT List&#123;</span><br><span class="line">    数据对象:D=&#123;a[i]|a[i]是元素，i=1，2，3,...，n&#125;</span><br><span class="line">    数据关系:R1=&#123;&lt;a[i-1]，a[i]&gt; | i=2,...,n&#125;</span><br><span class="line">    基本操作:建立、存取、插入、删除、检索、分解、排序等</span><br><span class="line">&#125; ADTList; #变量名</span><br></pre></td></tr></table></figure></div>
+<h2 id="线性表的顺序实现"><a href="#线性表的顺序实现" class="headerlink" title="线性表的顺序实现"></a>线性表的顺序实现</h2><p>线性表的顺序存储又被称为顺序表。<br>顺序存储表示:用一组地址连续的存储单元依次存储线性表的数据元素的方式，具有顺序存储结构的特点(数据间的逻辑关系和物理关系是一致的)<br>假设线性表L存储的起始位置为 LOC(A)，sizeof(ElemType)是每个数据元素所占用存储空间的大小，则表L所对应的顺序存储如下图:<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/1.png"
+                      alt="顺序存储示意图"
+                ></p>
+<p>注意:线性表中的位序是从1开始的，而数组中元素的下标是从0开始的</p>
+<p>线性表的顺序存储结构是一种<strong>随机存取</strong>的存储结构，即通过<strong>首地址</strong>和<strong>元素序号</strong>可以在O(1)时间内找到指定的元素.<br>由于线性表的长度可变，且所需最大存储空间随问题的不同而不同，在C&#x2F;C++语言中通常使用动态分配的一维数组表示线性表。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//------顺序表的存储结构------</span><br><span class="line">#define MAXSIZE 100     //顺序表可能达到的最大长度</span><br><span class="line">    typedef struct &#123;</span><br><span class="line">        ElemType *elem; //存储空间的基地址</span><br><span class="line">        int length;     //当前长度</span><br><span class="line">    &#125; sqList;           //顺序表的结构类型为sqList</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<div class="tabs" id="tab-顺序表的基本操作"><ul class="nav-tabs"><li class="tab active"><a class="#顺序表的基本操作-1">初始化</a></li><li class="tab"><a class="#顺序表的基本操作-2">取值</a></li><li class="tab"><a class="#顺序表的基本操作-3">按值查找</a></li></ul><div class="tab-content"><div class="tab-pane active" id="顺序表的基本操作-1"><p>顺序表的基本操作:<strong>初始化</strong><br>①为顺序表L动态分配一个预定义大小的数组空间，使elem指向这段空间的基地址。<br>②将表的当前长度设为0。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Status InitList(sqList &amp;L)&#123;</span><br><span class="line">//构造一个空的顺序表L:为顺序表分配一个大小为MAXSIZE的数组空间</span><br><span class="line">    L.elem = new ElemType[MAXSIZE1];</span><br><span class="line">    if(!L.elem) exit(OVERFLOW);     //存储分配失败退出 #代码严谨性</span><br><span class="line">    L.length =0;                    //室表长度为0</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="顺序表的基本操作-2"><p>顺序表的基本操作:<strong>取值</strong><br>①判断指定的位置序号i值是否合理(1≤i≤L.length),若不合理，则返回ERROR。<br>②若i值合理，则将第i个数据元素 L.elem[i-1]赋给e,通过e返回第i个数据元素的传值。</p></div><div class="tab-pane" id="顺序表的基本操作-3"><p>顺序表的基本操作:<strong>按值查找</strong><br>①从第一个元素起，依次和 e相比较，若找到与 e相等的元素L.elem[i],则查找成功，返回该元素的序号 i+1(数组下标从0开始)。<br>②若查遍整个顺序表都没有找到，则查找失败，返回0。</p></div></div></div>
+
+
+
+
+
+
+
+
+
+<h2 id="线性表的链式实现"><a href="#线性表的链式实现" class="headerlink" title="线性表的链式实现"></a>线性表的链式实现</h2><p>链式存储结构的特点:用一组任意的存储单元存储线性表的数据元素(这组存储单元可以是连续的，也可以是不连续的)，存放数据元素的结点至少包括两个域(<strong>指针域、数据域</strong>)，也可以包含若干个指针域和数据域。</p>
+<p>基本概念:头指针，空指针，带表头结点的单向链表</p>
+<p>链表在内存中的存储:<strong>非顺序</strong><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/2.png"
+                      alt="链式存储示意图"
+                ></p>
+<p>关于带头结点的单链表及不带头节点的单链表</p>
+<ul>
+<li>首元结点:是指链表中存储第一个数据元素的结点。</li>
+<li>头结点:是在首元素结点之前附设的一个结点，其指针指向首元结点。</li>
+<li>头指针:是指向链表中第一个结点的指针。若链表设有头结点，则头指针所指结点为线性表的头结点,<br>若链表不设头结点，则头指针所指结点为该线性表的首元结点。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/3.png"
+                      alt="带头结点的单链表示意图"
+                ></li>
+</ul>
+<div align="center" style="font-size: 20px; font-weight: bold;">带头结点的单链表为空时:L->next==NULL;</div>
+<div align="center" style="font-size: 20px; font-weight: bold;">不带头结点的单链表为空时:L=NULL;</div>
+
+<div class="tabs" id="tab-单链表的基本操作"><ul class="nav-tabs"><li class="tab active"><a class="#单链表的基本操作-1">初始化</a></li><li class="tab"><a class="#单链表的基本操作-2">取值</a></li></ul><div class="tab-content"><div class="tab-pane active" id="单链表的基本操作-1"><p>单链表的基本操作:<strong>初始化</strong><br>①生成新结点作为头结点，用头指针L指向头结点。<br>②头结点的指针域置空 </p></div><div class="tab-pane" id="单链表的基本操作-2"><p>单链表的基本操作:<strong>取值</strong><br>①用指针p指向首元结点，用j做计数器初值赋为1<br>②从首元结点开始依次顺着链域 next 向下访问，只要指向当前结点的指针p不为空(NULL),并且没有到达序号为i的结点，则循环执行以下操作:<br>p指向下一个结点; 计数器j相应加 1<br>③退出循环时，如果指针p为空，或者计数器j大于i,说明指定的序号i值不合法(i大于表长n或i小于等于0)，取值失败返回ERROR;否则取值成功，此时j&#x3D;i时，p所指的结点就是要找的第i个结点，用参数e保<br>存当前结点的数据域，返回OK。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Status GetElem(LinkList L, int i, ElemType &amp;e)&#123;</span><br><span class="line">//在带头结点的单链表L中根据序号l.获取元素的值，用e返回L中第l.个数据元素的值</span><br><span class="line">    p =L-&gt;next;</span><br><span class="line">    j =1;                   //初始化，p指向首元结点，计数器]初值赋为</span><br><span class="line">    while(p &amp;&amp; j&lt;i)&#123;        //顺链域向后扫描，直到p为空或p指向第l.个元素</span><br><span class="line">        p = p-&gt;next;        //p指向下一个结点 </span><br><span class="line">        ++j;                //计数器j相应加1</span><br><span class="line">    &#125;</span><br><span class="line">    if(!p || j&gt;i) return ERROR;        //i佳不台法i&gt;n或i&lt;=0</span><br><span class="line">    e = p-&gt;data;                       //取第i个结点的数据域</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure></div>
+<div align="center" style="font-size: 20px; font-weight: bold;">单链表取值算法的平均时间复杂度为 O(n)</div></div></div></div>
+
+
+
+
+
+
+<p>单链表的基本操作:<strong>插入</strong><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/4.png"
+                      alt="插入操作示意图"
+                ></p>
+<p>单链表的基本操作:<strong>删除</strong><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/5.png"
+                      alt="删除操作示意图"
+                ><br>删除单链表的第i个结点a[i]<br>①查找结点a[i-1]并由指针p指向该结点<br>②临时保存待删除结点 a[i] ;的地址在q中，以备释放。<br>③将结点*p的指针域指向 a[i] 的直接后继结点<br>④释放结点 a 的空间</p>
+<h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><p>平均时间复杂度<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/6.png"
+                      alt="平均时间复杂度"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%A1%BA%E5%BA%8F%E8%A1%A8/7.png"
+                      alt="平均时间复杂度"
+                ></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 线性表</li>
+        <li><strong>Author:</strong> time will tell</li>
+        <li><strong>Created at
+                :</strong> 2024-09-24 20:54:52</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-07-24 11:22:39
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://sbwrn.github.io/2024/09/24/线性表/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">#数据结构</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/09/24/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">树状数组</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">线性表</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">1.0.1.</span> <span class="nav-text">类型定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">线性表的顺序实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E9%93%BE%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">线性表的链式实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%86%E8%8A%82"><span class="nav-number">3.1.</span> <span class="nav-text">细节</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">time will tell</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        20 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.1</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/js/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/plugins/masonry.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>
