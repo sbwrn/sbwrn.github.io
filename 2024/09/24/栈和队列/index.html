@@ -18,25 +18,27 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="定义和特点栈和队列是两种基本的数据结构，它们的特点是先进后出和先进先出。 栈的定义和特点栈:受约束的线性表，只允许栈顶元素入栈和出栈对栈来说，表尾端称为栈顶，表头端称为栈底，不含元素的空表称为空栈先进后出，后进先出 队列的定义和特点队列:受约束的线性表，只允许在队尾插入，在队头删除先进先出，后进后出 栈的表示和操作实现顺序栈的表示：存储结构12345678-----顺序栈的存储结构-----#de">
+        <meta name="description" content="定义和特点栈和队列是两种基本的数据结构，它们的特点是先进后出和先进先出。  栈的定义和特点栈:受约束的线性表，只允许栈顶元素入栈和出栈对栈来说，表尾端称为栈顶，表头端称为栈底，不含元素的空表称为空栈先进后出，后进先出 队列的定义和特点队列:受约束的线性表，只允许在队尾插入，在队头删除先进先出，后进后出 栈的表示和操作实现顺序栈的表示：存储结构12345678-----顺序栈的存储结构-----#d">
 <meta property="og:type" content="article">
 <meta property="og:title" content="栈和队列">
 <meta property="og:url" content="https://sbwrn.github.io/2024/09/24/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="定义和特点栈和队列是两种基本的数据结构，它们的特点是先进后出和先进先出。 栈的定义和特点栈:受约束的线性表，只允许栈顶元素入栈和出栈对栈来说，表尾端称为栈顶，表头端称为栈底，不含元素的空表称为空栈先进后出，后进先出 队列的定义和特点队列:受约束的线性表，只允许在队尾插入，在队头删除先进先出，后进后出 栈的表示和操作实现顺序栈的表示：存储结构12345678-----顺序栈的存储结构-----#de">
+<meta property="og:description" content="定义和特点栈和队列是两种基本的数据结构，它们的特点是先进后出和先进先出。  栈的定义和特点栈:受约束的线性表，只允许栈顶元素入栈和出栈对栈来说，表尾端称为栈顶，表头端称为栈底，不含元素的空表称为空栈先进后出，后进先出 队列的定义和特点队列:受约束的线性表，只允许在队尾插入，在队头删除先进先出，后进后出 栈的表示和操作实现顺序栈的表示：存储结构12345678-----顺序栈的存储结构-----#d">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1.png">
-<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/2.png">
-<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/3.png">
-<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/4.png">
-<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/5.png">
-<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/6.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729255982240.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729256282809.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729319624108.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729319789102.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729319883645.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729818545243.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729838722404.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729839440247.png">
 <meta property="article:published_time" content="2024-09-24T12:54:52.062Z">
-<meta property="article:modified_time" content="2024-07-24T03:47:51.371Z">
+<meta property="article:modified_time" content="2024-11-04T08:45:07.012Z">
 <meta property="article:author" content="anybody">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1.png">
+<meta name="twitter:image" content="https://sbwrn.github.io/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729255982240.png">
     
     
     <!--- Icon Part-->
@@ -48,9 +50,8 @@
     
     <title>
         
-            栈和队列 -
+            栈和队列 | 日薄西山
         
-        日薄西山
     </title>
 
     
@@ -86,7 +87,7 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"sbwrn.github.io","root":"/","language":"en"};
-    window.theme = {"articles":{"style":{"font_size":"18px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"What makes us normal is knowing that we're not normal.","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/sbwrn/sbwrn.github.io","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.1","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"GITHUB":{"path":"https://github.com/sbwrn/sbwrn.github.io","icon":"fa-brands fa-github"},"GALLERY":{"icon":"fa-solid fa-images","path":"/masonry/"},"Links":{"icon":"fa-regular fa-link","submenus":{"Link1":"https://xxy1103.github.io/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"time will tell everything+","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":300},"tags":{"enable":true,"limit":300}},"footerStart":"2022/8/17 11:45:14"};
+    window.theme = {"articles":{"style":{"font_size":"18px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"What makes us normal is knowing that we're not normal.","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/sbwrn/sbwrn.github.io","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.2","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"GITHUB":{"path":"https://github.com/sbwrn/sbwrn.github.io","icon":"fa-brands fa-github"},"GALLERY":{"icon":"fa-solid fa-images","path":"/masonry/"},"Links":{"icon":"fa-regular fa-link","submenus":{"Link1":"https://xxy1103.github.io/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"time will tell everything+","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"MMM D, YYYY","excerpt_length":200,"categories":{"enable":true,"limit":300},"tags":{"enable":true,"limit":300}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":true};
   </script>
@@ -131,13 +132,12 @@
 
     
 
-    <div class="main-content-container">
+    <div class="main-content-container flex flex-col justify-between min-h-dvh">
 
 
         <div class="main-content-header">
             <header class="navbar-container px-6 md:px-12">
-
-    <div class="navbar-content ">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -295,7 +295,7 @@
     </div>
 
     <!-- Mobile sheet -->
-    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
         <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
             
                 
@@ -459,15 +459,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">20</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -521,8 +521,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-07-24 11:47:51</span>
-            <span class="mobile">2024-07-24 11:47:51</span>
+            <span class="desktop">2024-11-04 16:45:07</span>
+            <span class="mobile">2024-11-04 16:45:07</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -577,14 +577,24 @@
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <h2 id="定义和特点"><a href="#定义和特点" class="headerlink" title="定义和特点"></a>定义和特点</h2><p>栈和队列是两种基本的数据结构，它们的特点是先进后出和先进先出。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729255982240.png"
+                      alt="1729255982240"
+                ></p>
 <h4 id="栈的定义和特点"><a href="#栈的定义和特点" class="headerlink" title="栈的定义和特点"></a>栈的定义和特点</h4><p>栈:<strong>受约束的线性表</strong>，只允许<strong>栈顶元素入栈和出栈</strong><br>对栈来说，表尾端称为栈顶，表头端称为栈底，不含元素的空表称为空栈<br>先进后出，后进先出<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1.png"
-                      alt="栈示意图"
+                     data-src="/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729256282809.png"
+                      alt="1729256282809"
                 ></p>
 <h4 id="队列的定义和特点"><a href="#队列的定义和特点" class="headerlink" title="队列的定义和特点"></a>队列的定义和特点</h4><p>队列:受约束的线性表，只允许在队尾插入，在队头删除<br>先进先出，后进后出</p>
-<h2 id="栈的表示和操作实现"><a href="#栈的表示和操作实现" class="headerlink" title="栈的表示和操作实现"></a>栈的表示和操作实现</h2><h4 id="顺序栈的表示：存储结构"><a href="#顺序栈的表示：存储结构" class="headerlink" title="顺序栈的表示：存储结构"></a>顺序栈的表示：存储结构</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-----顺序栈的存储结构-----</span><br><span class="line">#define MAXSIZE 100         //顺序栈存储空间的初始分配址</span><br><span class="line">typedef struct&#123;</span><br><span class="line">    SElemType *base;        //栈底指针</span><br><span class="line">    SElemType *top;         //栈顶指针</span><br><span class="line">    int stacksize;          //栈可用的最大容扯</span><br><span class="line">    </span><br><span class="line">&#125;Sqstack;</span><br></pre></td></tr></table></figure></div>
+<h2 id="栈的表示和操作实现"><a href="#栈的表示和操作实现" class="headerlink" title="栈的表示和操作实现"></a>栈的表示和操作实现</h2><h4 id="顺序栈的表示：存储结构"><a href="#顺序栈的表示：存储结构" class="headerlink" title="顺序栈的表示：存储结构"></a>顺序栈的表示：存储结构</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-----顺序栈的存储结构-----</span><br><span class="line">#define MAXSIZE 100         //顺序栈存储空间的初始分配址</span><br><span class="line">typedef struct&#123;</span><br><span class="line">    SElemType *base;        //栈底指针</span><br><span class="line">    SElemType *top;         //栈顶指针</span><br><span class="line">    int stacksize;          //栈可用的最大容扯</span><br><span class="line">  </span><br><span class="line">&#125;Sqstack;</span><br></pre></td></tr></table></figure></div>
+
+<p>数组实现简略版</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 50  <span class="comment">//定义栈中元素的最大个数</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> ElemType;   <span class="comment">//ElemType的类型根据实际情况而定，这里假定为int</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ElemType data[MAXSIZE];</span><br><span class="line">    <span class="type">int</span> top;    <span class="comment">//用于栈顶指针</span></span><br><span class="line">&#125;SqStack;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
 <p>top 指栈顶元素后一位置</p>
 <ul>
 <li>S.top &#x3D;&#x3D; 0时，栈空</li>
@@ -593,51 +603,126 @@
 <p>顺序栈操作的实现:<strong>初始化</strong></p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Status InitStack(SqStack&amp;S)&#123;</span><br><span class="line">    //构造一个空栈S</span><br><span class="line">    S.base=(SElemType *)mallo(STACK_INIT_SIE* sizeof(SElemType));   </span><br><span class="line">    if(!S.base)exit(OVERFLOW);  //存储分配失败</span><br><span class="line">    S.top = S.base;</span><br><span class="line">    S.stacksize = STACK_INIT_SIZE:</span><br><span class="line">    return OK;</span><br><span class="line">&#125;//Initstack</span><br></pre></td></tr></table></figure></div>
 
-<p>顺序栈操作的实现:<strong>入栈</strong><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/2.png"
-                      alt="入栈操作"
-                ></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Status Push(SqStack &amp;S,SElemType e)&#123;</span><br><span class="line">    //插入元素e为新的栈顶元素</span><br><span class="line">    if(S.top -S.base&gt;= s.stacksize)&#123;/栈满,追加存储空间</span><br><span class="line">    </span><br><span class="line">    S. base=(SElemType *)realloc(S.base,(S.stacksize + STACKINCREMENT)*sizeof(SElemType));</span><br><span class="line">    if(!s.base)exit(OVERFLOW);//存储分配失败</span><br><span class="line">    S.top = S.base + S.stacksize;</span><br><span class="line">    S.stacksize += STACKINCREMENT;</span><br><span class="line">    &#125;</span><br><span class="line">    *S.top++ = e;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;//Push      </span><br></pre></td></tr></table></figure></div>
+<p>顺序栈操作的实现:<strong>入栈</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/*插入元素e为新的栈顶元素*/</span><br><span class="line">Status Push(SqStack *S, ElemType e)&#123;</span><br><span class="line">    //满栈</span><br><span class="line">    if(S-&gt;top == MAXSIZE-1)&#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    S-&gt;top++;   //栈顶指针增加一</span><br><span class="line">    S-&gt;data[S-&gt;top] = e;    //将新插入元素赋值给栈顶空间</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
-<p>顺序栈操作的实现:<strong>出栈</strong><br><img  
+<p>顺序栈操作的实现:<strong>出栈</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/*若栈不空，则删除S的栈顶元素，用e返回其值，并返回OK；否则返回ERROR*/</span><br><span class="line">Status Pop(SqStack *S, ElemType *e)&#123;</span><br><span class="line">    if(S-&gt;top == -1)&#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = S-&gt;data[S-&gt;top];   //将要删除的栈顶元素赋值给e</span><br><span class="line">    S-&gt;top--;   //栈顶指针减一</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>顺序栈操作的实现:<strong>顺序取栈顶元素</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/*读栈顶元素*/</span><br><span class="line">Status GetTop(SqStack S, ElemType *e)&#123;</span><br><span class="line">    if(S-&gt;top == -1)&#123;   //栈空</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = S-&gt;data[S-&gt;top];   //记录栈顶元素</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>top指针 依旧不变</p>
+<h4 id="共享栈"><a href="#共享栈" class="headerlink" title="共享栈"></a>共享栈</h4><p>利用栈底位置相对不变的特征，可让两个顺序栈共享一个一维数组空间，将两个栈的栈底分别设置在共享空间的两端，两个栈顶向共享空间的中间延伸</p>
+<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/3.png"
-                      alt="出栈操作"
+                     data-src="/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729319624108.png"
+                      alt="1729319624108"
                 ></p>
-<p>顺序栈操作的实现:<strong>顺序取栈顶元素</strong><br><img  
+<h5 id="共享栈的空间结构"><a href="#共享栈的空间结构" class="headerlink" title="共享栈的空间结构"></a>共享栈的空间结构</h5><div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*两栈共享空间结构*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 50  <span class="comment">//定义栈中元素的最大个数</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> ElemType;   <span class="comment">//ElemType的类型根据实际情况而定，这里假定为int</span></span><br><span class="line"><span class="comment">/*两栈共享空间结构*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">	ElemType data[MAXSIZE];</span><br><span class="line">	<span class="type">int</span> top0;	<span class="comment">//栈0栈顶指针</span></span><br><span class="line">	<span class="type">int</span> top1;	<span class="comment">//栈1栈顶指针</span></span><br><span class="line">&#125;SqDoubleStack;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>共享栈进栈</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/*插入元素e为新的栈顶元素*/</span><br><span class="line">Status Push(SqDoubleStack *S, Elemtype e, int stackNumber)&#123;</span><br><span class="line">    if(S-&gt;top0+1 == S-&gt;top1)&#123;   //栈满</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    if(stackNumber == 0)&#123;   //栈0有元素进栈</span><br><span class="line">        S-&gt;data[++S-&gt;top0] = e; //若栈0则先top0+1后给数组元素赋值</span><br><span class="line">    &#125;else if(satckNumber == 1)&#123; //栈1有元素进栈</span><br><span class="line">        S-&gt;data[--S-&gt;top1] = e; //若栈1则先top1-1后给数组元素赋值</span><br><span class="line">    &#125;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="栈的链式存储"><a href="#栈的链式存储" class="headerlink" title="栈的链式存储"></a>栈的链式存储</h4><p>采用链式存储的栈称为链栈，链栈的优点是便于多个栈共享存储空间和提高其效率，且不存在栈满上溢的情况。<strong>通常采用单链表实现，并规定所有操作都是在单链表的表头进行的。这里规定链栈没有头节点，Lhead指向栈顶元素</strong></p>
+<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/4.png"
-                      alt="取栈顶元素操作"
-                ><br>top指针 依旧不变</p>
+                     data-src="/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729319789102.png"
+                      alt="1729319789102"
+                ></p>
+<p><strong>对于空栈来说，链表原定义是头指针指向空，那么链栈的空其实就是top&#x3D;NULL的时候。</strong></p>
+<p>链栈的结构代码如下：</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*栈的链式存储结构*/</span></span><br><span class="line"><span class="comment">/*构造节点*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">StackNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">StackNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;StackNode, *LinkStackPrt;</span><br><span class="line"><span class="comment">/*构造链栈*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkStack</span>&#123;</span></span><br><span class="line">    LinkStackPrt top;</span><br><span class="line">    <span class="type">int</span> count;</span><br><span class="line">&#125;LinkStack;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>链栈的进栈</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729319883645.png"
+                      alt="1729319883645"
+                ></p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*插入元素e为新的栈顶元素*/</span></span><br><span class="line">Status <span class="title function_">Push</span><span class="params">(LinkStack *S, ElemType e)</span>&#123;</span><br><span class="line">    LinkStackPrt p = (LinkStackPrt)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(StackNode));</span><br><span class="line">    p-&gt;data = e;</span><br><span class="line">    p-&gt;next = S-&gt;top;    <span class="comment">//把当前的栈顶元素赋值给新节点的直接后继</span></span><br><span class="line">    S-&gt;top = p; <span class="comment">//将新的结点S赋值给栈顶指针</span></span><br><span class="line">    S-&gt;count++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>链栈的出栈</p>
+<p>假设变量p用来存储要删除的栈顶结点，将栈顶指针下移以为，最后释放p即可</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/*若栈不空，则删除S的栈顶元素，用e返回其值，并返回OK；否则返回ERROR*/</span><br><span class="line">Status Pop(LinkStack *S, ElemType *e)&#123;</span><br><span class="line">    LinkStackPtr p;</span><br><span class="line">    if(StackEmpty(*S))&#123;</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = S-&gt;top-&gt;data;</span><br><span class="line">    p = S-&gt;top; //将栈顶结点赋值给p</span><br><span class="line">    S-&gt;top = S-&gt;top-&gt;next;  //使得栈顶指针下移一位，指向后一结点</span><br><span class="line">    free(p);    //释放结点p</span><br><span class="line">    S-&gt;count--;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h5 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h5><p><strong>链栈的进栈push和出栈pop操作都很简单，时间复杂度均为O(1)。</strong><br>对比一下顺序栈与链栈,它们在时间复杂度上是一样的,均为O(1)。对于空间性能,顺序栈需要事先确定一个固定的长度,可能会存在内存空间浪费的问题,但它的优势是存取时定位很方便,而链栈则要求每个元素都有指针域,这同时也增加了一些内存开销,但对于栈的长度无限制。所以它们的区别和线性表中讨论的一样,<strong>如果栈的使用过程中元素变化不可预料,有时很小,有时非常大,那么最好是用链栈,反之,如果它的变化在可控范围内,建议使用顺序栈会更好一些。</strong></p>
+<h4 id="栈的应用——递归"><a href="#栈的应用——递归" class="headerlink" title="栈的应用——递归"></a>栈的应用——递归</h4><p>在递归调用的过程中,系统为每一层的返回点、局部变量、传入实参等开辟了递归工作栈来进行数据存储,递归次数过多容易造成栈溢出等。而其效率不高的原因是递归调用过程中包含很多重复的计算。下面以n&#x3D;5为例,列出递归调用执行过程,如图所示：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729818545243.png"
+                      alt="1729818545243"
+                ></p>
+<p>如图可知，程序每往下递归一次，就会把运算结果放到栈中保存，直到程序执行到临界条件，然后便会把保存在栈中的值按照先进后出的顺序一个个返回，最终得出结果。</p>
+<h4 id="栈的应用——四则运算表达式求值"><a href="#栈的应用——四则运算表达式求值" class="headerlink" title="栈的应用——四则运算表达式求值"></a>栈的应用——四则运算表达式求值</h4><h5 id="1、后缀表达式计算结果"><a href="#1、后缀表达式计算结果" class="headerlink" title="1、后缀表达式计算结果"></a>1、后缀表达式计算结果</h5><p>表达式求值是程序设计语言编译中一个最基本的问题,它的实现是栈应用的一个典型范例。中缀表达式不仅依赖运算符的优先级,而且还要处理括号。 <strong>后缀表达式的运算符在操作数后面，在后缀表达式中已考虑了运算符的优先级,没有括号,只有操作数和运算符</strong> 。例如中缀表达式A + B ∗ ( C − D ) − E &#x2F; F<strong>所对应的后缀表达式为</strong>A B C D − ∗ + E F &#x2F; − 。</p>
+<blockquote>
+<p>后缀表达式计算规则：从左到右遍历表达式的每个数字和符号，遇到是数字就进栈，遇到是符号，就将处于栈顶两个数字出栈，进项运算，运算结果进栈，一直到最终获得结果。</p>
+</blockquote>
+<p>将后缀表达式与原运算式对应的表达式树(用来表示算术表达式的 <strong>二元树</strong> )的<strong>后序遍历</strong>进行比较,可以发现它们有异曲同工之妙。<br>如下图则是A + B ∗ ( C − D ) − E &#x2F; F 对应的表达式，它的后序遍历即是表达式A B C D − ∗ + E F &#x2F; −</p>
+<h5 id="2、中缀表达式转后缀表达式"><a href="#2、中缀表达式转后缀表达式" class="headerlink" title="2、中缀表达式转后缀表达式"></a>2、中缀表达式转后缀表达式</h5><p>我们把平时所用的标准四则运算表达式,即<em><em>a + b − a ∗ ( ( c + d ) &#x2F; e − f ) + g a+b-a</em>((c+d)&#x2F;e-f)+g</em><em>a</em>*+<strong>b</strong>−<strong>a</strong>∗**((<strong>c</strong>+<strong>d</strong>)<strong>&#x2F;<strong>e</strong>−</strong>f**)**+<strong>g</strong>叫做中缀<br>表达式。因为所有的运算符号都在两数字的中间,现在我们的问题就是中缀到后缀的转化。</p>
+<blockquote>
+<p>规则:从左到右遍历中缀表达式的每个数字和符号,若是数字就输出,即成为后缀表达式的一部分;若是符号,则判断其与栈顶符号的优先级,是右括号或优先级低于栈顶符号(乘除优先加减)则栈顶元素依次出栈并输出,并将当前符号进栈,一直到最终输出后缀表达式为止。</p>
+</blockquote>
+<p>下面有一个个人的见解</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729838722404.png"
+                      alt="1729838722404"
+                ></p>
+<p>遇到括号时需记录此时符号栈指针作为括号内计算的栈底，然后重复流程</p>
 <h2 id="循环队列的表示与操作的实现"><a href="#循环队列的表示与操作的实现" class="headerlink" title="循环队列的表示与操作的实现"></a>循环队列的表示与操作的实现</h2><ul>
-<li>在循环队列的<strong>顺序存储结构</strong>中，除了用一组地址连续的存储单元依次存放从队列头到队列尾的元素之外，尚需附设两个指针 front和reár 分别指示队列头元素及队列尾元素的位置。<br>为了在 C&#x2F;C++语言中描述方便起见，在此我们约定:初始化建空队列时，令front&#x3D;rear&#x3D;0,每当插入新的队列尾元素时，“<strong>尾指针增 1</strong>“;每当删除队列头元素时，“<strong>头指针增1</strong>”。因此，在非空队列中，头指针始终指向队列头元素，而尾指针始终指向队列尾元素的下一个位置，如图所示。<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/5.png"
-                      alt="循环队列的顺序存储结构"
-                ></li>
+<li>在循环队列的<strong>顺序存储结构</strong>中，除了用一组地址连续的存储单元依次存放从队列头到队列尾的元素之外，尚需附设两个指针 front和reár 分别指示队列头元素及队列尾元素的位置。<br>为了在 C&#x2F;C++语言中描述方便起见，在此我们约定:初始化建空队列时，令front&#x3D;rear&#x3D;0,每当插入新的队列尾元素时，“<strong>尾指针增 1</strong>“;每当删除队列头元素时，“<strong>头指针增1</strong>”。因此，在非空队列中，头指针始终指向队列头元素，而尾指针始终指向队列尾元素的下一个位置，如图所示。</li>
 </ul>
-<h4 id="区分满时和空时："><a href="#区分满时和空时：" class="headerlink" title="区分满时和空时："></a>区分满时和空时：</h4><p>1.少用一个元素空间，即队列空间大小为m时有m-1&#x2F;个元素就认为是队满。这样判断队空的条件不变，即当头、尾指针的值相同时，则认为队空;而当尾指针在循环意义上加1后是等于头指针， 则认为队满。</p>
+<h4 id="循环队列计算"><a href="#循环队列计算" class="headerlink" title="循环队列计算"></a>循环队列计算</h4><p>解决假溢出的方法就是后面满了，就再从头开始，也就是头尾相接的循环。<strong>我们把队列的这种头尾相接的顺序存储结构称为循环队列。</strong><br>当队首指针 <code>Q-&gt;front = MAXSIZE-1</code>后，再前进一个位置就自动到0，这可以利用除法取余运算（%）来实现。</p>
 <ul>
-<li>队空的条件: Q.front &#x3D;&#x3D; Q.rear</li>
-<li>队满的条件:(Q.rear+ 1)%MAXQSIZE &#x3D;&#x3D; Q.front</li>
-<li>入队:Q.rear&#x3D;(Q.rear +1)% MAXQSIZE</li>
-<li>出队:Q.front &#x3D;(Q.front + 1)% MAXQSIZE</li>
-<li>当前元素个数:(Q.rear-Q.front+MAXQSIZE)% MAXQSIZE<br>当J7、J8、J9 进入图 3.14(a)所示的队列后，(Q.rear+ 1)%MAXQSIZE 的值等于 Q.front,<br>此时认为队满。<br>2、另设一个标志位以区别队列是“空”还是“满”，当队空时，此标志位为“1”，队满时，此标志位为“0”。<br>当队空时，若要入队，则令“队满”标志位“0”；当队满时，若要入队，则令“队满”标志位“1”。<br>当队空时，若要出队，则出队元素；当队满时，若要出队，则出队失败。<br><img  
+<li><strong>初始时</strong> ：Q-&gt;front &#x3D; Q-&gt;rear&#x3D;0。</li>
+<li><strong>队首指针进1</strong> ：Q-&gt;front &#x3D; (Q-&gt;front + 1) % MAXSIZE。</li>
+<li><strong>队尾指针进1</strong> ：Q-&gt;rear &#x3D; (Q-&gt;rear + 1) % MAXSIZE。</li>
+<li><strong>队列长度</strong> ：(Q-&gt;rear - Q-&gt;front + MAXSIZE) % MAXSIZE。</li>
+</ul>
+<h4 id="区分满时和空时："><a href="#区分满时和空时：" class="headerlink" title="区分满时和空时："></a>区分满时和空时：</h4><p>那么，循环队列队空和队满的判断条件是什么呢？<br>显然，队空的条件是 <code>Q-&gt;front == Q-&gt;rear</code> 。若入队元素的速度快于出队元素的速度，则队尾指针很快就会赶上队首指针，如图( d1 ）所示，此时可以看出队满时也有 <code>Q -&gt;front == Q -&gt; rear</code> 。<br>为了区分队空还是队满的情况，有三种处理方式：</p>
+<p>（1）牺牲一个单元来区分队空和队满，入队时少用一个队列单元，这是种较为普遍的做法，约定以“ <strong>队头指针在队尾指针的下一位置作为队满的标志</strong> ”</p>
+<ul>
+<li><strong>队满条件</strong> ： (Q-&gt;rear + 1)%Maxsize &#x3D;&#x3D; Q-&gt;front</li>
+<li><strong>队空条件仍</strong> ： Q-&gt;front &#x3D;&#x3D; Q-&gt;rear</li>
+<li><strong>队列中元素的个数</strong> ： (Q-&gt;rear - Q -&gt;front + Maxsize)% Maxsize</li>
+</ul>
+<p>（2）类型中增设表示元素个数的数据成员。这样，队空的条件为 <code>Q-&gt;size == O</code> ；队满的条件为 <code>Q-&gt;size == Maxsize</code> 。这两种情况都有 <code>Q-&gt;front == Q-&gt;rear</code><br>（3）类型中增设tag 数据成员，以区分是队满还是队空。tag 等于0时，若因删除导致 <code>Q-&gt;front == Q-&gt;rear</code> ，则为队空；tag 等于 1 时，若因插入导致 <code>Q -&gt;front == Q-&gt;rear</code> ，则为队满。</p>
+<p>循环队列操作的实现:<strong>定义存储结构</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//-----循环队列---队列的顺序存储结构</span><br><span class="line">#deEime MAXQSIZE 100</span><br><span class="line">//最大队列长度</span><br><span class="line">typedef struct &#123;</span><br><span class="line">    QrlemType *base;        //初始化的动态分配存储空间</span><br><span class="line">    int front;              //头指针,若队列不空,指向队列头元素  </span><br><span class="line">    int rear ;              //尾指针,若队列不空,指向队列尾元素的下一个位置</span><br><span class="line"></span><br><span class="line">&#125;SqQueue;</span><br></pre></td></tr></table></figure></div>
+
+<!-- endtab -->
+
+<!-- tab 求长度 -->
+
+<p>循环队列操作的实现:<strong>求长度</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int QueueLength(SqQueue Q)&#123;</span><br><span class="line">    //返回Q的元素个数,即队列的长度</span><br><span class="line">    return(Q.rear-Q.front+MAXOSIZE)% MAXQSIZE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<!-- endtab -->
+
+<!-- tab 插入新元素 -->
+
+<p>循环队列操作的实现:<strong>插入新元素</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Status EnQueue(SqQueue &amp;Q,QrlemType e)&#123;</span><br><span class="line">    //在队列Q的尾部插入元素e</span><br><span class="line">    if((Q.rear+1)%MAXQSIZE == Q.front)&#123;</span><br><span class="line">        //队列满,追加存储空间</span><br><span class="line">        Q.base=(QrlemType *)realloc(Q.base,(Q.stacksize + QUEUEINCREMENT)*sizeof(QrlemType));</span><br><span class="line">        if(!Q.base)exit(OVERFLOW); //存储分配失败</span><br><span class="line">        Q.stacksize += QUEUEINCREMENT;</span><br><span class="line">    &#125;</span><br><span class="line">    Q.base[Q.rear] = e;</span><br><span class="line">    Q.rear = (Q.rear+1)%MAXQSIZE;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<!-- tab 删除元素 -->
+
+<p>循环队列操作的实现:<strong>删除元素</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Status DeQueue(SqQueue &amp;Q,QrlemType &amp;e)&#123;</span><br><span class="line">    //删除队列Q的头部元素,并用e返回其值</span><br><span class="line">    if(Q.front == Q.rear)&#123;</span><br><span class="line">        //队列空</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    e = Q.base[Q.front];</span><br><span class="line">    Q.front = (Q.front+1)%MAXQSIZE;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="双端队列"><a href="#双端队列" class="headerlink" title="双端队列"></a>双端队列</h4><h5 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h5><p> <strong>双端队列是指允许两端都可以进行入队和出队操作的队列</strong> ，如下图所示。其元素的逻辑结构仍是线性结构。将队列的两端分别称为前端和后端，两端都可以入队和出队。</p>
+<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/6.png"
-                      alt="满时和空时"
-                ><div class="tabs" id="tab-循环队列操作实现"><ul class="nav-tabs"><li class="tab active"><a class="#循环队列操作实现-1">定义存储结构</a></li><li class="tab"><a class="#循环队列操作实现-2">求长度</a></li><li class="tab"><a class="#循环队列操作实现-3">插入新元素</a></li><li class="tab"><a class="#循环队列操作实现-4">删除元素</a></li></ul><div class="tab-content"><div class="tab-pane active" id="循环队列操作实现-1"><p>循环队列操作的实现:<strong>定义存储结构</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//-----循环队列---队列的顺序存储结构</span><br><span class="line">#deEime MAXQSIZE 100</span><br><span class="line">//最大队列长度</span><br><span class="line">typedef struct &#123;</span><br><span class="line">    QrlemType *base;        //初始化的动态分配存储空间</span><br><span class="line">    int front;              //头指针,若队列不空,指向队列头元素    </span><br><span class="line">    int rear ;              //尾指针,若队列不空,指向队列尾元素的下一个位置</span><br><span class="line"></span><br><span class="line">&#125;SqQueue;</span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="循环队列操作实现-2"><p>循环队列操作的实现:<strong>求长度</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int QueueLength(SqQueue Q)&#123;</span><br><span class="line">    //返回Q的元素个数,即队列的长度</span><br><span class="line">    return(Q.rear-Q.front+MAXOSIZE)% MAXQSIZE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="循环队列操作实现-3"><p>循环队列操作的实现:<strong>插入新元素</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Status EnQueue(SqQueue &amp;Q,QrlemType e)&#123;</span><br><span class="line">    //在队列Q的尾部插入元素e</span><br><span class="line">    if((Q.rear+1)%MAXQSIZE == Q.front)&#123;</span><br><span class="line">        //队列满,追加存储空间</span><br><span class="line">        Q.base=(QrlemType *)realloc(Q.base,(Q.stacksize + QUEUEINCREMENT)*sizeof(QrlemType));</span><br><span class="line">        if(!Q.base)exit(OVERFLOW); //存储分配失败</span><br><span class="line">        Q.stacksize += QUEUEINCREMENT;</span><br><span class="line">    &#125;</span><br><span class="line">    Q.base[Q.rear] = e;</span><br><span class="line">    Q.rear = (Q.rear+1)%MAXQSIZE;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="循环队列操作实现-4"><p>循环队列操作的实现:<strong>删除元素</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Status DeQueue(SqQueue &amp;Q,QrlemType &amp;e)&#123;</span><br><span class="line">    //删除队列Q的头部元素,并用e返回其值</span><br><span class="line">    if(Q.front == Q.rear)&#123;</span><br><span class="line">        //队列空</span><br><span class="line">        return ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    e = Q.base[Q.front];</span><br><span class="line">    Q.front = (Q.front+1)%MAXQSIZE;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div></div></div></li>
-</ul>
+                     data-src="/image/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/1729839440247.png"
+                      alt="1729839440247"
+                ></p>
+<p>在双端队列进队时，前端进的元素排列在队列中后端进的元素的前面，后端进的元素排列在队列中前端进的元素的后面。在双端队列出队时，无论是前端还是后端出队，先出的元素排列在后出的元素的前面。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>栈</strong>是限定仅在表尾进行插入或删除的<strong>线性表</strong>，又称为<strong>后进先出</strong>的线性表。栈有两种存储表示，顺序表示(<strong>顺序栈</strong>)和链式表示(<strong>链栈</strong>)。栈的主要操作是进栈和出栈，对于顺序栈的进栈和出栈操作要注意判断栈满或栈空。<br><strong>队列</strong>是一种先进先出的线性表。它只允许在表的一端进行插入，而在另一端删除元素。队列也有两种存储表示，顺序表示(循环队列)和链式表示(链队)<br>栈和队列的逻辑结构都和线性表一样，数据元素之间存在一对一的关系。</p>
 <p>循环队列中少用一个元素判断队空或队满时:<br>队空的条件: Q.front &#x3D;&#x3D; Q.rear<br>队满的条件: (Q.rear+1)%MAXQSIZE &#x3D;&#x3D; Q.front</p>
 
@@ -654,7 +739,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-07-24 11:47:51
+                    :</strong> 2024-11-04 16:45:07
             </li>
         
         <li>
@@ -778,7 +863,7 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">栈和队列</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E7%89%B9%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">定义和特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E7%89%B9%E7%82%B9"><span class="nav-number">1.0.1.</span> <span class="nav-text">栈的定义和特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E7%89%B9%E7%82%B9"><span class="nav-number">1.0.2.</span> <span class="nav-text">队列的定义和特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E6%93%8D%E4%BD%9C%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">栈的表示和操作实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E6%A0%88%E7%9A%84%E8%A1%A8%E7%A4%BA%EF%BC%9A%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">2.0.1.</span> <span class="nav-text">顺序栈的表示：存储结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97%E7%9A%84%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">循环队列的表示与操作的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%88%86%E6%BB%A1%E6%97%B6%E5%92%8C%E7%A9%BA%E6%97%B6%EF%BC%9A"><span class="nav-number">3.0.1.</span> <span class="nav-text">区分满时和空时：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E7%89%B9%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">定义和特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E7%89%B9%E7%82%B9"><span class="nav-number">1.0.1.</span> <span class="nav-text">栈的定义和特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E7%89%B9%E7%82%B9"><span class="nav-number">1.0.2.</span> <span class="nav-text">队列的定义和特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E6%93%8D%E4%BD%9C%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">栈的表示和操作实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E6%A0%88%E7%9A%84%E8%A1%A8%E7%A4%BA%EF%BC%9A%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">2.0.1.</span> <span class="nav-text">顺序栈的表示：存储结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E6%A0%88"><span class="nav-number">2.0.2.</span> <span class="nav-text">共享栈</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E6%A0%88%E7%9A%84%E7%A9%BA%E9%97%B4%E7%BB%93%E6%9E%84"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">共享栈的空间结构</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8"><span class="nav-number">2.0.3.</span> <span class="nav-text">栈的链式存储</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-number">2.0.3.1.</span> <span class="nav-text">性能分析</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E9%80%92%E5%BD%92"><span class="nav-number">2.0.4.</span> <span class="nav-text">栈的应用——递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC"><span class="nav-number">2.0.5.</span> <span class="nav-text">栈的应用——四则运算表达式求值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97%E7%BB%93%E6%9E%9C"><span class="nav-number">2.0.5.1.</span> <span class="nav-text">1、后缀表达式计算结果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.0.5.2.</span> <span class="nav-text">2、中缀表达式转后缀表达式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97%E7%9A%84%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">循环队列的表示与操作的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97%E8%AE%A1%E7%AE%97"><span class="nav-number">3.0.1.</span> <span class="nav-text">循环队列计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%88%86%E6%BB%A1%E6%97%B6%E5%92%8C%E7%A9%BA%E6%97%B6%EF%BC%9A"><span class="nav-number">3.0.2.</span> <span class="nav-text">区分满时和空时：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97"><span class="nav-number">3.0.3.</span> <span class="nav-text">双端队列</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81%E5%AE%9A%E4%B9%89"><span class="nav-number">3.0.3.1.</span> <span class="nav-text">1、定义</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol>
 
     </div>
 </div>
@@ -811,7 +896,7 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        20 posts in total
+                        27 posts in total
                     </span>
                     
                 </p>
@@ -836,7 +921,7 @@
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
-            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.1</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.2</a></span>
         </div>
         
         
@@ -1047,17 +1132,24 @@
 
 
 
-<div class="post-scripts" data-swup-reload-script>
-    
-        
-<script src="/js/tools/tocToggle.js" type="module"></script>
 
-<script src="/js/layouts/toc.js" type="module"></script>
-
-<script src="/js/plugins/tabs.js" type="module"></script>
 
     
-</div>
+<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
 
 
 </body>
