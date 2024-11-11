@@ -13,25 +13,31 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://sbwrn.github.io/2024/09/24/串/"/>
+    <link rel="canonical" href="https://sbwrn.github.io/2024/10/27/串/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="串的定义与实现串的定义和特点串即字符串，是由零个或多个字符组成的有限序列，是数据元素为单个字符的特殊线性表。  串是内容受限的线性表,它限定了表中的元素为字符 串长:串中字符个数(n20):n&#x3D;0 时称为空串 空白串:由一个或多个空格符组成的串 子串:串S中任意个连续的字符序列叫S的子串;S叫主串 当两个串的长度相等，并且各个对应位置的字符都相等时，才称这两个串相等  串的存储结构1.定">
+        <meta name="description" content="一、串的定义串( string)是由零个或多个字符组成的有限序列，又名叫字符串。一般记为：S &#x3D; ′ a 1 a 2 . . . a n ′ ( n &gt; &#x3D; 0 )  另外还有一些其它概念：  空串：空串不包含任何字符，表示为，长度为0。 空格串：是只包含空格的串。注意它与空串的区别，空格串是有内容有长度的，而且可以不止一个空格。 子串与主串：串中任意个数的连续字符组成">
 <meta property="og:type" content="article">
-<meta property="og:title" content="串、数组、广义表">
-<meta property="og:url" content="https://sbwrn.github.io/2024/09/24/%E4%B8%B2/index.html">
+<meta property="og:title" content="串">
+<meta property="og:url" content="https://sbwrn.github.io/2024/10/27/%E4%B8%B2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="串的定义与实现串的定义和特点串即字符串，是由零个或多个字符组成的有限序列，是数据元素为单个字符的特殊线性表。  串是内容受限的线性表,它限定了表中的元素为字符 串长:串中字符个数(n20):n&#x3D;0 时称为空串 空白串:由一个或多个空格符组成的串 子串:串S中任意个连续的字符序列叫S的子串;S叫主串 当两个串的长度相等，并且各个对应位置的字符都相等时，才称这两个串相等  串的存储结构1.定">
+<meta property="og:description" content="一、串的定义串( string)是由零个或多个字符组成的有限序列，又名叫字符串。一般记为：S &#x3D; ′ a 1 a 2 . . . a n ′ ( n &gt; &#x3D; 0 )  另外还有一些其它概念：  空串：空串不包含任何字符，表示为，长度为0。 空格串：是只包含空格的串。注意它与空串的区别，空格串是有内容有长度的，而且可以不止一个空格。 子串与主串：串中任意个数的连续字符组成">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%B8%B2/1.png">
-<meta property="article:published_time" content="2024-09-24T12:54:52.058Z">
-<meta property="article:modified_time" content="2024-07-25T02:55:00.045Z">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E4%B8%B2/1729994136826.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E4%B8%B2/1729994205069.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E4%B8%B2/1729994288229.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E4%B8%B2/1729994706207.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E4%B8%B2/1729996176139.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E4%B8%B2/1729997221863.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E4%B8%B2/1729998475420.png">
+<meta property="article:published_time" content="2024-10-27T01:53:02.000Z">
+<meta property="article:modified_time" content="2024-10-30T02:01:20.272Z">
 <meta property="article:author" content="anybody">
-<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="指南">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://sbwrn.github.io/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%B8%B2/1.png">
+<meta name="twitter:image" content="https://sbwrn.github.io/image/%E4%B8%B2/1729994136826.png">
     
     
     <!--- Icon Part-->
@@ -43,7 +49,7 @@
     
     <title>
         
-            串、数组、广义表 | 日薄西山
+            串 | 日薄西山
         
     </title>
 
@@ -460,7 +466,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">27</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">29</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -486,7 +492,7 @@
         <div class="article-title relative w-full">
             
                 <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">串、数组、广义表</h1>
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">串</h1>
                 </div>
             
             </div>
@@ -507,15 +513,15 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-09-24 20:54:52</span>
-        <span class="mobile">2024-09-24 20:54:52</span>
+        <span class="desktop">2024-10-27 09:53:02</span>
+        <span class="mobile">2024-10-27 09:53:02</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-07-25 10:55</span>
-            <span class="mobile">2024-07-25 10:55</span>
+            <span class="desktop">2024-10-30 10:01:20</span>
+            <span class="mobile">2024-10-30 10:01:20</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -543,7 +549,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>&nbsp;
+                        <a href="/tags/%E6%8C%87%E5%8D%97/">指南</a>&nbsp;
                     </li>
                 
             </ul>
@@ -569,39 +575,120 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h2 id="串的定义与实现"><a href="#串的定义与实现" class="headerlink" title="串的定义与实现"></a>串的定义与实现</h2><h4 id="串的定义和特点"><a href="#串的定义和特点" class="headerlink" title="串的定义和特点"></a>串的定义和特点</h4><p><strong>串即字符串，是由零个或多个字符组成的有限序列，是数据元素为单个字符的特殊线性表。</strong></p>
-<ul>
-<li>串是内容受限的线性表,它限定了表中的元素为字符</li>
-<li>串长:串中字符个数(n20):n&#x3D;0 时称为空串</li>
-<li>空白串:由一个或多个空格符组成的串</li>
-<li>子串:串S中任意个连续的字符序列叫S的子串;S叫主串</li>
-<li>当两个串的长度相等，并且各个对应位置的字符都相等时，才称这两个串相等</li>
-</ul>
-<h4 id="串的存储结构"><a href="#串的存储结构" class="headerlink" title="串的存储结构"></a>串的存储结构</h4><p>1.定长顺序存储:按照预定义的大小，为每个定义的串变量分配一个固定长度的存储区，通常用定长字符数<br>组来实现。<br>    a. 显式存储串长<br>(1)以下标为0的数组分量来存放串的实际长度,</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define MAXSTRLEN 255 //用户可在255以内定义最大串长</span><br><span class="line">typedef unsigned char SString[MAXSTRLEN+1]; //0号单元存放串的长度</span><br></pre></td></tr></table></figure></div>
-<p>(2)专设一个字段来表示串长</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#define MAXSTRLEN 1000 //最大串长</span><br><span class="line">typedef struct</span><br><span class="line">&#123;char data[MAXSTRLEN]; //存放串字符</span><br><span class="line">int length; //存放串的实际长度</span><br><span class="line">&#125;SqString; //顺序串类型</span><br></pre></td></tr></table></figure></div>
-<pre><code>b. 隐式存储串长
-</code></pre>
-<p>(1)在串的最后一个字符后面添加一个结束符’\0’，表示串的结束。<br>(2)在串的最后一个字符后面添加一个长度字段，表示串的实际长度。</p>
-<p>2.堆分配存储:仍以一组地址连续的存储单元存放串值，但存储空间是在程序执行过程中动态分配而得。</p>
-<p>3.串的块链存储:串采用链式存储结构存储时称为链串。链串中的一个结点可以存储多个字符。通常将链串<br>中每个结点所存储的字符个数称为结点大小。<br><img  
+            <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%B8%B2/1.png"
-                      alt="img"
-                ><br>#define CHUNKSIZE 80 &#x2F;&#x2F;可由用户定义的结点大小<br>typedef struct Chunk{<br>    char data[CHUNKSIZE]; &#x2F;&#x2F;存放字符<br>    struct Chunk *next; &#x2F;&#x2F;指针域<br>}Chunk; &#x2F;&#x2F;链串结点类型<br>typedef struct {<br>Chunk *head,*tail; &#x2F;&#x2F;串的头和尾指针<br>int length; &#x2F;&#x2F;串的当前长度<br>}LString;</p>
-<h2 id="数组的定义与实现"><a href="#数组的定义与实现" class="headerlink" title="数组的定义与实现"></a>数组的定义与实现</h2><p>数组是线性表的推广，特点是结构中的元素本身可以是具有某种结构的数据，但属于同一数据类型。</p>
-<p>一个二维数组可以看作是每个数据元素类型相都同的一维数组。以此类推，任何多维数组都可以看作一个线性表，这时线性表中的每个数据元素也是一个线性表。<strong>多维数组是特殊的线性表，是线性表的推广。</strong></p>
-<h2 id="广义表的定义与实现"><a href="#广义表的定义与实现" class="headerlink" title="广义表的定义与实现"></a>广义表的定义与实现</h2><p>广义表是线性表的推广，也称为列表。<br>广义表是n(n&gt;&#x3D;0)个元素的一个序列，表中的元素可以是称为原子的单个元素，也可以是一个子表<br>若n&#x3D;0时则称为空表。设ai为广义表的第i个元素，则广义表的一般表示与线性表相同</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LS =(a1,a2,…ai,.,an);</span><br></pre></td></tr></table></figure></div>
-<p>其中n表示广义表的长度，n&gt;&#x3D;0。ai可以是单个元素，也可以是广义表。</p>
-<p>如果ai是单个数据元素，则ai是广义表LS的原子;如果ai是一个广义表，则ai是广义表LS的子表.<br>习惯上，用大写字母表示广义表的名称，用小写字母表示原子。</p>
-<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>广义表的**长度(广度)**指:广义表中所包含的数据元素的个数<br>例如，在广义表(a,(b,c,d))中，它包含一个原子和一个子表，因此该广义表的长度为 2。<br>再比如，广义表((a,b,c))中只有一个子表(a,b,c)，因此它的长度为 1。</p>
-<p>广义表的<strong>深度</strong>，可以通过观察该表中所包含括号的层数间接得到。这里需要注意，数左括号(或右括号)时，同一层次的多个括号只计算一次。<br>比如:广义表***((1,2),(3,(4,5)))***中，此广义表中包含 3 层括号，因此深度为 3。<br>广义表深度&#x3D;匹配最多括号的元素所匹配的括号对数，如上例子中的4和5都匹配了3对括号。</p>
-<h4 id="广义表的运算"><a href="#广义表的运算" class="headerlink" title="广义表的运算"></a>广义表的运算</h4><p>由于广义表的结构比较复杂，其各种运算的实现也不如线性表简单,其中，最重要的两个运算如下：<br>(1)取表头 GetHead(LS):取出的表头为非空广义表的第一个元素，它可以是一个单原子，也可以是一个子表。<br>(2)取表尾 GetTail(LS):取出的表尾为除共表头之外，由其余元素构成的表。即表尾一定是一个广义表。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1.串是内容受限的线性表，它<strong>限定了表中的元素为字符</strong>。<br>2.多维数组可以看成是线性表的推广，其特点是结构中的元素本身可以是具有某种结构的数据，但属于同一数据类型。<br>3.广义表是另一种线性表的推广形式，表中的元素可以是称为原子的单个元素，也可以是一个子表，所以线性表可以看成广义表的特例。</p>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>对称矩阵压缩存储默认下三角 </p>
+                     data-src="/image/%E4%B8%B2/1729994136826.png"
+                      alt="1729994136826"
+                ></p>
+<h2 id="一、串的定义"><a href="#一、串的定义" class="headerlink" title="一、串的定义"></a>一、串的定义</h2><h3 id="串-string-是由零个或多个字符组成的有限序列，又名叫字符串。"><a href="#串-string-是由零个或多个字符组成的有限序列，又名叫字符串。" class="headerlink" title="串( string)是由零个或多个字符组成的有限序列，又名叫字符串。"></a><strong>串( string)是由零个或多个字符组成的有限序列，又名叫字符串。</strong></h3><p>一般记为：S &#x3D; ′ a 1 a 2 . . . a n ′ ( n &gt; &#x3D; 0 )</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E4%B8%B2/1729994205069.png"
+                      alt="1729994205069"
+                ></p>
+<p>另外还有一些其它概念：</p>
+<ul>
+<li>空串：空串不包含任何字符，表示为<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E4%B8%B2/1729994288229.png"
+                      alt="1729994288229"
+                >，长度为0。</li>
+<li>空格串：是只包含空格的串。注意它与空串的区别，空格串是有内容有长度的，而且可以不止一个空格。</li>
+<li>子串与主串：串中任意个数的连续字符组成的子序列称为该串的子串，相应地，包含子串的串称为主串。</li>
+<li>子串在主串中的位置就是子串的第一个字符在主串中的序号。</li>
+</ul>
+<p>逻辑结构上，串与<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/Real_Fool_/article/details/113463997" >线性表 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>极为相似，区别仅在于串的数据对象限定为字符集。</p>
+<p>而基本操作上，串和线性表有很大差别。线性表的基本操作主要以单个元素作为操作对象，如查找、插入或删除某个元素等;而串的基本操作通常以子串作为操作对象，如查找、插入或删除一个子串等。</p>
+<h2 id="二、串的存储结构"><a href="#二、串的存储结构" class="headerlink" title="二、串的存储结构"></a>二、串的存储结构</h2><h3 id="1、定长顺序存储表示"><a href="#1、定长顺序存储表示" class="headerlink" title="1、定长顺序存储表示"></a>1、定长顺序存储表示</h3><p>类似于<a class="link"   target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84&spm=1001.2101.3001.7020" >线性表的顺序存储结构 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，用一组地址连续的存储单元存储串值的字符序列。在串的定长顺序存储结构中，为每个串变量分配一个固定长度的存储区，即定长数组。</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXLEN 255	<span class="comment">//预定义最大串长为255</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">	<span class="type">char</span> ch[MAXLEN];	<span class="comment">//每个分量存储一个字符</span></span><br><span class="line">	<span class="type">int</span> length;	<span class="comment">//串的实际长度</span></span><br><span class="line">&#125;SString;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>在定长顺序存储中，串的实际长度只能小于等于MAXLEN，超过预定义长度的串值会被舍去，称为截断。</p>
+<p>同时串长有两种表示方法: <strong>一</strong>是用一个额外的变量len来存放串的长度;<strong>二</strong>是在串值后面加一一个不计入串长的结束标记字符“\0”，此时的串长为隐含值，可用strlen提取</p>
+<h3 id="2、堆分配存储表示"><a href="#2、堆分配存储表示" class="headerlink" title="2、堆分配存储表示"></a>2、堆分配存储表示</h3><p>堆分配存储表示仍然以一组地址连续的存储单元存放串值的字符序列，但它们的存储空间是在程序执行过程中动态分配得到的。</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">	<span class="type">char</span> *ch;	<span class="comment">//按串长分配存储区，ch指向串的基地址</span></span><br><span class="line">	<span class="type">int</span> length;	<span class="comment">//串的长度</span></span><br><span class="line">&#125;HString;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>如果使用两者直接的空间分配，则无截断一说</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Status <span class="title function_">Concat</span><span class="params">(HString &amp;T,  HString  S1, HString S2)</span></span><br><span class="line"><span class="comment">//返回串S1和S2联接而成的新串T，没有截断一说了</span></span><br><span class="line">&#123;   </span><br><span class="line">    <span class="keyword">if</span>(T.ch)   <span class="built_in">free</span>(T.ch);   <span class="comment">//释放T原有空间</span></span><br><span class="line">    <span class="keyword">if</span>(!(T.ch=(<span class="type">char</span> *)<span class="built_in">malloc</span>((S1.length+S2.length)*<span class="keyword">sizeof</span>(<span class="type">char</span>))))</span><br><span class="line">        <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    T.length=S1.length+S2.length;</span><br><span class="line">    T.ch[<span class="number">0.</span>.s1.length<span class="number">-1</span>]=S1.ch[<span class="number">0.</span>.s1.length<span class="number">-1</span>];</span><br><span class="line">    T.ch[S1.length.. T.length<span class="number">-1</span>]=S2.ch[<span class="number">0.</span>.S2.length<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125; <span class="comment">// Concat</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="3、块链存储表示"><a href="#3、块链存储表示" class="headerlink" title="3、块链存储表示"></a>3、块链存储表示</h3><p>类似于线性表的链式存储结构，也可采用链表方式存储串值。由于串的特殊性(每个元素只有一个字符)，在具体实现时，每个结点既可以存放一个字符， 也可以存放多个字符。每个结点称为块，整个链表称为块链结构。图(a)是结点大小为4 (即每个结点存放4个字符)的链表,最后一个结点占不满时通常用“#”补上;图(b)是结点大小为1的链表。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E4%B8%B2/1729994706207.png"
+                      alt="1729994706207"
+                ></p>
+<p>结构定义如下：</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CHUNKSIZE  4           <span class="comment">//由用户定义块大小</span></span></span><br><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span>  <span class="title">Chunk</span>  &#123;</span></span><br><span class="line">         <span class="type">char</span>  ch[CHUNKSIZE];</span><br><span class="line">         <span class="class"><span class="keyword">struct</span> <span class="title">Chunk</span> * <span class="title">next</span>;</span></span><br><span class="line">&#125;Chunk;</span><br><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span>  &#123;</span>   <span class="comment">//头尾指针的单链表，结点的data是字符块</span></span><br><span class="line">    Chunk * head， * tail;    <span class="comment">//串的、尾头指针</span></span><br><span class="line">    <span class="type">int</span>    curlen;           <span class="comment">//串的当前长度</span></span><br><span class="line">&#125;LString;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>但是由于占用存储量大且操作不便，实际应用很少</p>
+<h2 id="三、串的基本操作"><a href="#三、串的基本操作" class="headerlink" title="三、串的基本操作"></a>三、串的基本操作</h2><p>仅供了解即可，需要可尝试自己实现</p>
+<ul>
+<li>StrAssign(&amp;T, chars): 赋值操作。把串T赋值为 chars</li>
+<li>Strcopy(&amp;T, S): 复制操作。由串S复制得到串T。</li>
+<li>StrEmpty(S): 判空操作。若S为空串,则返回TRUE,否则返回 FALSE</li>
+<li>StrCompare(S,T): 比较操作。若S&gt;T,则返回值&gt;0;若S&#x3D;T,则返回值&#x3D;0;若S&lt;T,则返回值&lt;0。</li>
+<li>StrEngth(S): 求串长。返回串S的元素个数</li>
+<li>Substring(&amp;Sub,S,pos,1en):求子串。用Sub返回串S的第pos个字符起长度为len的子串。</li>
+<li>Concat(&amp;T,S1,S2): 串联接。用T返回由S1和S2联接而成的新串。</li>
+<li>Index(S,T): 定位操作。若主串S中存在与串T值相同的子串,则返回它在主串S中第一次出现的位置;否则函数值为0</li>
+<li>Clearstring(&amp;S): 清空操作。将S清为空串</li>
+<li>Destroystring(&amp;S): 销毁串。将串S销毁<br>不同的高级语言对串的基本操作集可以有不同的定义方法。在上述定义的操作中,串赋值StrAssign、串比较 StrCompare、求串长 Strength、串联接 Concat及求子串 Substring五种操作构成串类型的最小操作子集,即这些操作不可能利用其他串操作来实现;反之,其他串操作(除串清除 Clearstring和串销毁 Destroystring外)均可在该最小操作子集上实现。</li>
+</ul>
+<p>例如,可利用判等、求串长和求子串等操作实现定位函数 Index(S,T)。</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Index</span><span class="params">(Sring S, String T)</span>&#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">1</span>, n = StrLength(S), m = StrLength(T);</span><br><span class="line">	String sub;</span><br><span class="line">	<span class="keyword">while</span>(i &lt;= n-m+<span class="number">1</span>)&#123;</span><br><span class="line">		SubString(sub, S, i, m);	<span class="comment">//取主串第i个位置，长度为m的串给sub</span></span><br><span class="line">		<span class="keyword">if</span>(StrCompare(sub, T) != <span class="number">0</span>)&#123;</span><br><span class="line">			++i;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> i;	<span class="comment">//返回子串在主串中的位置</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;	<span class="comment">//S中不存在与T相等的子串</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="四、串的模式匹配（重点）"><a href="#四、串的模式匹配（重点）" class="headerlink" title="四、串的模式匹配（重点）"></a>四、串的模式匹配（重点）</h2><h3 id="1、简单的模式匹配算法"><a href="#1、简单的模式匹配算法" class="headerlink" title="1、简单的模式匹配算法"></a>1、简单的模式匹配算法</h3><p>子串的定位操作通常称为串的模式匹配，它求的是子串(常称模式串)在主串中的位置。这里采用定长顺序存储结构，给出一种不依赖于其他串操作的暴力匹配算法。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E4%B8%B2/1729996176139.png"
+                      alt="1729996176139"
+                ></p>
+<h4 id="BF算法基本思想"><a href="#BF算法基本思想" class="headerlink" title="BF算法基本思想"></a>BF算法基本思想</h4><p>将主串的第pos个字符(用i跟踪)和模式的第一个字符(用j跟踪)比较，</p>
+<p>若相等，继续逐个比较后续字符(i++;j++)；</p>
+<p>若不等，从主串的下一字符起(i&#x3D;i-j+2)，重新与模式的第一个字符(j&#x3D;1)比较。</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>  <span class="title function_">Index</span><span class="params">(SString S, SString T, <span class="type">int</span> pos)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">1</span>, i=pos;   </span><br><span class="line">    <span class="keyword">while</span>( i &lt;= S[<span class="number">0</span>]  &amp;&amp; j &lt;= T[<span class="number">0</span>])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>( S[ i ]==T[ j ]) &#123;++i;  ++j; &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; i=i-j+<span class="number">2</span>; j=<span class="number">1</span>;&#125; <span class="comment">//i回溯，j回到1</span></span><br><span class="line">	  &#125;</span><br><span class="line">    <span class="keyword">if</span>( j &gt; T[<span class="number">0</span>] ) </span><br><span class="line">        <span class="keyword">return</span> i - T[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>**总次数为：(n-m)<em>m+m＝(n-m+1)<em>m</em></em></p>
+<p><strong>若m&lt;&lt;n，则算法复杂度O(n*m)</strong></p>
+<h3 id="2、KMP算法"><a href="#2、KMP算法" class="headerlink" title="2、KMP算法"></a>2、KMP算法</h3><p><strong>利用已经部分匹配的结果而加快模式串的滑动速度</strong></p>
+<p>我们引入一个next数组，将j后退时对应的k的值保存在next[j]：</p>
+<p><strong>next[ j ]的含义是:在子串的第j个字符与主串发生失配时,则跳到子串的next[ j ]位置重新与主串当前位置进行比较。</strong></p>
+<p>在S[i] 和T[j]失配时(S[i] !&#x3D; T[j])，可继续对S[i] 和 T[next[j]]<br>进行比较。</p>
+<p>此时，S串的 i不需要回溯到 i-j+2的位置重新开始，而是停在原地不动；</p>
+<p>当存在k时，T串的j只需要回溯到next[j]的位置；不存k时回溯到1。</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Index_1</span><span class="params">(SString S, SString T,</span></span><br><span class="line"><span class="params">            <span class="type">int</span> pos)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> j=<span class="number">1</span>, i=pos;   </span><br><span class="line">  <span class="keyword">while</span>(i&lt;=S[<span class="number">0</span>] &amp;&amp; j&lt;= T[<span class="number">0</span>])</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span>( S[i]==T[j])</span><br><span class="line">    &#123;++i;  ++j; &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">       <span class="keyword">if</span>(j==<span class="number">1</span>) i++;</span><br><span class="line">       <span class="keyword">else</span> j=next[j];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>( j &gt; T[<span class="number">0</span>] ) </span><br><span class="line">    <span class="keyword">return</span> i - T[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">else</span> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>next[j]表示的是j回退到位置，j&#x3D;&#x3D;1时已经没有回退的位置了，所以只能给个0</p>
+<p>那么规定，next[1]&#x3D;0，以便使用next[1]：</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Index_KMP</span><span class="params">(SString S, SString T,</span></span><br><span class="line"><span class="params">            <span class="type">int</span> pos)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> j=<span class="number">1</span>, i=pos;   </span><br><span class="line">  <span class="keyword">while</span>(i&lt;=S[<span class="number">0</span>] &amp;&amp; j&lt;= T[<span class="number">0</span>])</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span>( S[i]==T[j])</span><br><span class="line">    &#123;++i;  ++j; &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">       j = next[j];<span class="comment">//当j为1时，将被赋值为0</span></span><br><span class="line">       <span class="comment">//此时j==0了，可以和i一起++了  </span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>( j &gt; T[<span class="number">0</span>] ) </span><br><span class="line">    <span class="keyword">return</span> i - T[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">else</span> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>那么接下来的问题是如何计算出next[j]，使得可以直接依据当前匹配情况缩减匹配次数</p>
+<h5 id="计算next-i-算法思路"><a href="#计算next-i-算法思路" class="headerlink" title="计算next[i]算法思路"></a>计算next[i]算法思路</h5><p>经过分析，除<strong>第一个字符外，模式串中其余的字符对应的next数组的值等于其最大公共前后缀长度加上1</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E4%B8%B2/1729997221863.png"
+                      alt="1729997221863"
+                ></p>
+<p>理论上是这样的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E4%B8%B2/1729998475420.png"
+                      alt="1729998475420"
+                ></p>
+<p>但是我看不懂</p>
+<p>求next数组的程序如下：(注：这里的字符串以下标1为起点，如以下标0为起点请找到F盘中1027中修改的代码，并更改Index函数的判断条件)</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">get_next</span><span class="params">(String T, <span class="type">int</span> *next)</span>&#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">1</span>, j = <span class="number">0</span>;</span><br><span class="line">	next[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (i &lt; T.length)&#123;</span><br><span class="line">		<span class="keyword">if</span>(j==<span class="number">0</span> || T.ch[i]==T.ch[j])&#123;	<span class="comment">//ch[i]表示后缀的单个字符，ch[j]表示前缀的单个字符</span></span><br><span class="line">			++i; ++j;</span><br><span class="line">			next[i] = j;	<span class="comment">//若pi = pj， 则next[j+1] = next[j] + 1</span></span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			j = next[j];	<span class="comment">//否则令j = next[j]，j值回溯，循环继续</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>next函数的改进：将在KMP中的T向前比较改为在生成next值时进行，由于生成时从前向后生成，在生成i位置的next值时，只需向前比较一次即可。</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">get_nextval</span><span class="params">(SString T, <span class="type">int</span> nextval[])</span></span><br><span class="line">&#123;</span><br><span class="line">    i= <span class="number">1</span>; nextval[<span class="number">1</span>] = <span class="number">0</span>; j = <span class="number">0</span>;   </span><br><span class="line">    <span class="keyword">while</span>( i&lt;T[<span class="number">0</span>])&#123;</span><br><span class="line">        <span class="keyword">if</span>(j==<span class="number">0</span> || T[i] == T[j])&#123;</span><br><span class="line">            ++i; ++j; </span><br><span class="line">            <span class="keyword">if</span>(T[i] != T[j]) nextval[i] = j;</span><br><span class="line">            <span class="keyword">else</span>  nextval[i] = nextval[j];</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">else</span>  </span><br><span class="line">             j = nextval[j];</span><br><span class="line">     &#125;</span><br><span class="line">&#125;                       </span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>两次生成的next数组应该大部分情况都不太一样，但是效应应该没有区别。</p>
 
         </div>
 
@@ -609,18 +696,18 @@
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> 串、数组、广义表</li>
+        <li><strong>Title:</strong> 串</li>
         <li><strong>Author:</strong> time will tell</li>
         <li><strong>Created at
-                :</strong> 2024-09-24 20:54:52</li>
+                :</strong> 2024-10-27 09:53:02</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-07-25 10:55:00
+                    :</strong> 2024-10-30 10:01:20
             </li>
         
         <li>
-            <strong>Link:</strong> https://sbwrn.github.io/2024/09/24/串/
+            <strong>Link:</strong> https://sbwrn.github.io/2024/10/27/串/
         </li>
         <li>
             <strong>
@@ -642,7 +729,7 @@
             <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
                 
                     <li class="tag-item mx-0.5">
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">#数据结构</a>&nbsp;
+                        <a href="/tags/%E6%8C%87%E5%8D%97/">#指南</a>&nbsp;
                     </li>
                 
             </ul>
@@ -656,13 +743,13 @@
                     <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="prev"
                         rel="prev"
-                        href="/2024/09/24/%E5%9B%BE/"
+                        href="/2024/10/27/%E4%BA%8C%E5%8F%89%E6%A0%91/"
                         >
                             <span class="left arrow-icon flex justify-center items-center">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </span>
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">图</span>
+                                <span class="post-nav-title-item">树和二叉树</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -672,10 +759,10 @@
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2024/09/24/%E4%B8%80%E8%A8%80/"
+                        href="/2024/10/25/gcc/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">一言</span>
+                                <span class="post-nav-title-item">gcc入门</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -739,8 +826,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">串、数组、广义表</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B2%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">串的定义与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B2%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E7%89%B9%E7%82%B9"><span class="nav-number">1.0.1.</span> <span class="nav-text">串的定义和特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B2%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.0.2.</span> <span class="nav-text">串的存储结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">数组的定义与实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">广义表的定义与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">3.0.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">3.0.2.</span> <span class="nav-text">广义表的运算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">4.1.</span> <span class="nav-text">注意</span></a></li></ol></li></ol>
+        <div class="page-title">串</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%B2%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">一、串的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B2-string-%E6%98%AF%E7%94%B1%E9%9B%B6%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%AD%97%E7%AC%A6%E7%BB%84%E6%88%90%E7%9A%84%E6%9C%89%E9%99%90%E5%BA%8F%E5%88%97%EF%BC%8C%E5%8F%88%E5%90%8D%E5%8F%AB%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%82"><span class="nav-number">1.1.</span> <span class="nav-text">串( string)是由零个或多个字符组成的有限序列，又名叫字符串。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%B2%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">二、串的存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%AE%9A%E9%95%BF%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.1.</span> <span class="nav-text">1、定长顺序存储表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%A0%86%E5%88%86%E9%85%8D%E5%AD%98%E5%82%A8%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.2.</span> <span class="nav-text">2、堆分配存储表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%9D%97%E9%93%BE%E5%AD%98%E5%82%A8%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.3.</span> <span class="nav-text">3、块链存储表示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%B2%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">三、串的基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E4%B8%B2%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">四、串的模式匹配（重点）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E7%AE%80%E5%8D%95%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95"><span class="nav-number">4.1.</span> <span class="nav-text">1、简单的模式匹配算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BF%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-number">4.1.1.</span> <span class="nav-text">BF算法基本思想</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81KMP%E7%AE%97%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">2、KMP算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97next-i-%E7%AE%97%E6%B3%95%E6%80%9D%E8%B7%AF"><span class="nav-number">4.2.0.1.</span> <span class="nav-text">计算next[i]算法思路</span></a></li></ol></li></ol></li></ol></li></ol>
 
     </div>
 </div>
@@ -773,7 +860,7 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        27 posts in total
+                        29 posts in total
                     </span>
                     
                 </p>
