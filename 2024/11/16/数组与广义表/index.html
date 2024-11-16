@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="time will tell">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://sbwrn.github.io/2024/11/16/数组与广义表/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="本章所介绍的数组既可以是顺序的，也可以是链式结构 数组和线性表的关系以及数组的运算任何数组A都可以看作一个线性表 A&#x3D;(a1,a2, …, ai , …an)  表中每一个元素ai是一个(n-1)维数组 数组是线性表的拓展，其数据元素本身也是线性表 数组的特点 –数组中各元素都具有统一的类型 –可以认为，d维数组的非边界元素具有d个直接前趋和d个直接后继 •以二维数组为例：上和左，下和右；多维以此">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组与广义表">
+<meta property="og:url" content="https://sbwrn.github.io/2024/11/16/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本章所介绍的数组既可以是顺序的，也可以是链式结构 数组和线性表的关系以及数组的运算任何数组A都可以看作一个线性表 A&#x3D;(a1,a2, …, ai , …an)  表中每一个元素ai是一个(n-1)维数组 数组是线性表的拓展，其数据元素本身也是线性表 数组的特点 –数组中各元素都具有统一的类型 –可以认为，d维数组的非边界元素具有d个直接前趋和d个直接后继 •以二维数组为例：上和左，下和右；多维以此">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731565053909.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731591043108.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731591125129.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731591372063.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731674198865.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731674250508.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731674700315.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731675476837.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676011280.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676068261.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676387330.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676452315.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676537644.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676764075.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731677210245.png">
+<meta property="article:published_time" content="2024-11-16T02:49:25.285Z">
+<meta property="article:modified_time" content="2024-11-15T13:27:09.569Z">
+<meta property="article:author" content="anybody">
+<meta property="article:tag" content="指南">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731565053909.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            数组与广义表 | 日薄西山
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"sbwrn.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"18px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"What makes us normal is knowing that we're not normal.","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/sbwrn/sbwrn.github.io","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.2","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"GITHUB":{"path":"https://github.com/sbwrn/sbwrn.github.io","icon":"fa-brands fa-github"},"GALLERY":{"icon":"fa-solid fa-images","path":"/masonry/"},"Links":{"icon":"fa-regular fa-link","submenus":{"Link1":"https://xxy1103.github.io/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"time will tell everything+","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"MMM D, YYYY","excerpt_length":200,"categories":{"enable":true,"limit":300},"tags":{"enable":true,"limit":300}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container flex flex-col justify-between min-h-dvh">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                日薄西山
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                                        >
+                                    <i class="fa-brands fa-github fa-fw"></i>
+                                    GITHUB
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-images fa-fw"></i>
+                                    GALLERY
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://xxy1103.github.io/">
+                                                    LINK1
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                        >
+                            <span>
+                                GITHUB
+                            </span>
+                            
+                                <i class="fa-brands fa-github fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                GALLERY
+                            </span>
+                            
+                                <i class="fa-solid fa-images fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://xxy1103.github.io/">LINK1</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">数组与广义表</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/redefine-avatar.svg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">time will tell</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-11-16 10:49:25</span>
+        <span class="mobile">2024-11-16 10:49:25</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-11-15 21:27:09</span>
+            <span class="mobile">2024-11-15 21:27:09</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%8C%87%E5%8D%97/">指南</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <p>本章所介绍的数组既可以是顺序的，也可以是链式结构</p>
+<h1 id="数组和线性表的关系以及数组的运算"><a href="#数组和线性表的关系以及数组的运算" class="headerlink" title="数组和线性表的关系以及数组的运算"></a>数组和线性表的关系以及数组的运算</h1><p><strong>任何数组A都可以看作一个线性表</strong></p>
+<pre><code>A=(a1,a2, …, ai , …an)
+</code></pre>
+<p>表中每一个元素ai是一个(n-1)维数组</p>
+<p>数组是线性表的拓展，其数据元素本身也是线性表</p>
+<p>数组的特点</p>
+<p>–数组中各元素都具有统一的类型</p>
+<p>–可以认为，d维数组的非边界元素具有d个直接前趋和d个直接后继</p>
+<pre><code>•以二维数组为例：上和左，下和右；多维以此类推
+</code></pre>
+<p>–<strong>数组维数确定后，数据元素个数和元素之间的关系不再发生改变，适合于顺序存储</strong></p>
+<pre><code>•什么情况下考虑链式存储或其他存储？
+</code></pre>
+<p>–每组有定义的下标都存在一个与其相对应的值</p>
+<p>因此：</p>
+<p>–给定一组下标，取得相应的数据元素值， <em>Value</em></p>
+<p>–给定一组下标，修改相应的数据元素值， <em>Assign</em></p>
+<h2 id="数组的顺序存储结构"><a href="#数组的顺序存储结构" class="headerlink" title="数组的顺序存储结构"></a>数组的顺序存储结构</h2><p>一维数组：ElemType a[n]；</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">方法一：LOC[i]=LOC[0]+iL</span><br><span class="line">通式（方法二）：</span><br><span class="line">LOC[i] = b+iL =c0 + c1i</span><br><span class="line">c1 = L //一维数组单个数据元素大小</span><br><span class="line">c0 = b = LOC[0]   //基地址</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>二维数组：ElemType   a[m][n];</p>
+<p>“行序为主序” 即 “低下标优先”</p>
+<p>“列序为主序” 即 “高下标优先”</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731565053909.png"
+                      alt="1731565053909"
+                ></p>
+<p>二维数组a[m][n],各维元素个数为m,n。设数组开始存放位置 LOC(0, 0 ) &#x3D; b，行序优先方式的顺序存储时，a[i][j]存放位置：</p>
+<p> 方法一：<code>LOC ( i, j ) = b +  (i*n+j)*L</code></p>
+<p>方法二：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LOC[i,j] = LOC[0,0]+(in+j)L  = c0 + c1xi + c2xj</span><br><span class="line">   c2=L          //一维数组单个数据元素大小</span><br><span class="line">   c1=nxc2 =b2xc2  //二维数组的一行数据元素的全体大小</span><br><span class="line">   c0=b=LOC[0,0] //起始地址   </span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>n维数组：ElemType  a[m1][m2] … [mn] ;</p>
+<p>各维元素维度分别  m1, m2, m3, …, mn，按维度先后次序进行顺序存储。上述a数组按顺序存储m1 个n-1维的数组，其中每个n-1维数组又是按顺序存储了m2个n-2维的数组，以此类推。</p>
+<p>这样下标为i1, i2, i3 … in 的n维数组元素的存储位置：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">方法一：𝐿𝑂𝐶(𝑖_1,𝑖_2,…𝑖_𝑛 )=𝑎+〖( 𝑖〗_1∗𝑚_2∗𝑚_3∗…∗𝑚_𝑛  </span><br><span class="line">                                     +   𝑖_2∗𝑚_3∗𝑚_4∗…∗𝑚_𝑛</span><br><span class="line">                             〖           +…+𝑖〗_(𝑛−1)∗𝑚_𝑛+ 𝑖_𝑛)∗𝐿</span><br><span class="line">                            =𝑎+𝐿∗∑_(𝑗=1)^(𝑛−1)▒〖𝑖_𝑗∗∏_(𝑘=𝑗+1)^𝑛▒𝑚_𝑘 〗</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">通式（方法二）：</span><br><span class="line">LOC[j1,j2,...,jn]=c0+c1j1+c2j2+...+cnjn =c0+  ciji</span><br><span class="line">其中： cn=L;                 // ElemType大小</span><br><span class="line">      ci-1=cibi (1&lt;in)     //n-i维数组整体大小</span><br><span class="line">      c0=b =LOC[0,0,...,0]  //基地址</span><br><span class="line">由LOC可知数组是一种随机存取结构:对任一元素存取时间相等。</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="矩阵的压缩存储（压缩从而节省空间）"><a href="#矩阵的压缩存储（压缩从而节省空间）" class="headerlink" title="矩阵的压缩存储（压缩从而节省空间）"></a>矩阵的压缩存储（压缩从而节省空间）</h2><h3 id="带状矩阵"><a href="#带状矩阵" class="headerlink" title="带状矩阵"></a>带状矩阵</h3><p>在n´n的方阵中，非零元素集中在主对角线及其两侧共L(奇数)条对角线的带状区域内L对角矩阵</p>
+<p>因此只需要存储带状区内的元素</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731591043108.png"
+                      alt="1731591043108"
+                ></p>
+<p>除首行和末行，按每行L个元素，共(n-2)L+(L+1)&#x3D;(n-1)L+1 个元素。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">存储地址计算： k=(i-1)L+(j-i)</span><br><span class="line">               1&lt;=i, j &lt;= n        |i-j|&lt;=(L-1)/2</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731591125129.png"
+                      alt="1731591125129"
+                ></p>
+<h3 id="随机稀疏矩阵"><a href="#随机稀疏矩阵" class="headerlink" title="随机稀疏矩阵"></a>随机稀疏矩阵</h3><p><strong>[特点]</strong>  大多数元素为零。</p>
+<p><strong>[常用存储方法]</strong>  记录每一非零元素(i,j,aij )</p>
+<pre><code>—节省空间，但丧失随机存取功能
+</code></pre>
+<p>•顺序存储：三元组表</p>
+<p>•链式存储：十字(正交)链表</p>
+<h4 id="三元组表"><a href="#三元组表" class="headerlink" title="三元组表"></a>三元组表</h4><p>用行数、列数和存储的值来表示数据在随机稀疏矩阵中的元素</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731591372063.png"
+                      alt="1731591372063"
+                ></p>
+<h5 id="求三元组表的转置矩阵"><a href="#求三元组表的转置矩阵" class="headerlink" title="求三元组表的转置矩阵"></a>求三元组表的转置矩阵</h5><p>普通算法：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void TransMatrix(TSMatrix &amp;b,  TSMatrix a)</span><br><span class="line">&#123;    b.mu=a.nu;  b.nu=a.mu;  b.tu=a.tu;</span><br><span class="line">      if  ( b.tu  )  &#123;</span><br><span class="line">            q=1;    //指示b中存放数据的位置，初值为1</span><br><span class="line">            for ( col=1; col&lt;=a.nu;  col++ )     //对a的每一列</span><br><span class="line">                   for ( p=1; p&lt;=a.tu;  p++ )        //对a的每个三元组检查</span><br><span class="line">                        if  (a.data[p].j==col) &#123;    //找列号为col的三元组</span><br><span class="line">                                     b.data[q].i =a.data[p].j; </span><br><span class="line">                                     b.data[q].j =a.data[p].i;</span><br><span class="line">                                     b.data[q].e =a.data[p].e;</span><br><span class="line">                                     q++;                   //修正q值</span><br><span class="line">                         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">&#125; //TransMatrix</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>将每个坐标的i、j值交换</p>
+<p>但是注意，因为是顺序排列，所以对原组表遍历时需要从每一列来寻找</p>
+<p>快速转置法：</p>
+<p>引入两个辅助向量：</p>
+<p>–num[1: a.nu]：a中每列的非零元素个数</p>
+<p>–cpot[1: a.nu]：a中每列的第一个非零元素在b中的位置</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731674198865.png"
+                      alt="1731674198865"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731674250508.png"
+                      alt="1731674250508"
+                ></p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Statue <span class="title function_">FastTransMatrix</span><span class="params">(TSMatrix &amp;b,  TSMatrix a)</span></span><br><span class="line">&#123;    b.mu=a.nu;  b.nu=a.mu;  b.tu=a.tu;</span><br><span class="line">       <span class="keyword">if</span>   ( b.tu )  &#123;</span><br><span class="line">       &#123;	 <span class="keyword">for</span>  (col=<span class="number">1</span>; col&lt;= a.nu; ++col)      <span class="comment">//num清零</span></span><br><span class="line">                  num[col]=<span class="number">0</span>;                </span><br><span class="line">         	 <span class="keyword">for</span> (t=<span class="number">1</span>; t&lt;=a.tu; ++t)            <span class="comment">//对a.tu个非零元素按列号计数</span></span><br><span class="line">                  ++num[a.data[t].j];     </span><br><span class="line">          	 cpot[<span class="number">1</span>]=<span class="number">1</span>;                            <span class="comment">//生成cpot</span></span><br><span class="line">       	 <span class="keyword">for</span> ( col=<span class="number">2</span>; col&lt;=a.nu; ++col ) </span><br><span class="line">                 cpot[col]=cpot[col<span class="number">-1</span>]+num[col<span class="number">-1</span>];</span><br><span class="line">       	 <span class="keyword">for</span>  ( p=<span class="number">1</span>; p&lt;=a.tu; ++p )  &#123;       <span class="comment">//对a.tu个非零元素转置</span></span><br><span class="line">                    col=a.data[p].j;   q=cpot[col];</span><br><span class="line">                    b.data[q].i =a.data[p].j;</span><br><span class="line">                    b.data[q].j =a.data[p].i;</span><br><span class="line">                    b.data[q].e =a.data[p].e;</span><br><span class="line">                    ++cpot[col] ;</span><br><span class="line">             &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> OK;  </span><br><span class="line">&#125;<span class="comment">//FastTransMatrix</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="行逻辑连接的表"><a href="#行逻辑连接的表" class="headerlink" title="行逻辑连接的表"></a>行逻辑连接的表</h3><p>便于随机存取任意一行的非零元素。</p>
+<p>数组的行是连续存储的。这种存储方式在内存中按行优先顺序存储数组元素。每个元素的内存地址可以通过 <code>i * cols + j</code> 计算，其中 <code>i</code> 是行索引，<code>j</code> 是列索引，<code>cols</code> 是列数。</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line">using namespace <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">printArray</span><span class="params">(<span class="type">int</span>* arr, <span class="type">int</span> rows, <span class="type">int</span> cols)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; rows; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; cols; ++j) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; arr[i * cols + j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> rows = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int</span> cols = <span class="number">4</span>;</span><br><span class="line">    <span class="type">int</span> arr[] = &#123;</span><br><span class="line">        <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>,</span><br><span class="line">        <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>,</span><br><span class="line">        <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Array in row-major order:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    printArray(arr, rows, cols);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>这种存储方式在处理多维数组时非常高效，特别是在需要按行访问数组元素的情况下。因此在稀疏矩阵相乘时比较简便。</p>
+<h3 id="十字（正交）链表"><a href="#十字（正交）链表" class="headerlink" title="十字（正交）链表"></a>十字（正交）链表</h3><p>在行、列两个方向上，将非零元素链接在一起。克服三元组表在矩阵的非零元素位置或个数经常变动时的使用不便。</p>
+<p>每个结点包含四个指针，分别指向同一行的下一个结点、同一列的下一个结点、同一行的前一个结点和同一列的前一个结点。</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span> <span class="title">OLNode</span></span></span><br><span class="line"><span class="class">&#123;</span>  <span class="type">int</span>               i, j ;</span><br><span class="line">    ElemType  e;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span>  <span class="title">OLNode</span>  * <span class="title">right</span>, * <span class="title">down</span>;</span></span><br><span class="line">&#125;OLNode, * OLink;</span><br><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span>  &#123;</span></span><br><span class="line">    OLink   * rhead, * chead;</span><br><span class="line">    <span class="type">int</span>          mu, nu, tu;</span><br><span class="line">&#125;CrossList;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<h1 id="广义表"><a href="#广义表" class="headerlink" title="广义表"></a>广义表</h1><p>广义表本质上是非线性结构，是扩展的线性表：表中的数据元素本身也是一个数据结构。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>广义表是由零个或多个原子或者子表组成的有限序列。可以记作：LS&#x3D;(d1, d2, … , dn)</p>
+<pre><code>**原子：逻辑上不能再分解的元素。**
+</code></pre>
+<p> **<br>    子表：作为广义表中元素的广义表。**</p>
+<p>广义表中的元素<strong>全部为原子时即为线性表</strong>。线性表是广义表的特例，广义表是线性表的推广。</p>
+<h2 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731674700315.png"
+                      alt="1731674700315"
+                ></p>
+<p>表的长度 ：  表中的元素（第一层）个数。</p>
+<p>表的深度 ：  表中元素的最深嵌套层数。</p>
+<p>表头：   表中的第一个元素。</p>
+<p>表尾：   除第一个元素外，剩余元素构成的广义表。</p>
+<p>非空广义表的表尾必定仍为广义表。</p>
+<p>因此可以直接通过取表头、取表尾对广义表进行操作</p>
+<p>图形仅供参考</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731675476837.png"
+                      alt="1731675476837"
+                ></p>
+<h3 id="广义表结构的分类"><a href="#广义表结构的分类" class="headerlink" title="广义表结构的分类"></a>广义表结构的分类</h3><p>•纯表：与树型结构对应的广义表。</p>
+<p>•再入表：允许结点共享的广义表。</p>
+<p>•递归表：允许递归的广义表。</p>
+<p>递归表&gt;再入表&gt;纯表&gt;线性表</p>
+<h2 id="抽象数据类型定义"><a href="#抽象数据类型定义" class="headerlink" title="抽象数据类型定义"></a>抽象数据类型定义</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676011280.png"
+                      alt="1731676011280"
+                ></p>
+<h2 id="广义表的存储结构"><a href="#广义表的存储结构" class="headerlink" title="广义表的存储结构"></a>广义表的存储结构</h2><h3 id="方法１—头尾链表形式"><a href="#方法１—头尾链表形式" class="headerlink" title="方法１—头尾链表形式"></a>方法１—头尾链表形式</h3><div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> &#123;</span>ATOM, LIST&#125; ElemTag;</span><br><span class="line"><span class="comment">// ATOM==0:原子；LIST==1：子表</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">GLNode</span>&#123;</span></span><br><span class="line">	ElemTag  tag;</span><br><span class="line">	<span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">	     AtomType  atom;</span><br><span class="line">	     <span class="class"><span class="keyword">struct</span>  &#123;</span></span><br><span class="line">	          <span class="class"><span class="keyword">struct</span> <span class="title">GLNode</span>  *<span class="title">hp</span>, *<span class="title">tp</span>;</span></span><br><span class="line">	     &#125;ptr;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; * GList1;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676068261.png"
+                      alt="1731676068261"
+                >hp：表头的指针、tp：表尾的指针</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676387330.png"
+                      alt="1731676387330"
+                ></p>
+<h3 id="方法2—扩展的线性链表形式"><a href="#方法2—扩展的线性链表形式" class="headerlink" title="方法2—扩展的线性链表形式"></a>方法2—扩展的线性链表形式</h3><div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> &#123;</span>ATOM, LIST&#125; ElemTag;</span><br><span class="line"><span class="comment">// ATOM==0:原子；LIST==1：子表</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">GLNode</span>&#123;</span></span><br><span class="line">	ElemTag  tag;</span><br><span class="line">	<span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">	     AtomType  atom;</span><br><span class="line">	     <span class="class"><span class="keyword">struct</span>  &#123;</span></span><br><span class="line">	          <span class="class"><span class="keyword">struct</span> <span class="title">GLNode</span>  *<span class="title">hp</span>;</span></span><br><span class="line">	     &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">GLNode</span>  *<span class="title">tp</span>;</span></span><br><span class="line">&#125; * GList2;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676452315.png"
+                      alt="1731676452315"
+                >hp: 指向表头的指针、tp: 指向同一层的下一个结点；构成一个单链表，把本层的原子或主表都链起来了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676537644.png"
+                      alt="1731676537644"
+                ></p>
+<h2 id="广义表的递归算法"><a href="#广义表的递归算法" class="headerlink" title="广义表的递归算法"></a>广义表的递归算法</h2><p>广义表的特点：定义是递归的。</p>
+<p>示例约定：非递归表且无共享子表。</p>
+<p>[示例1]计算广义表的深度</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676764075.png"
+                      alt="1731676764075"
+                ></p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">GListDepth</span><span class="params">(GList1 L)</span></span><br><span class="line">&#123;        <span class="keyword">if</span>  (!L) <span class="keyword">return</span> <span class="number">1</span>;   <span class="comment">//空表</span></span><br><span class="line">          <span class="keyword">if</span>  (L-&gt;tag==ATOM) <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">//单原子</span></span><br><span class="line">          <span class="keyword">for</span> (max=<span class="number">0</span>, pp=L; pp; pp=pp-&gt;ptr.tp) &#123;</span><br><span class="line">                  dep=GListDepth (pp-&gt;ptr.hp);</span><br><span class="line">                  <span class="keyword">if</span> (dep&gt;max) max=dep;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">return</span>  max+<span class="number">1</span>;</span><br><span class="line"> &#125;<span class="comment">//GListDepth</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<p>[示例2]<br>复制广义表</p>
+<p>–复制操作的递归定义</p>
+<pre><code>基本项：InitGList(NEWLS)
+
+当LS为空表时；
+
+复制单原子结点
+
+当LS为原子时；
+
+归纳项：建表结点；
+
+复制表头；
+
+复制表尾；
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731677210245.png"
+                      alt="1731677210245"
+                ></p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Status <span class="title function_">CopyGList</span><span class="params">(GList1 &amp;T, GList1 L)</span></span><br><span class="line">&#123;        <span class="keyword">if</span>  (!L) T=<span class="literal">NULL</span>;   <span class="comment">//复制空表</span></span><br><span class="line">         <span class="keyword">else</span> &#123;</span><br><span class="line">            T=(GList1)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(GLNode));</span><br><span class="line">            <span class="keyword">if</span> (!T) <span class="built_in">exit</span>(OVERFLOW);</span><br><span class="line">            T-&gt;tag=L-&gt;tag;</span><br><span class="line">            <span class="keyword">if</span> (L-&gt;tag==ATOM) T-&gt;atom=L-&gt;atom; <span class="comment">//复制单原子</span></span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                 CopyGList(T-&gt;ptr.hp, L-&gt;ptr.hp);</span><br><span class="line">                 CopyGList(T-&gt;ptr.tp, L-&gt;ptr.tp);</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span>  OK;</span><br><span class="line"> &#125;<span class="comment">//CopyGList</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 数组与广义表</li>
+        <li><strong>Author:</strong> time will tell</li>
+        <li><strong>Created at
+                :</strong> 2024-11-16 10:49:25</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-11-15 21:27:09
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://sbwrn.github.io/2024/11/16/数组与广义表/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/%E6%8C%87%E5%8D%97/">#指南</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/11/16/python%E8%A7%A3%E9%87%8A%E5%99%A8/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">python解释器</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">数组与广义表</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%92%8C%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E5%85%B3%E7%B3%BB%E4%BB%A5%E5%8F%8A%E6%95%B0%E7%BB%84%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">数组和线性表的关系以及数组的运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">数组的顺序存储结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8E%8B%E7%BC%A9%E5%AD%98%E5%82%A8%EF%BC%88%E5%8E%8B%E7%BC%A9%E4%BB%8E%E8%80%8C%E8%8A%82%E7%9C%81%E7%A9%BA%E9%97%B4%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">矩阵的压缩存储（压缩从而节省空间）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E7%8A%B6%E7%9F%A9%E9%98%B5"><span class="nav-number">1.2.1.</span> <span class="nav-text">带状矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5"><span class="nav-number">1.2.2.</span> <span class="nav-text">随机稀疏矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E5%85%83%E7%BB%84%E8%A1%A8"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">三元组表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82%E4%B8%89%E5%85%83%E7%BB%84%E8%A1%A8%E7%9A%84%E8%BD%AC%E7%BD%AE%E7%9F%A9%E9%98%B5"><span class="nav-number">1.2.2.1.1.</span> <span class="nav-text">求三元组表的转置矩阵</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E9%80%BB%E8%BE%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%A1%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">行逻辑连接的表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E5%AD%97%EF%BC%88%E6%AD%A3%E4%BA%A4%EF%BC%89%E9%93%BE%E8%A1%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">十字（正交）链表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">广义表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.2.</span> <span class="nav-text">表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%BB%93%E6%9E%84%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.2.1.</span> <span class="nav-text">广义表结构的分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">2.3.</span> <span class="nav-text">抽象数据类型定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">2.4.</span> <span class="nav-text">广义表的存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%EF%BC%91%E2%80%94%E5%A4%B4%E5%B0%BE%E9%93%BE%E8%A1%A8%E5%BD%A2%E5%BC%8F"><span class="nav-number">2.4.1.</span> <span class="nav-text">方法１—头尾链表形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%952%E2%80%94%E6%89%A9%E5%B1%95%E7%9A%84%E7%BA%BF%E6%80%A7%E9%93%BE%E8%A1%A8%E5%BD%A2%E5%BC%8F"><span class="nav-number">2.4.2.</span> <span class="nav-text">方法2—扩展的线性链表形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%9A%84%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95"><span class="nav-number">2.5.</span> <span class="nav-text">广义表的递归算法</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">time will tell</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        33 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/js/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/plugins/masonry.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+</body>
+</html>
