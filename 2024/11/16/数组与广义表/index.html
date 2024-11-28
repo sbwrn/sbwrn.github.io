@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731676764075.png">
 <meta property="og:image" content="https://sbwrn.github.io/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731677210245.png">
 <meta property="article:published_time" content="2024-11-16T02:49:25.285Z">
-<meta property="article:modified_time" content="2024-11-15T13:27:09.569Z">
+<meta property="article:modified_time" content="2024-11-28T05:14:44.741Z">
 <meta property="article:author" content="anybody">
 <meta property="article:tag" content="指南">
 <meta name="twitter:card" content="summary">
@@ -49,10 +49,10 @@
     
     
     <!--- Icon Part-->
-    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <link rel="icon" type="image/png" href="/images/segment.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/segment.jpg">
     <meta name="theme-color" content="#A31F34">
-    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <link rel="shortcut icon" href="/images/segment.jpg">
     <!--- Page Info-->
     
     <title>
@@ -474,7 +474,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -508,7 +508,7 @@
         
             <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
                 <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-                    <img src="/images/redefine-avatar.svg">
+                    <img src="/images/sleeves.jpg">
                 </div>
                 <div class="info flex flex-col justify-between">
                     <div class="author flex items-center">
@@ -528,8 +528,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-15 21:27:09</span>
-            <span class="mobile">2024-11-15 21:27:09</span>
+            <span class="desktop">2024-11-28 13:14:44</span>
+            <span class="mobile">2024-11-28 13:14:44</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -676,7 +676,7 @@
                      data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731674250508.png"
                       alt="1731674250508"
                 ></p>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Statue <span class="title function_">FastTransMatrix</span><span class="params">(TSMatrix &amp;b,  TSMatrix a)</span></span><br><span class="line">&#123;    b.mu=a.nu;  b.nu=a.mu;  b.tu=a.tu;</span><br><span class="line">       <span class="keyword">if</span>   ( b.tu )  &#123;</span><br><span class="line">       &#123;	 <span class="keyword">for</span>  (col=<span class="number">1</span>; col&lt;= a.nu; ++col)      <span class="comment">//num清零</span></span><br><span class="line">                  num[col]=<span class="number">0</span>;                </span><br><span class="line">         	 <span class="keyword">for</span> (t=<span class="number">1</span>; t&lt;=a.tu; ++t)            <span class="comment">//对a.tu个非零元素按列号计数</span></span><br><span class="line">                  ++num[a.data[t].j];     </span><br><span class="line">          	 cpot[<span class="number">1</span>]=<span class="number">1</span>;                            <span class="comment">//生成cpot</span></span><br><span class="line">       	 <span class="keyword">for</span> ( col=<span class="number">2</span>; col&lt;=a.nu; ++col ) </span><br><span class="line">                 cpot[col]=cpot[col<span class="number">-1</span>]+num[col<span class="number">-1</span>];</span><br><span class="line">       	 <span class="keyword">for</span>  ( p=<span class="number">1</span>; p&lt;=a.tu; ++p )  &#123;       <span class="comment">//对a.tu个非零元素转置</span></span><br><span class="line">                    col=a.data[p].j;   q=cpot[col];</span><br><span class="line">                    b.data[q].i =a.data[p].j;</span><br><span class="line">                    b.data[q].j =a.data[p].i;</span><br><span class="line">                    b.data[q].e =a.data[p].e;</span><br><span class="line">                    ++cpot[col] ;</span><br><span class="line">             &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> OK;  </span><br><span class="line">&#125;<span class="comment">//FastTransMatrix</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Statue <span class="title function_">FastTransMatrix</span><span class="params">(TSMatrix &amp;b,  TSMatrix a)</span></span><br><span class="line">&#123;    b.mu=a.nu;  b.nu=a.mu;  b.tu=a.tu;</span><br><span class="line">       <span class="keyword">if</span>   ( b.tu )  &#123;</span><br><span class="line">       &#123;	 <span class="keyword">for</span>  (col=<span class="number">1</span>; col&lt;= a.nu; ++col)      <span class="comment">//num清零</span></span><br><span class="line">                  num[col]=<span class="number">0</span>;              </span><br><span class="line">         	 <span class="keyword">for</span> (t=<span class="number">1</span>; t&lt;=a.tu; ++t)            <span class="comment">//对a.tu个非零元素按列号计数</span></span><br><span class="line">                  ++num[a.data[t].j];   </span><br><span class="line">          	 cpot[<span class="number">1</span>]=<span class="number">1</span>;                            <span class="comment">//生成cpot</span></span><br><span class="line">       	 <span class="keyword">for</span> ( col=<span class="number">2</span>; col&lt;=a.nu; ++col ) </span><br><span class="line">                 cpot[col]=cpot[col<span class="number">-1</span>]+num[col<span class="number">-1</span>];</span><br><span class="line">       	 <span class="keyword">for</span>  ( p=<span class="number">1</span>; p&lt;=a.tu; ++p )  &#123;       <span class="comment">//对a.tu个非零元素转置</span></span><br><span class="line">                    col=a.data[p].j;   q=cpot[col];</span><br><span class="line">                    b.data[q].i =a.data[p].j;</span><br><span class="line">                    b.data[q].j =a.data[p].i;</span><br><span class="line">                    b.data[q].e =a.data[p].e;</span><br><span class="line">                    ++cpot[col] ;</span><br><span class="line">             &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> OK;  </span><br><span class="line">&#125;<span class="comment">//FastTransMatrix</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
 <h3 id="行逻辑连接的表"><a href="#行逻辑连接的表" class="headerlink" title="行逻辑连接的表"></a>行逻辑连接的表</h3><p>便于随机存取任意一行的非零元素。</p>
 <p>数组的行是连续存储的。这种存储方式在内存中按行优先顺序存储数组元素。每个元素的内存地址可以通过 <code>i * cols + j</code> 计算，其中 <code>i</code> 是行索引，<code>j</code> 是列索引，<code>cols</code> 是列数。</p>
@@ -687,12 +687,12 @@
 <p>每个结点包含四个指针，分别指向同一行的下一个结点、同一列的下一个结点、同一行的前一个结点和同一列的前一个结点。</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span> <span class="title">OLNode</span></span></span><br><span class="line"><span class="class">&#123;</span>  <span class="type">int</span>               i, j ;</span><br><span class="line">    ElemType  e;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span>  <span class="title">OLNode</span>  * <span class="title">right</span>, * <span class="title">down</span>;</span></span><br><span class="line">&#125;OLNode, * OLink;</span><br><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span>  &#123;</span></span><br><span class="line">    OLink   * rhead, * chead;</span><br><span class="line">    <span class="type">int</span>          mu, nu, tu;</span><br><span class="line">&#125;CrossList;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
-
 <h1 id="广义表"><a href="#广义表" class="headerlink" title="广义表"></a>广义表</h1><p>广义表本质上是非线性结构，是扩展的线性表：表中的数据元素本身也是一个数据结构。</p>
 <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>广义表是由零个或多个原子或者子表组成的有限序列。可以记作：LS&#x3D;(d1, d2, … , dn)</p>
 <pre><code>**原子：逻辑上不能再分解的元素。**
+
+**子表：作为广义表中元素的广义表。**
 </code></pre>
-<p> **<br>    子表：作为广义表中元素的广义表。**</p>
 <p>广义表中的元素<strong>全部为原子时即为线性表</strong>。线性表是广义表的特例，广义表是线性表的推广。</p>
 <h2 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h2><p><img  
                      lazyload
@@ -713,10 +713,38 @@
                      data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731675476837.png"
                       alt="1731675476837"
                 ></p>
+<h3 id="广义表的长度和深度"><a href="#广义表的长度和深度" class="headerlink" title="广义表的长度和深度"></a>广义表的长度和深度</h3><p>此处重点强调一下广义表的长度和深度</p>
+<p>广义表的长度，指的是<strong>广义表中所包含的数据元素的个数</strong>。</p>
+<p>在计算元素个数时，广义表中存储的 <code>每个原子算作一个数据</code>，同样 <code>每个子表也只算作是一个数据</code>。</p>
+<ul>
+<li>LS &#x3D; {a1,a2,…,an} 的长度为 n；</li>
+<li>广义表 {a,{b,c,d}} 的长度为 2；</li>
+<li>广义表 { {a,b,c} } 的长度为 1；</li>
+<li>空表 {} 的长度为 0。</li>
+<li>其实就是第一层元素和子表个数的和</li>
+</ul>
+<p>广义表的深度，可以通过观察该表中所包含<strong>括号的层数</strong>间接得到</p>
 <h3 id="广义表结构的分类"><a href="#广义表结构的分类" class="headerlink" title="广义表结构的分类"></a>广义表结构的分类</h3><p>•纯表：与树型结构对应的广义表。</p>
 <p>•再入表：允许结点共享的广义表。</p>
 <p>•递归表：允许递归的广义表。</p>
 <p>递归表&gt;再入表&gt;纯表&gt;线性表</p>
+<h3 id="广义表的复制"><a href="#广义表的复制" class="headerlink" title="广义表的复制"></a>广义表的复制</h3><p>任意一个非空广义表来说，都是由两部分组成：表头和表尾。反之，<code>只要确定的一个广义表的表头和表尾，那么这个广义表就可以唯一确定下来</code>。</p>
+<p>对于表头可能是</p>
+<ol>
+<li>子广义表</li>
+<li>单原子</li>
+</ol>
+<p>对于表尾则一定是广义表：</p>
+<ol>
+<li>非空广义表</li>
+<li>空广义表</li>
+</ol>
+<p>所以停止递归的条件有两个：</p>
+<ol>
+<li>表头是一个单原子</li>
+<li>表头&#x2F;表尾是一个空表</li>
+</ol>
+<p>因此复制一个广义表，也是不断的复制表头和表尾的过程。如果表头或者表尾同样是一个广义表，依旧复制其表头和表尾。</p>
 <h2 id="抽象数据类型定义"><a href="#抽象数据类型定义" class="headerlink" title="抽象数据类型定义"></a>抽象数据类型定义</h2><p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -762,30 +790,19 @@
                 ></p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">GListDepth</span><span class="params">(GList1 L)</span></span><br><span class="line">&#123;        <span class="keyword">if</span>  (!L) <span class="keyword">return</span> <span class="number">1</span>;   <span class="comment">//空表</span></span><br><span class="line">          <span class="keyword">if</span>  (L-&gt;tag==ATOM) <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">//单原子</span></span><br><span class="line">          <span class="keyword">for</span> (max=<span class="number">0</span>, pp=L; pp; pp=pp-&gt;ptr.tp) &#123;</span><br><span class="line">                  dep=GListDepth (pp-&gt;ptr.hp);</span><br><span class="line">                  <span class="keyword">if</span> (dep&gt;max) max=dep;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">return</span>  max+<span class="number">1</span>;</span><br><span class="line"> &#125;<span class="comment">//GListDepth</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
-
 <p>[示例2]<br>复制广义表</p>
-<p>–复制操作的递归定义</p>
-<pre><code>基本项：InitGList(NEWLS)
-
-当LS为空表时；
-
-复制单原子结点
-
-当LS为原子时；
-
-归纳项：建表结点；
-
-复制表头；
-
-复制表尾；
-</code></pre>
+<p>复制广义表的过程，其实就是 <code>不断的递归复制广义表中表头和表尾</code>的过程，递归的出口有两个：</p>
+<ul>
+<li>如果当前遍历的数据元素为空表，则直接返回空表。</li>
+<li>如果当前遍历的数据元素为该表的一个原子，那么直接复制，返回即可</li>
+</ul>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/image/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/1731677210245.png"
                       alt="1731677210245"
                 ></p>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Status <span class="title function_">CopyGList</span><span class="params">(GList1 &amp;T, GList1 L)</span></span><br><span class="line">&#123;        <span class="keyword">if</span>  (!L) T=<span class="literal">NULL</span>;   <span class="comment">//复制空表</span></span><br><span class="line">         <span class="keyword">else</span> &#123;</span><br><span class="line">            T=(GList1)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(GLNode));</span><br><span class="line">            <span class="keyword">if</span> (!T) <span class="built_in">exit</span>(OVERFLOW);</span><br><span class="line">            T-&gt;tag=L-&gt;tag;</span><br><span class="line">            <span class="keyword">if</span> (L-&gt;tag==ATOM) T-&gt;atom=L-&gt;atom; <span class="comment">//复制单原子</span></span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                 CopyGList(T-&gt;ptr.hp, L-&gt;ptr.hp);</span><br><span class="line">                 CopyGList(T-&gt;ptr.tp, L-&gt;ptr.tp);</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span>  OK;</span><br><span class="line"> &#125;<span class="comment">//CopyGList</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 广义表的复制, C为复制目标广义表，*T为指向复制后的广义表</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">copyGlist</span><span class="params">(Glist C, Glist *T)</span>&#123;</span><br><span class="line">    <span class="comment">// 如果C为空表，那么复制表直接为空表 </span></span><br><span class="line">    <span class="keyword">if</span> (!C) &#123;</span><br><span class="line">        *T=<span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        *T=(Glist)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(GNode)); <span class="comment">// C不是空表，给T申请内存空间</span></span><br><span class="line">        <span class="comment">// 申请失败，程序停止</span></span><br><span class="line">        <span class="keyword">if</span> (!*T) &#123;</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        (*T)-&gt;tag=C-&gt;tag; <span class="comment">// 复制表C的tag值</span></span><br><span class="line">        <span class="comment">// 判断当前表元素是否为原子，如果是，直接复制</span></span><br><span class="line">        <span class="keyword">if</span> (C-&gt;tag==<span class="number">0</span>) &#123;</span><br><span class="line">            (*T)-&gt;atom=C-&gt;atom;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  <span class="comment">//运行到这，说明复制的是子表</span></span><br><span class="line">            copyGlist(C-&gt;ptr.hp, &amp;((*T)-&gt;ptr.hp));  <span class="comment">//复制表头</span></span><br><span class="line">            copyGlist(C-&gt;ptr.tp, &amp;((*T)-&gt;ptr.tp));  <span class="comment">//复制表尾</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
         </div>
 
@@ -800,7 +817,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-15 21:27:09
+                    :</strong> 2024-11-28 13:14:44
             </li>
         
         <li>
@@ -836,6 +853,21 @@
 
         
             <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/11/28/%E6%9F%A5%E6%89%BE%E8%A1%A8/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">静态查找表</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
@@ -909,7 +941,7 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">数组与广义表</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%92%8C%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E5%85%B3%E7%B3%BB%E4%BB%A5%E5%8F%8A%E6%95%B0%E7%BB%84%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">数组和线性表的关系以及数组的运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">数组的顺序存储结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8E%8B%E7%BC%A9%E5%AD%98%E5%82%A8%EF%BC%88%E5%8E%8B%E7%BC%A9%E4%BB%8E%E8%80%8C%E8%8A%82%E7%9C%81%E7%A9%BA%E9%97%B4%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">矩阵的压缩存储（压缩从而节省空间）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E7%8A%B6%E7%9F%A9%E9%98%B5"><span class="nav-number">1.2.1.</span> <span class="nav-text">带状矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5"><span class="nav-number">1.2.2.</span> <span class="nav-text">随机稀疏矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E5%85%83%E7%BB%84%E8%A1%A8"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">三元组表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82%E4%B8%89%E5%85%83%E7%BB%84%E8%A1%A8%E7%9A%84%E8%BD%AC%E7%BD%AE%E7%9F%A9%E9%98%B5"><span class="nav-number">1.2.2.1.1.</span> <span class="nav-text">求三元组表的转置矩阵</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E9%80%BB%E8%BE%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%A1%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">行逻辑连接的表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E5%AD%97%EF%BC%88%E6%AD%A3%E4%BA%A4%EF%BC%89%E9%93%BE%E8%A1%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">十字（正交）链表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">广义表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.2.</span> <span class="nav-text">表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%BB%93%E6%9E%84%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.2.1.</span> <span class="nav-text">广义表结构的分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">2.3.</span> <span class="nav-text">抽象数据类型定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">2.4.</span> <span class="nav-text">广义表的存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%EF%BC%91%E2%80%94%E5%A4%B4%E5%B0%BE%E9%93%BE%E8%A1%A8%E5%BD%A2%E5%BC%8F"><span class="nav-number">2.4.1.</span> <span class="nav-text">方法１—头尾链表形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%952%E2%80%94%E6%89%A9%E5%B1%95%E7%9A%84%E7%BA%BF%E6%80%A7%E9%93%BE%E8%A1%A8%E5%BD%A2%E5%BC%8F"><span class="nav-number">2.4.2.</span> <span class="nav-text">方法2—扩展的线性链表形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%9A%84%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95"><span class="nav-number">2.5.</span> <span class="nav-text">广义表的递归算法</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%92%8C%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E5%85%B3%E7%B3%BB%E4%BB%A5%E5%8F%8A%E6%95%B0%E7%BB%84%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">数组和线性表的关系以及数组的运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">数组的顺序存储结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8E%8B%E7%BC%A9%E5%AD%98%E5%82%A8%EF%BC%88%E5%8E%8B%E7%BC%A9%E4%BB%8E%E8%80%8C%E8%8A%82%E7%9C%81%E7%A9%BA%E9%97%B4%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">矩阵的压缩存储（压缩从而节省空间）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E7%8A%B6%E7%9F%A9%E9%98%B5"><span class="nav-number">1.2.1.</span> <span class="nav-text">带状矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5"><span class="nav-number">1.2.2.</span> <span class="nav-text">随机稀疏矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E5%85%83%E7%BB%84%E8%A1%A8"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">三元组表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%82%E4%B8%89%E5%85%83%E7%BB%84%E8%A1%A8%E7%9A%84%E8%BD%AC%E7%BD%AE%E7%9F%A9%E9%98%B5"><span class="nav-number">1.2.2.1.1.</span> <span class="nav-text">求三元组表的转置矩阵</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E9%80%BB%E8%BE%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%A1%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">行逻辑连接的表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E5%AD%97%EF%BC%88%E6%AD%A3%E4%BA%A4%EF%BC%89%E9%93%BE%E8%A1%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">十字（正交）链表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">广义表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.2.</span> <span class="nav-text">表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%9A%84%E9%95%BF%E5%BA%A6%E5%92%8C%E6%B7%B1%E5%BA%A6"><span class="nav-number">2.2.1.</span> <span class="nav-text">广义表的长度和深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%BB%93%E6%9E%84%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.2.2.</span> <span class="nav-text">广义表结构的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6"><span class="nav-number">2.2.3.</span> <span class="nav-text">广义表的复制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">2.3.</span> <span class="nav-text">抽象数据类型定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">2.4.</span> <span class="nav-text">广义表的存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%EF%BC%91%E2%80%94%E5%A4%B4%E5%B0%BE%E9%93%BE%E8%A1%A8%E5%BD%A2%E5%BC%8F"><span class="nav-number">2.4.1.</span> <span class="nav-text">方法１—头尾链表形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%952%E2%80%94%E6%89%A9%E5%B1%95%E7%9A%84%E7%BA%BF%E6%80%A7%E9%93%BE%E8%A1%A8%E5%BD%A2%E5%BC%8F"><span class="nav-number">2.4.2.</span> <span class="nav-text">方法2—扩展的线性链表形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8%E7%9A%84%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95"><span class="nav-number">2.5.</span> <span class="nav-text">广义表的递归算法</span></a></li></ol></li></ol>
 
     </div>
 </div>
@@ -942,7 +974,7 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        33 posts in total
+                        35 posts in total
                     </span>
                     
                 </p>

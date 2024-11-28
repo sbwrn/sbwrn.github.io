@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="time will tell">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://sbwrn.github.io/2024/11/28/查找表/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="查找表同一类型的**记录(数据元素)**的集合 数据元素之间存在着松散的关系。为了提高查找的效率，可在元素之间人为地附加某种确定的关系。  静态查找表   对查找表的查找仅是以查询为目的，不改动查找表中的数据。 动态查找表   在查找的过程中同时插入不存在的记录，或删除某个已存在的记录。  关键字   记录(数据元素)中的某个数据项的值。 主关键字   该关键字可以唯一地标识一个记录。 次关键字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="静态查找表">
+<meta property="og:url" content="https://sbwrn.github.io/2024/11/28/%E6%9F%A5%E6%89%BE%E8%A1%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="查找表同一类型的**记录(数据元素)**的集合 数据元素之间存在着松散的关系。为了提高查找的效率，可在元素之间人为地附加某种确定的关系。  静态查找表   对查找表的查找仅是以查询为目的，不改动查找表中的数据。 动态查找表   在查找的过程中同时插入不存在的记录，或删除某个已存在的记录。  关键字   记录(数据元素)中的某个数据项的值。 主关键字   该关键字可以唯一地标识一个记录。 次关键字">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1731980420598.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732583445645.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732584652955.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732584647885.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732594043636.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732594358608.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732594658677.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732607458905.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732607547357.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732607552202.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732608567646.png">
+<meta property="og:image" content="https://file+.vscode-resource.vscode-cdn.net/f%3A/Code/20241118%28csapp%29/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732608874111.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732608940094.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732608954210.png">
+<meta property="article:published_time" content="2024-11-28T01:07:52.549Z">
+<meta property="article:modified_time" content="2024-11-28T01:12:50.313Z">
+<meta property="article:author" content="anybody">
+<meta property="article:tag" content="指南">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sbwrn.github.io/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1731980420598.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/segment.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/segment.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/segment.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            静态查找表 | 日薄西山
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"sbwrn.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"18px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"What makes us normal is knowing that we're not normal.","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/sbwrn/sbwrn.github.io","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.2","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"GITHUB":{"path":"https://github.com/sbwrn/sbwrn.github.io","icon":"fa-brands fa-github"},"GALLERY":{"icon":"fa-solid fa-images","path":"/masonry/"},"Links":{"icon":"fa-regular fa-link","submenus":{"Link1":"https://xxy1103.github.io/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"time will tell everything+","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"MMM D, YYYY","excerpt_length":200,"categories":{"enable":true,"limit":300},"tags":{"enable":true,"limit":300}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container flex flex-col justify-between min-h-dvh">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                日薄西山
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                                        >
+                                    <i class="fa-brands fa-github fa-fw"></i>
+                                    GITHUB
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-images fa-fw"></i>
+                                    GALLERY
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://xxy1103.github.io/">
+                                                    LINK1
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                        >
+                            <span>
+                                GITHUB
+                            </span>
+                            
+                                <i class="fa-brands fa-github fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                GALLERY
+                            </span>
+                            
+                                <i class="fa-solid fa-images fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://xxy1103.github.io/">LINK1</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">35</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">静态查找表</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/sleeves.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">time will tell</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-11-28 09:07:52</span>
+        <span class="mobile">2024-11-28 09:07:52</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-11-28 09:12:50</span>
+            <span class="mobile">2024-11-28 09:12:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%8C%87%E5%8D%97/">指南</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="查找表"><a href="#查找表" class="headerlink" title="查找表"></a>查找表</h1><p>同一类型的**记录(数据元素)**的集合</p>
+<p>数据元素之间存在着松散的关系。为了提高查找的效率，可在元素之间人为地附加某种确定的关系。</p>
+<ul>
+<li>静态查找表   对查找表的查找仅是以查询为目的，不改动查找表中的数据。</li>
+<li>动态查找表   在查找的过程中同时插入不存在的记录，或删除某个已存在的记录。</li>
+</ul>
+<h3 id="关键字-记录-数据元素-中的某个数据项的值。"><a href="#关键字-记录-数据元素-中的某个数据项的值。" class="headerlink" title="关键字   记录(数据元素)中的某个数据项的值。"></a><strong>关键字</strong>   记录(数据元素)中的某个数据项的值。</h3><ul>
+<li>主关键字   该关键字可以唯一地标识一个记录。</li>
+<li>次关键字   该关键字不能唯一标识一个记录。</li>
+</ul>
+<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>指定某个值，在查找表中确定是否存在一个记录，该记录的关键字等于给定值。</p>
+<ul>
+<li>内查找   整个查找过程都在内存中进行，即全部数据元素均在内存。</li>
+<li>外查找   在查找过程中需要访问外存，即数据元素需要分段读入内存查找。</li>
+</ul>
+<p>平均查找长度ASL（ AverageSearch Length ）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1731980420598.png"
+                      alt="1731980420598"
+                ></p>
+<h2 id="静态查找表"><a href="#静态查找表" class="headerlink" title="静态查找表"></a>静态查找表</h2><p>静态查找表以顺序表表示</p>
+<p>基础遍历</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Seq_Search_1</span> <span class="params">(datatype data[ ], keytype kx, <span class="type">int</span> n)</span></span><br><span class="line">&#123; <span class="comment">/*查找表数据存放在data[1]至data[n]中，n是当前表中数据元素个数*/</span></span><br><span class="line">  <span class="comment">/*在表data中查找关键码为kx的数据元素，若找到返回该元素在数组中的下标，否则返回0*/</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> i=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=n &amp;&amp; data[i].key!= kx ) </span><br><span class="line">       i++;   <span class="comment">/* 从表头端向后查找 */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (i&gt;n) </span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span>  </span><br><span class="line">          <span class="keyword">return</span>  i; </span><br><span class="line"> &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>遍历（扫描）到线性表的一个数据元素时，要进行两次比较操作</p>
+<p>但是如果将给定值放在第0个记录处，让遍历从高到低，从后往前查找，就不需要越界检查了（因此少了一半比较操作）</p>
+<p>或者放在最高处n，从0遍历到n也一样</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732583445645.png"
+                      alt="1732583445645"
+                ></p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Int <span class="title function_">Seq_Search_2</span><span class="params">(datatype data[ ], keytype kx, <span class="type">int</span> n)</span></span><br><span class="line">&#123;<span class="comment">/*查找表数据存放在data[0]至data[n-1]中，n是当前表中数据元素个数*/</span></span><br><span class="line"> <span class="comment">/*在表data中查找关键码为kx的数据元素，若找到返回该元素在数组中的下标，否则返回-1*/</span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">//假设 n 小于等于 data数组长度 减一；在表尾设置哨兵</span></span><br><span class="line">    data[n].key=kx;  </span><br><span class="line">    i=<span class="number">0</span>;                       <span class="comment">//从0向后查找</span></span><br><span class="line">    <span class="keyword">while</span>(data[i].key!= kx )  i++;  <span class="comment">/* 从表头向尾端查找 */</span></span><br><span class="line">    <span class="keyword">if</span>( i==n) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> i;</span><br><span class="line">&#125;   </span><br><span class="line">    data[n]分量起到了监视哨的作用。</span><br><span class="line">    这样一个小小的设计技巧，会大大提高查找效率。</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="有序表查找"><a href="#有序表查找" class="headerlink" title="有序表查找"></a>有序表查找</h2><p>而满足 <code>r[i].key &gt;=/&lt;= r[i+1].key</code>的有序表也同样可以设置哨兵值来协助查找</p>
+<p>就 <code>r[i].key &lt;= r[i+1].key</code>为例</p>
+<ol>
+<li>从前向后查找，哨兵设在尾部，当r[i]&gt;&#x3D;key时结束；</li>
+<li>从后向前查找，哨兵设在头部，当r[i]&lt;&#x3D;key时结束；</li>
+</ol>
+<h4 id="斐波那契查找"><a href="#斐波那契查找" class="headerlink" title="斐波那契查找"></a>斐波那契查找</h4><p>设查找表记录数为某个费波拉契数减一，即 n&#x3D;Fu-1，则可将给定值与第Fu -1个记录比较，若比其小，则在1–Fu -1-1记录间查找，否则在Fu -1+1–Fu-1记录间查找 。如下图所示：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732584652955.png"
+                      alt="1732584652955"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732584647885.png"
+                      alt="1732584647885"
+                ></p>
+<h2 id="静态树的查找"><a href="#静态树的查找" class="headerlink" title="静态树的查找"></a>静态树的查找</h2><h4 id="两个原则"><a href="#两个原则" class="headerlink" title="两个原则"></a>两个原则</h4><ol>
+<li>最先访问的结点应是<strong>访问概率最大</strong>的结点；</li>
+<li>每次访问应使结点<strong>两边尚未访问的结点的被访概率之和</strong>尽可能<strong>相等</strong>。</li>
+</ol>
+<h3 id="静态最优查找树"><a href="#静态最优查找树" class="headerlink" title="静态最优查找树"></a>静态最优查找树</h3><p>定义：查找性能最佳的判定树</p>
+<p>性质：带权内路径长度之和PH为最小值</p>
+<p>其中<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732594043636.png"
+                      alt="1732594043636"
+                >与ASL成正比</p>
+<p>n：二叉树上结点的个数(有序表长度)</p>
+<p>hi：第i个结点在二叉树上的层次数</p>
+<p>wi&#x3D;c*pi：c为某个常量；</p>
+<p>pi：第i个结点的查找概率</p>
+<h3 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h3><p>由于构造最优查找树代价太大，转而构造次优查找树，两者性能相差不大</p>
+<h4 id="次优查找树的构造方法"><a href="#次优查找树的构造方法" class="headerlink" title="次优查找树的构造方法"></a>次优查找树的构造方法</h4><p>首先我们有</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732594358608.png"
+                      alt="1732594358608"
+                ></p>
+<p>已知一个序列：(rl,rl+1,……，rh），递增有序。它对应的权值为：(wl,wl+1,……，wh)。</p>
+<p>因此定义：<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732594658677.png"
+                      alt="1732594658677"
+                ></p>
+<p><strong>取 △Pi 最小的那个元素 i 作为根</strong> ，然后分别对子序列（rl,rl+1,……，ri-1）和（ri+1,ri+2,……，rh）同样构造次优查找树，并将其分为左子树和右子树</p>
+<p><strong>在计算 △P<del>i</del> 时，实际上就是计算元素 i 前面的元素的权值之和与元素i后面的元素的权值之和的差值</strong></p>
+<p>由于每次都需要重新计算一下前面的权值和后面权值之差，为提高效率，引入<strong>累计权值和</strong><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732607458905.png"
+                      alt="1732607458905"
+                ></p>
+<p>设 w(l-1) &#x3D; 0 和 sw(l-1) &#x3D; 0</p>
+<p>则<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732607547357.png"
+                      alt="1732607547357"
+                ><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732607552202.png"
+                      alt="1732607552202"
+                ></p>
+<p>这样就把到第i个位置的累计权值和装入数组了，计算一次用多次。</p>
+<h4 id="次优查找树上的查找步骤"><a href="#次优查找树上的查找步骤" class="headerlink" title="次优查找树上的查找步骤"></a>次优查找树上的查找步骤</h4><p>设给定的查找值为K</p>
+<p>将根结点作为当前考察的结点</p>
+<p>1）若当前结点指针为NULL，则返回空指针</p>
+<p>2）将当前结点的关键字key与K比较，</p>
+<ul>
+<li>若K&#x3D;key，则返回当前结点的指针；</li>
+<li>若K&gt;key，将其右孩子作为当前结点，转1）；</li>
+<li>若K&lt;key，将其左孩子作为当前结点，转1）；</li>
+</ul>
+<h2 id="索引顺序表"><a href="#索引顺序表" class="headerlink" title="索引顺序表"></a>索引顺序表</h2><p><strong>分块查找（块间有序，块内无序）</strong></p>
+<p>分块有序：即分成若干子表，要求每个子表中的数值都比后一块中数值小（但子表内部未必有序）</p>
+<p>各子表中的最大关键字构成<strong>索引表</strong>，表中还需要包含对应子表的<strong>起始地址</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732608567646.png"
+                      alt="1732608567646"
+                ></p>
+<h4 id="查找方法"><a href="#查找方法" class="headerlink" title="查找方法"></a>查找方法</h4><ol>
+<li>对索引表使用折半查找法（因为索引表是有序表）；</li>
+<li>确定了待查关键字所在的子表后，在子表内采用顺序查找法（因为各子表内部是无序表）；</li>
+</ol>
+<p>索引顺序查找的平均查找长度 &#x3D; 查找“索引”的平均查找长度 + 查找“块”的平均查找长度</p>
+<ul>
+<li><p>顺序查找索引表+顺序查找被确定的块<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://file+.vscode-resource.vscode-cdn.net/f%3A/Code/20241118%28csapp%29/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732608874111.png"
+                      alt="1732608874111"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732608940094.png"
+                      alt="1732608940094"
+                ></p>
+</li>
+<li><p>折半查找索引表+顺序查找被确定的块<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E6%9F%A5%E6%89%BE%E8%A1%A8/1732608954210.png"
+                      alt="1732608954210"
+                ></p>
+</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 静态查找表</li>
+        <li><strong>Author:</strong> time will tell</li>
+        <li><strong>Created at
+                :</strong> 2024-11-28 09:07:52</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-11-28 09:12:50
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://sbwrn.github.io/2024/11/28/查找表/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/%E6%8C%87%E5%8D%97/">#指南</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/11/28/%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">动态查找表</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/11/16/%E6%95%B0%E7%BB%84%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">数组与广义表</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">静态查找表</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">查找表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97-%E8%AE%B0%E5%BD%95-%E6%95%B0%E6%8D%AE%E5%85%83%E7%B4%A0-%E4%B8%AD%E7%9A%84%E6%9F%90%E4%B8%AA%E6%95%B0%E6%8D%AE%E9%A1%B9%E7%9A%84%E5%80%BC%E3%80%82"><span class="nav-number">1.0.1.</span> <span class="nav-text">关键字   记录(数据元素)中的某个数据项的值。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">1.0.2.</span> <span class="nav-text">查找</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8"><span class="nav-number">1.1.</span> <span class="nav-text">静态查找表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E8%A1%A8%E6%9F%A5%E6%89%BE"><span class="nav-number">1.2.</span> <span class="nav-text">有序表查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">斐波那契查找</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%A0%91%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="nav-number">1.3.</span> <span class="nav-text">静态树的查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E5%8E%9F%E5%88%99"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">两个原则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%9C%80%E4%BC%98%E6%9F%A5%E6%89%BE%E6%A0%91"><span class="nav-number">1.3.1.</span> <span class="nav-text">静态最优查找树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0"><span class="nav-number">1.3.2.</span> <span class="nav-text">构造</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AC%A1%E4%BC%98%E6%9F%A5%E6%89%BE%E6%A0%91%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">次优查找树的构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AC%A1%E4%BC%98%E6%9F%A5%E6%89%BE%E6%A0%91%E4%B8%8A%E7%9A%84%E6%9F%A5%E6%89%BE%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">次优查找树上的查找步骤</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E9%A1%BA%E5%BA%8F%E8%A1%A8"><span class="nav-number">1.4.</span> <span class="nav-text">索引顺序表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">查找方法</span></a></li></ol></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">time will tell</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        35 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/js/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/plugins/masonry.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+</body>
+</html>
