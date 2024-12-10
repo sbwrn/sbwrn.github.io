@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="time will tell">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://sbwrn.github.io/2024/12/02/第四章 处理器体系结构/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="4.1 Y86-64 指令集体系结构4.1.1 可见状态同x86-64样，Y86-64的程序可以访问和修改程序寄存器、条件码、程序计数器(PC)和内存。状态码指明程序运行情况，包括运行状态和特殊事件。 内存从概念上来说就是一个很大的字节数组，保存着程序和数据。 4.1.2 Y86-64指令只包括8字节整数操作，可以只称为“字（word）”  两个内存传送指令中的内存引用方式是简单的基址和偏移量形式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第四章 处理器体系结构">
+<meta property="og:url" content="https://sbwrn.github.io/2024/12/02/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="4.1 Y86-64 指令集体系结构4.1.1 可见状态同x86-64样，Y86-64的程序可以访问和修改程序寄存器、条件码、程序计数器(PC)和内存。状态码指明程序运行情况，包括运行状态和特殊事件。 内存从概念上来说就是一个很大的字节数组，保存着程序和数据。 4.1.2 Y86-64指令只包括8字节整数操作，可以只称为“字（word）”  两个内存传送指令中的内存引用方式是简单的基址和偏移量形式">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733139201118.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733139510534.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733140803138.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733141190651.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733212503213.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733298322355.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733298752529.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733298827349.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733298848490.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733299017703.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733306780301.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733310985356.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733312508472.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733312709675.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733313740030.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733313958058.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733314139335.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733314242089.png">
+<meta property="article:published_time" content="2024-12-02T11:02:48.718Z">
+<meta property="article:modified_time" content="2024-12-04T12:13:09.658Z">
+<meta property="article:author" content="anybody">
+<meta property="article:tag" content="指南">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733139201118.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/segment.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/segment.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/segment.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            第四章 处理器体系结构 | 日薄西山
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/build/css/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"sbwrn.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"18px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"What makes us normal is knowing that we're not normal.","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/sbwrn/sbwrn.github.io","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.8.1","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"GITHUB":{"path":"https://github.com/sbwrn/sbwrn.github.io","icon":"fa-brands fa-github"},"GALLERY":{"icon":"fa-solid fa-images","path":"/masonry/"},"Links":{"icon":"fa-regular fa-link","submenus":{"Link1":"https://xxy1103.github.io/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"time will tell everything+","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"MMM D, YYYY","excerpt_length":200,"categories":{"enable":true,"limit":300},"tags":{"enable":true,"limit":300}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                日薄西山
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                                        >
+                                    <i class="fa-brands fa-github fa-fw"></i>
+                                    GITHUB
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-images fa-fw"></i>
+                                    GALLERY
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://xxy1103.github.io/">
+                                                    LINK1
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                        >
+                            <span>
+                                GITHUB
+                            </span>
+                            
+                                <i class="fa-brands fa-github fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                GALLERY
+                            </span>
+                            
+                                <i class="fa-solid fa-images fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://xxy1103.github.io/">LINK1</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">第四章 处理器体系结构</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/sleeves.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">time will tell</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-12-02 19:02:48</span>
+        <span class="mobile">2024-12-02 19:02:48</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-12-04 20:13:09</span>
+            <span class="mobile">2024-12-04 20:13:09</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/csapp/">csapp</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%8C%87%E5%8D%97/">指南</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="4-1-Y86-64-指令集体系结构"><a href="#4-1-Y86-64-指令集体系结构" class="headerlink" title="4.1 Y86-64 指令集体系结构"></a>4.1 Y86-64 指令集体系结构</h1><h2 id="4-1-1-可见状态"><a href="#4-1-1-可见状态" class="headerlink" title="4.1.1 可见状态"></a>4.1.1 可见状态</h2><p>同x86-64样，Y86-64的程序可以访问和修改<strong>程序寄存器、条件码、程序计数器(PC)和内存</strong>。状态码指明程序运行情况，包括运行状态和特殊事件。</p>
+<p>内存从概念上来说就是一个很大的字节数组，保存着程序和数据。</p>
+<h2 id="4-1-2-Y86-64指令"><a href="#4-1-2-Y86-64指令" class="headerlink" title="4.1.2 Y86-64指令"></a>4.1.2 Y86-64指令</h2><p>只包括8字节整数操作，可以只称为“字（word）”</p>
+<ul>
+<li>两个内存传送指令中的内存引用方式是简单的基址和偏移量形式，但是不支持第二变址寄存器和任何寄存器值的伸缩<br>不允许<strong>从一个内存地址直接传送到另一个内存地址</strong>。另外，也不允许<strong>将立即数传送到内存</strong>。</li>
+<li>4个整数操作指令：addq、subq、andq、xorq<strong>只对寄存器数据进行操作</strong>。x86额外允许对内存数据进行操作，同时设置条件码ZF、SF、OF</li>
+<li>7个跳转指令根据指令类型和条件码选择分支</li>
+<li>6个条件传送指令，当条件码满足时更新</li>
+<li>ca11指令将返回地址入栈，然后跳到目的地址。ret指令从这样的调用中返回。</li>
+<li>halt 指令停止指令的执行，导致处理器停止，并将状态码设置为HLT</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733139201118.png"
+                      alt="1733139201118"
+                ></p>
+<h2 id="4-1-3-指令编码"><a href="#4-1-3-指令编码" class="headerlink" title="4.1.3 指令编码"></a>4.1.3 指令编码</h2><p>每条指令的第一个字节表明指令的类型，高四位是代码（code）部分，第四位是功能（function）部分</p>
+<blockquote>
+<p>rrmovq与条件传送有同样的指令代码。可以把它看作是一个“无条件传送”，就好像jmp指令是无条件跳转一样，它们的功能代码都是0。</p>
+</blockquote>
+<p>15个程序寄存器中每一个都对应一个寄存器标识符（register ID）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733139510534.png"
+                      alt="1733139510534"
+                ></p>
+<blockquote>
+<p>程序寄存器存在CPU中的一个寄存器文件中，这个寄存器文件就是一个小的、以寄存器ID作为地址的随机访问存储器。</p>
+</blockquote>
+<ul>
+<li>如果需要操作数的指令编码会更长一些，比如说：寄存器指示符字节（register spectifier byte），用来指定一两个寄存器。根据指令类型，指令可以指定用于数据源和目的的寄存器，或是用于地址计算的基址寄存器。</li>
+<li>没有寄存器操作数的指令，例如分支指令和ca11指令，就没有寄存器指示符字节。</li>
+<li>只需要一个寄存器操作数的指令(irmovq、pushq和popg)将另一个寄存器指示符设为0xE。</li>
+<li>有的指令需要附加4字节的常数字，作为<strong>立即数数据</strong>（如irmovq）、地址指示符的<strong>偏移量</strong>、分支指令和调用指令的<strong>目的地址</strong></li>
+</ul>
+<blockquote>
+<p>注意：分支指令和调用指令的目的是一个绝对地址</p>
+</blockquote>
+<p>指令集的一个重要性质就是字节编码必须有唯一的解释。任意一个字节序列要么是一个唯一的指令序列的编码，要么就不是一个合法的字节序列。</p>
+<p>RISC与CISC</p>
+<h2 id="4-1-4-Y86-64-异常"><a href="#4-1-4-Y86-64-异常" class="headerlink" title="4.1.4 Y86-64 异常"></a>4.1.4 Y86-64 异常</h2><p>状态码中除了AOK以外的任何代码都会使处理器停止<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733140803138.png"
+                      alt="1733140803138"
+                ></p>
+<h2 id="4-1-5-Y86-64-程序"><a href="#4-1-5-Y86-64-程序" class="headerlink" title="4.1.5 Y86-64 程序"></a>4.1.5 Y86-64 程序</h2><p>x86-64代码是由GCC编译器产生的。Y86-64代码与之类似，但有以下不同点：</p>
+<ul>
+<li>Y86将常数加载到寄存器，因为不能使用立即数</li>
+<li>从内存中读取数值并将其与寄存器相加，Y86需要两条指令而X86只需要一条add（因为Y86 add只能对寄存器操作）</li>
+<li>Y86中手工写的subq同时设置了条件码，因此testq就不是必需的；</li>
+<li>Y86必须用andq指令在进入循环前设置条件码</li>
+</ul>
+<p>汇编器伪指令（assembler directives）：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733141190651.png"
+                      alt="1733141190651"
+                ></p>
+<p>它们告诉汇编器调整地址，以便在那儿产生代码或插人一些数据。</p>
+<blockquote>
+<p>伪指令.pos0(第2行)告诉汇编器应该从地址0处开始产生代码。这个地址是所有Y86-64程序的起点。接下来的一条指令(第3行)初始化栈指针。我们可以看到程序结尾处(第40行)声明了标号stack，并且用一个.pos伪指令(第39行)指明地址0x200。因此栈会从这个地址开始，向低地址增长</p>
+</blockquote>
+<p>顺带一提，创建Y86代码的唯一工具是汇编器</p>
+<h2 id="4-1-6-详情"><a href="#4-1-6-详情" class="headerlink" title="4.1.6 详情"></a>4.1.6 详情</h2><p>pushq会将栈指针减8，并将一个寄存器的值写入内存中</p>
+<p>那么当使用pushq %rsp会出现未定义的情况（练习题4.7）</p>
+<p>popq会将栈指针加8，并从内存中读出一个值传入寄存器</p>
+<p>同样popq %rsp会出现未定义的情况（练习题4.8）</p>
+<h1 id="4-2-逻辑设计和硬件控制语言HCL"><a href="#4-2-逻辑设计和硬件控制语言HCL" class="headerlink" title="4.2 逻辑设计和硬件控制语言HCL"></a>4.2 逻辑设计和硬件控制语言HCL</h1><h2 id="4-2-3-字级的组合电路和-HCL-整数表达式"><a href="#4-2-3-字级的组合电路和-HCL-整数表达式" class="headerlink" title="4.2.3 字级的组合电路和 HCL 整数表达式"></a>4.2.3 字级的组合电路和 HCL 整数表达式</h2><p>通过设计对数据字（word）进行操作的电路</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733212503213.png"
+                      alt="1733212503213"
+                ></p>
+<h2 id="4-2-4-集合关系"><a href="#4-2-4-集合关系" class="headerlink" title="4.2.4 集合关系"></a>4.2.4 集合关系</h2><p>其实是地址译码来控制选择器</p>
+<h2 id="4-2-5-存储器与时钟"><a href="#4-2-5-存储器与时钟" class="headerlink" title="4.2.5 存储器与时钟"></a>4.2.5 存储器与时钟</h2><p>时序电路基础</p>
+<ul>
+<li>时钟寄存器(简称寄存器)存储单个位或字。时钟信号控制寄存器加载输入值。</li>
+<li>随机访问存储器(简称内存)存储多个字，用地址来选择该读或该写哪个字。随机访问存储器的例子包括:<br>1)处理器的虚拟内存系统，硬件和操作系统软件结合起来使处理器可以在一个很大的地址空间内访问任意的字;<br>2)寄存器文件，在此，寄存器标识符作为地址。在IA32或Y86-64处理器中，寄存器文件有15个程序寄存器(号<br>rax~号r14)。</li>
+</ul>
+<p>大多数时候，寄存器都保持在稳定状态(用x表示)，产生的输出等于它的当前状态。</p>
+<p>一个新的寄存器输入(用y表示)，但只要时钟是低电位的，寄存器的输出就仍然保持不变。当时钟变成<strong>高电位</strong>的时候，<strong>输人信号就加载到寄存器中</strong>，成为下一个状态 y，直到下一个时钟上升沿</p>
+<p>总结：每当每个时钟到达上升沿时，值才会从寄存器的输入传送到输出。</p>
+<blockquote>
+<p>从寄存器文件读数据就好像它是一个以地址为输入、数据为输出的一个组合逻辑块。当srcA或srcB被设成某个寄存器ID时，在一段延迟之后，存储在相应程序寄存器的值就会出现在valA或 va1B上。例如，将src设为3，就会读出程序寄存器rbx的值，然后这个值就会出现在输出val上。</p>
+</blockquote>
+<h1 id="4-3-Y86的顺序实现"><a href="#4-3-Y86的顺序实现" class="headerlink" title="4.3 Y86的顺序实现"></a>4.3 Y86的顺序实现</h1><h2 id="4-3-1-将处理组织成阶段"><a href="#4-3-1-将处理组织成阶段" class="headerlink" title="4.3.1 将处理组织成阶段"></a>4.3.1 将处理组织成阶段</h2><p>所有指令遵循统一的序列：</p>
+<ul>
+<li>取指(fetch):取指阶段从内存读取指令字节，地址为程序计数器(PC)的值。从指令中抽取出指令指示符字节的两个四位部分，称为icode(指令代码)和ifun(指令功能)。</li>
+</ul>
+<blockquote>
+<p>它可能取出一个寄存器指示符字节，指明一个或两个寄存器操作数指示符rA和rB。它还可能取出一个四字节常数字valc。它按顺序方式计算当前指令的下一条指令的地址 valp。也就是说，valp等于PC的值加上已取出指令的长度。</p>
+</blockquote>
+<ul>
+<li>译码阶段从寄存器文件读人最多两个操作数，得到值 valA 和&#x2F;或 valB。</li>
+</ul>
+<blockquote>
+<p>通常，它读入指令rA和rB字段指明的寄存器，不过有些指令是读寄存器rsp的。</p>
+</blockquote>
+<ul>
+<li>执行(execute):在执行阶段，算术&#x2F;逻辑单元(ALU)要么执行指令指明的操作(根据ifun的值)，计算内存引用的有效地址，要么增加或减少栈指针。</li>
+</ul>
+<blockquote>
+<p>这个阶段检验条件码和传送条件，如果条件成立，则更新目标寄存器，同样对于一条跳转指令来说这个阶段会决定选择分支</p>
+</blockquote>
+<ul>
+<li>访存(memory):访存阶段可以将数据写人内存，或者从内存读出数据。读出的值为 valM。</li>
+<li>写回(write back):写回阶段最多可以写两个结果到寄存器文件</li>
+<li>更新PC(PCupdate):将PC设置成下一条指令的地址。</li>
+</ul>
+<p>Y86-64 指令 0Pq、rrmovq和 irmovq在顺序实现中的计算。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733298322355.png"
+                      alt="1733298322355"
+                ></p>
+<p>总结而言，整数操作指令的处理遵循以上模式</p>
+<ul>
+<li>在取指阶段，我们不需要常数字，所以 valp就计算为 PC+2。</li>
+<li>在译码阶段，我们要读两个操作数。在执行阶段，它们和功能指示符 ifun 一起再提供给 ALU，这样一来 valE 就成为了指令结果。</li>
+<li>在写回阶段，valE被写入寄存器rB，然后PC设为valp，整个指令的执行就结束了。</li>
+</ul>
+<p>以下是ALU来加valC和valB的处理得到内存操作的有效地址的操作</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733298752529.png"
+                      alt="1733298752529"
+                ></p>
+<p>push和pop</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733298827349.png"
+                      alt="1733298827349"
+                ></p>
+<p>跳转与返回</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733298848490.png"
+                      alt="1733298848490"
+                ></p>
+<h2 id="4-3-2-SEQ硬件结构"><a href="#4-3-2-SEQ硬件结构" class="headerlink" title="4.3.2 SEQ硬件结构"></a>4.3.2 SEQ硬件结构</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733299017703.png"
+                      alt="1733299017703"
+                ></p>
+<p>信息从左下角PC起，沿着线向上向右移动</p>
+<p>硬件单元与各个处理阶段关联：</p>
+<ul>
+<li>取指:将程序计数器寄存器作为地址，指令内存读取指令的字节。PC增加器(PCincre-menter)计算 valp，即<strong>增加了的程序计数器</strong></li>
+<li>译码:寄存器文件有两个读端口A和B,从这两个端口同时读寄存器值 valA 和 valB。</li>
+<li>执行:执行阶段会根据指令的类型，将算术&#x2F;逻辑单元(ALU)用于不同的目的。对整数操作，它要执行指令所指定的运算。对其他指令，它会作为一个加法器来计算增加或减少栈指针，或者计算有效地址，或者只是简单地加0，将一个输入传递到输出。</li>
+</ul>
+<blockquote>
+<p>条件码寄存器(CC)有三个条件码位。ALU负责计算条件码的新值。当执行条件传送指令时，根据条件码和传送条件来计算决定是否更新目标寄存器。同样，当执行一条跳转指令时，会根据条件码和跳转类型来计算分支信号cnd。</p>
+</blockquote>
+<ul>
+<li>访存:在执行访存操作时，数据内存读出或写人一个内存字。指令和数据内存访问的是相同的内存位置，但是用于不同的目的。</li>
+<li>写回:寄存器文件有两个写端口。端口E用来写ALU计算出来的值，而端口M用来写从数据内存中读出的值。</li>
+<li>PC 更新:程序计数器的新值选择自:valp，下一条指令的地址;valc，调用指令或跳转指令指定的目标地址;valM，从内存读取的返回地址。</li>
+</ul>
+<h5 id="SEQ硬件结构画图惯例"><a href="#SEQ硬件结构画图惯例" class="headerlink" title="SEQ硬件结构画图惯例"></a>SEQ硬件结构画图惯例</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733306780301.png"
+                      alt="1733306780301"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733310985356.png"
+                      alt="1733310985356"
+                ></p>
+<h2 id="4-3-3-SEQ时序"><a href="#4-3-3-SEQ时序" class="headerlink" title="4.3.3 SEQ时序"></a>4.3.3 SEQ时序</h2><p>SEQ的实现包括组合逻辑和两种存储器设备：</p>
+<ul>
+<li>时钟寄存器：程序计数器、条件码寄存器</li>
+<li>随机访问存储器：寄存器文件、指令内存、数据内存</li>
+</ul>
+<p>每个时钟周期，程序计数器都会装载新的指令地址。只有在执行整数运算指令时，才会装载条件码寄存器。只有在执行rmmovq、pushq或ca1指令时，才会写数据内存。</p>
+<p>寄存器文件的两个写端口允许每个时钟周期更新两个程序寄存器。</p>
+<h6 id="原则-从不回读"><a href="#原则-从不回读" class="headerlink" title="原则:从不回读"></a>原则:从不回读</h6><p><strong>处理器从来不需要为了完成一条指令的执行而去读由该指令更新了的状态</strong></p>
+<p>p276&#x2F;312</p>
+<h2 id="4-3-4-SEQ阶段的实现"><a href="#4-3-4-SEQ阶段的实现" class="headerlink" title="4.3.4 SEQ阶段的实现"></a>4.3.4 SEQ阶段的实现</h2><p>设计实现SEQ所需要的控制逻辑块的HCL描述</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733312508472.png"
+                      alt="1733312508472"
+                ></p>
+<h4 id="1-取址阶段"><a href="#1-取址阶段" class="headerlink" title="1.取址阶段"></a>1.取址阶段</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733312709675.png"
+                      alt="1733312709675"
+                ></p>
+<p>以PC作为起始地址，从指令内存中读出10个字节。根据这些字节，我们产生出各个指令字段：</p>
+<ol>
+<li>第一个字节被解释成<strong>指令字节</strong>，(标号为“Split”的单元)分为两个4位的数</li>
+<li>标号为“icode”和“ifun”的控制<strong>逻辑块计算指令</strong>和<strong>功能码</strong>，或者使之等于从内存读出的值，或者当指令地址不合法时(由信号imem error指明)，使这些值对应于nop指令</li>
+</ol>
+<p>根据icode的值，计算三个一位信号</p>
+<ul>
+<li>instr_valid:  用来发现不合法的指令</li>
+<li>need_regids:  是否包括一个寄存器指示符字节</li>
+<li>need_valc:  指令是否包括一个常数字吗?</li>
+</ul>
+<p>(当指令地址越界时会产生的)信号 instr_valid 和 imem_error 在访存阶段被用来</p>
+<h4 id="2-译码和写回阶段"><a href="#2-译码和写回阶段" class="headerlink" title="2.译码和写回阶段"></a>2.译码和写回阶段</h4><p>寄存器文件具有4个端口，支持同时进行两个读（A、B）和两个写（E、M），每个端口都有一个地址连接（寄存器ID）和一个数据连接（一组64根线路，可读可写）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733313740030.png"
+                      alt="1733313740030"
+                ></p>
+<p>从寄存器文件中读出的值成为信号valA 和valB。两个写回值valE 和va1M作为写操作的数据</p>
+<h4 id="3-执行阶段"><a href="#3-执行阶段" class="headerlink" title="3.执行阶段"></a>3.执行阶段</h4><p><strong>算术&#x2F;逻辑单元（ALU）</strong></p>
+<p>根据 alufun信号的设置，对输人alua和aluB执行 ADD、SUBTRACT、AND或EXCLUSIVE-OR运算。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733313958058.png"
+                      alt="1733313958058"
+                ></p>
+<p>ALU要么为整数运算指令执行操作，要么作为加法器。根据ALU的值，设置条件码寄存器。检测条件码的值，判断是否该选择分支</p>
+<h4 id="4-访存阶段"><a href="#4-访存阶段" class="headerlink" title="4.访存阶段"></a>4.访存阶段</h4><p><strong>读写数据</strong>：</p>
+<p>两个控制块产生内存地址和内存输人数据(为写操作)的值。另外两个块产生表明应该执行读操作还是写操作的控制信号。</p>
+<p>当执行读操作时，数据内存产生值 valM。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733314139335.png"
+                      alt="1733314139335"
+                ></p>
+<p>数据内存既可以写，也可以读内存的值。从内存中读出的值就形成了信号 valM</p>
+<h4 id="5-更新PC"><a href="#5-更新PC" class="headerlink" title="5.更新PC"></a>5.更新PC</h4><p><strong>产生程序计数器的新值</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/1733314242089.png"
+                      alt="1733314242089"
+                ></p>
+<p>根据指令代码和分支标志，从信号valC、valM和 valp 中选出下一个 PC的值</p>
+<h4 id="6-小结"><a href="#6-小结" class="headerlink" title="6.小结"></a>6.小结</h4><p>SEQ唯一的问题就是它太慢了。时钟必须非常慢，以使信号能在一个周期内传播所有的阶段。</p>
+<p>在时钟周期起始时，从更新过的PC开始，要从指令内存中读出指令，从寄存器文件中读出栈指针，ALU将栈指针加8，为了得到程序计数器的下一个值，还要从内存中读出返回地址。</p>
+<p>所有这一切都必须在这个周期结束之前完成。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 第四章 处理器体系结构</li>
+        <li><strong>Author:</strong> time will tell</li>
+        <li><strong>Created at
+                :</strong> 2024-12-02 19:02:48</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-12-04 20:13:09
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://sbwrn.github.io/2024/12/02/第四章 处理器体系结构/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E6%8C%87%E5%8D%97/">#指南</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/12/10/%E5%86%85%E9%83%A8%E6%8E%92%E5%BA%8F/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">内部排序</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/12/02/%E5%93%88%E5%B8%8C/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">哈希</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">第四章 处理器体系结构</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#4-1-Y86-64-%E6%8C%87%E4%BB%A4%E9%9B%86%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">4.1 Y86-64 指令集体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-1-%E5%8F%AF%E8%A7%81%E7%8A%B6%E6%80%81"><span class="nav-number">1.1.</span> <span class="nav-text">4.1.1 可见状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-2-Y86-64%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">4.1.2 Y86-64指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-3-%E6%8C%87%E4%BB%A4%E7%BC%96%E7%A0%81"><span class="nav-number">1.3.</span> <span class="nav-text">4.1.3 指令编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-4-Y86-64-%E5%BC%82%E5%B8%B8"><span class="nav-number">1.4.</span> <span class="nav-text">4.1.4 Y86-64 异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-5-Y86-64-%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.5.</span> <span class="nav-text">4.1.5 Y86-64 程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-6-%E8%AF%A6%E6%83%85"><span class="nav-number">1.6.</span> <span class="nav-text">4.1.6 详情</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-2-%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1%E5%92%8C%E7%A1%AC%E4%BB%B6%E6%8E%A7%E5%88%B6%E8%AF%AD%E8%A8%80HCL"><span class="nav-number">2.</span> <span class="nav-text">4.2 逻辑设计和硬件控制语言HCL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-3-%E5%AD%97%E7%BA%A7%E7%9A%84%E7%BB%84%E5%90%88%E7%94%B5%E8%B7%AF%E5%92%8C-HCL-%E6%95%B4%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">4.2.3 字级的组合电路和 HCL 整数表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-4-%E9%9B%86%E5%90%88%E5%85%B3%E7%B3%BB"><span class="nav-number">2.2.</span> <span class="nav-text">4.2.4 集合关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-5-%E5%AD%98%E5%82%A8%E5%99%A8%E4%B8%8E%E6%97%B6%E9%92%9F"><span class="nav-number">2.3.</span> <span class="nav-text">4.2.5 存储器与时钟</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-3-Y86%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">4.3 Y86的顺序实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-1-%E5%B0%86%E5%A4%84%E7%90%86%E7%BB%84%E7%BB%87%E6%88%90%E9%98%B6%E6%AE%B5"><span class="nav-number">3.1.</span> <span class="nav-text">4.3.1 将处理组织成阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-2-SEQ%E7%A1%AC%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">3.2.</span> <span class="nav-text">4.3.2 SEQ硬件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SEQ%E7%A1%AC%E4%BB%B6%E7%BB%93%E6%9E%84%E7%94%BB%E5%9B%BE%E6%83%AF%E4%BE%8B"><span class="nav-number">3.2.0.0.1.</span> <span class="nav-text">SEQ硬件结构画图惯例</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-3-SEQ%E6%97%B6%E5%BA%8F"><span class="nav-number">3.3.</span> <span class="nav-text">4.3.3 SEQ时序</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8E%9F%E5%88%99-%E4%BB%8E%E4%B8%8D%E5%9B%9E%E8%AF%BB"><span class="nav-number">3.3.0.0.0.1.</span> <span class="nav-text">原则:从不回读</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-4-SEQ%E9%98%B6%E6%AE%B5%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.4.</span> <span class="nav-text">4.3.4 SEQ阶段的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8F%96%E5%9D%80%E9%98%B6%E6%AE%B5"><span class="nav-number">3.4.0.1.</span> <span class="nav-text">1.取址阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%AF%91%E7%A0%81%E5%92%8C%E5%86%99%E5%9B%9E%E9%98%B6%E6%AE%B5"><span class="nav-number">3.4.0.2.</span> <span class="nav-text">2.译码和写回阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%89%A7%E8%A1%8C%E9%98%B6%E6%AE%B5"><span class="nav-number">3.4.0.3.</span> <span class="nav-text">3.执行阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%AE%BF%E5%AD%98%E9%98%B6%E6%AE%B5"><span class="nav-number">3.4.0.4.</span> <span class="nav-text">4.访存阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E6%9B%B4%E6%96%B0PC"><span class="nav-number">3.4.0.5.</span> <span class="nav-text">5.更新PC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%B0%8F%E7%BB%93"><span class="nav-number">3.4.0.6.</span> <span class="nav-text">6.小结</span></a></li></ol></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">time will tell</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        38 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.1</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/build/js/libs/Swup.min.js"></script>
+
+<script src="/build/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/build/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/build/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/build/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/build/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/build/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/build/js/utils.js" type="module"></script>
+
+<script src="/build/js/main.js" type="module"></script>
+
+<script src="/build/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/build/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/build/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/build/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/build/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/build/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/build/js/tools/runtime.js"></script>
+
+    
+<script src="/build/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/build/js/libs/Typed.min.js"></script>
+
+  
+<script src="/build/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/build/js/libs/minimasonry.min.js"></script>
+
+    
+<script src="/build/js/plugins/masonry.js" type="module"></script>
+
+
+
+
+    
+<script src="/build/js/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/build/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/build/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/build/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/build/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/build/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

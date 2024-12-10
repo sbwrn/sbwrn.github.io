@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="time will tell">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://sbwrn.github.io/2024/12/02/哈希/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="Hash，一般翻译做“散列”，也有直接音译为“哈希”的，就是把任意长度的输入（又叫做预映射， pre-image），通过散列算法，变换成固定长度的输出，该输出就是散列值。 简单的说就是一种将任意长度的消息压缩到某一固定长度的消息摘要的函数。 哈希查找表根据设定的哈希函数H（key）和处理冲突方法将一组关键字映射到一个有限的地址区间上 即让存储位置与关键字之间存在对应关系 $Loc(i)&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="哈希">
+<meta property="og:url" content="https://sbwrn.github.io/2024/12/02/%E5%93%88%E5%B8%8C/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hash，一般翻译做“散列”，也有直接音译为“哈希”的，就是把任意长度的输入（又叫做预映射， pre-image），通过散列算法，变换成固定长度的输出，该输出就是散列值。 简单的说就是一种将任意长度的消息压缩到某一固定长度的消息摘要的函数。 哈希查找表根据设定的哈希函数H（key）和处理冲突方法将一组关键字映射到一个有限的地址区间上 即让存储位置与关键字之间存在对应关系 $Loc(i)&#x3D;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E5%93%88%E5%B8%8C/1733103570031.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E5%93%88%E5%B8%8C/1733104053040.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E5%93%88%E5%B8%8C/1733108875180.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E5%93%88%E5%B8%8C/1733108991235.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E5%93%88%E5%B8%8C/1733108998939.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E5%93%88%E5%B8%8C/1733109005066.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E5%93%88%E5%B8%8C/1733109010816.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E5%93%88%E5%B8%8C/1733109018086.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E5%93%88%E5%B8%8C/1733109023176.png">
+<meta property="article:published_time" content="2024-12-02T01:13:42.882Z">
+<meta property="article:modified_time" content="2024-12-08T07:03:57.530Z">
+<meta property="article:author" content="anybody">
+<meta property="article:tag" content="指南">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sbwrn.github.io/image/%E5%93%88%E5%B8%8C/1733103570031.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/segment.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/segment.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/segment.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            哈希 | 日薄西山
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/build/css/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"sbwrn.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"18px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"What makes us normal is knowing that we're not normal.","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/sbwrn/sbwrn.github.io","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.8.1","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"GITHUB":{"path":"https://github.com/sbwrn/sbwrn.github.io","icon":"fa-brands fa-github"},"GALLERY":{"icon":"fa-solid fa-images","path":"/masonry/"},"Links":{"icon":"fa-regular fa-link","submenus":{"Link1":"https://xxy1103.github.io/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"time will tell everything+","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"MMM D, YYYY","excerpt_length":200,"categories":{"enable":true,"limit":300},"tags":{"enable":true,"limit":300}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                日薄西山
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                                        >
+                                    <i class="fa-brands fa-github fa-fw"></i>
+                                    GITHUB
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-images fa-fw"></i>
+                                    GALLERY
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://xxy1103.github.io/">
+                                                    LINK1
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                        >
+                            <span>
+                                GITHUB
+                            </span>
+                            
+                                <i class="fa-brands fa-github fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                GALLERY
+                            </span>
+                            
+                                <i class="fa-solid fa-images fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://xxy1103.github.io/">LINK1</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">哈希</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/sleeves.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">time will tell</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-12-02 09:13:42</span>
+        <span class="mobile">2024-12-02 09:13:42</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-12-08 15:03:57</span>
+            <span class="mobile">2024-12-08 15:03:57</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%8C%87%E5%8D%97/">指南</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p><a class="link"   target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Hash&spm=1001.2101.3001.7020" >Hash<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，一般<strong>翻译</strong>做“散列”，也有直接音译为“哈希”的，就是把任意长度的输入（又叫做预映射， pre-image），通过散列算法，变换成固定长度的输出，该输出就是散列值。</p>
+<p>简单的说就是一种将任意长度的消息压缩到某一固定长度的消息摘要的<a class="link"   target="_blank" rel="noopener" href="https://marketing.csdn.net/p/3127db09a98e0723b83b2914d9256174?pId=2782?utm_source=glcblog&spm=1001.2101.3001.7020" >函数<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+<h2 id="哈希查找表"><a href="#哈希查找表" class="headerlink" title="哈希查找表"></a>哈希查找表</h2><p>根据设定的哈希函数H（key）和处理冲突方法将一组关键字映射到一个有限的地址区间上</p>
+<p>即让存储位置与关键字之间存在对应关系 $Loc(i)&#x3D;H(keyi)$ ，其中H为哈希函数。</p>
+<p>详细内容请见<a class="link"   target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_hashing/hash_algorithm/?h=%E5%93%88%E5%B8%8C#631" >Hello算法哈希<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><ul>
+<li>哈希表：一个有限的连续的地址空间，用以容纳按哈希地址存储的记录。</li>
+<li>哈希函数：$Loc(ri)&#x3D;H(keyi)$  记录的存储位置与它的关键字之间存在的一种对应关系。</li>
+<li>冲突：对于$keyi !&#x3D; keyj$ , 且$ i !&#x3D; j$<br>但是出现$H(keyi) &#x3D; H(keyj)$<br>虽然$H(keyi) !&#x3D; H(keyj)$，但$keyi$在哈希表中占用了$keyj$的存储位置。</li>
+<li>同义词：keyi !&#x3D; keyj 但 H(Keyi)和 H(keyj) 相同</li>
+<li>哈希(散列)地址：根据设定的哈希函数H(key)和处理冲突的方法确定的记录的存储位置。</li>
+<li>装填因子：表中填入的记录数n和哈希表表长 m之比。<br><code>a=n/m</code></li>
+</ul>
+<h3 id="哈希的查找"><a href="#哈希的查找" class="headerlink" title="哈希的查找"></a>哈希的查找</h3><p>哈希计算得到地址后，取地址内的值与关键字比较；冲突后处理冲突得到新的地址，重复上述过程。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E5%93%88%E5%B8%8C/1733103570031.png"
+                      alt="1733103570031"
+                ></p>
+<h3 id="哈希表的建立"><a href="#哈希表的建立" class="headerlink" title="哈希表的建立"></a>哈希表的建立</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E5%93%88%E5%B8%8C/1733104053040.png"
+                      alt="1733104053040"
+                ></p>
+<h5 id="直接定址法"><a href="#直接定址法" class="headerlink" title="直接定址法"></a>直接定址法</h5><p>$$<br>H(key)&#x3D;a*key + b<br>$$</p>
+<p>计算简单，冲突最少</p>
+<p>但<strong>仅适合于：地址集合的大小&#x3D; &#x3D; 关键字集合的大小</strong></p>
+<h5 id="数字分析法"><a href="#数字分析法" class="headerlink" title="数字分析法"></a>数字分析法</h5><p>取关键字的若干数位作为哈希地址</p>
+<p>对每个关键字都是由 s 位数字组成的全体，从中提取分布均匀的若干位或它们的组合作为地址。</p>
+<p><strong>仅适合于：能预先估计出全体关键字的每一位上各种数字出现的频度。</strong></p>
+<h5 id="平方取中法"><a href="#平方取中法" class="headerlink" title="平方取中法"></a>平方取中法</h5><p>取关键字平方后的中间几位作为哈希地址</p>
+<p><strong>此方法适合于: 关键字中的每一位都有某些数字重复出现频度很高的现象。</strong></p>
+<h5 id="折叠法"><a href="#折叠法" class="headerlink" title="折叠法"></a>折叠法</h5><p>将关键字分割成位数相同的几部分(最后一部分的位数可以不同)，然后取这几个部分的叠加和(舍去进位)作为哈希地址</p>
+<p><strong>此方法适合于: 关键字的数字位数特别多。</strong></p>
+<h5 id="除留余数法"><a href="#除留余数法" class="headerlink" title="除留余数法"></a>除留余数法</h5><p>H(key) &#x3D; key MOD p  （p: 最好为素数 ,更有利于“散列”）</p>
+<p>p的限制目的是减少冲突的可能</p>
+<h5 id="伪-随机数法"><a href="#伪-随机数法" class="headerlink" title="(伪)随机数法"></a>(伪)随机数法</h5><p>H(key) &#x3D; random(key)</p>
+<p>选取一个用关键字作为种子的伪随机数发生器生成散列地址</p>
+<p><strong>适合于:关键字长度不等时的情况</strong></p>
+<h3 id="处理冲突"><a href="#处理冲突" class="headerlink" title="处理冲突"></a>处理冲突</h3><h5 id="开放定址法-空缺编址法"><a href="#开放定址法-空缺编址法" class="headerlink" title="开放定址法(空缺编址法)"></a>开放定址法(空缺编址法)</h5><p><code>Hi = ( H(key)+di ) MOD m  </code></p>
+<p>其中i&#x3D;1,2, …, k  (k&lt;&#x3D;m-1) , m: 哈希表的表长； di: 增量序列</p>
+<p>根据增量序列为下一个冲突寻找直接地址</p>
+<p>求增量序列有如下方法：</p>
+<ol>
+<li>线性探测：di&#x3D;1，2，… ，m-1<br>缺点：出现堆积现象–非同义地址冲突。存取时，可能不是同义词的词也位于探查序列，影响效率。</li>
+<li>二次探测：即di&#x3D;i^2 (i&lt;&#x3D;m&#x2F;2)<br>缺点：不易探查到整个散列空间</li>
+<li>伪随机探测再散列：di &#x3D; 伪随机数序列</li>
+</ol>
+<h5 id="再哈希法"><a href="#再哈希法" class="headerlink" title="再哈希法"></a>再哈希法</h5><p>利用准备的一组哈希函数，再下一次冲突发生时，依次使用这一组函数中的下一个来再次计算哈希值，直到冲突不发生为止。</p>
+<h5 id="链地址法"><a href="#链地址法" class="headerlink" title="链地址法"></a>链地址法</h5><p>为每个哈希地址建立一个单链表，存储所有具有同义词的记录。</p>
+<h5 id="建立公共溢出区法"><a href="#建立公共溢出区法" class="headerlink" title="建立公共溢出区法"></a>建立公共溢出区法</h5><h3 id="哈希表的建立、查找及其ASL分析"><a href="#哈希表的建立、查找及其ASL分析" class="headerlink" title="哈希表的建立、查找及其ASL分析"></a>哈希表的建立、查找及其ASL分析</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E5%93%88%E5%B8%8C/1733108875180.png"
+                      alt="1733108875180"
+                ></p>
+<p>在一般情况下，a上升，冲突的可能性下降，ASL下降，但空间的浪费­上升</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>成功ASL</th>
+<th>失败ASL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线性探测再散列</td>
+<td><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E5%93%88%E5%B8%8C/1733108991235.png"
+                      alt="1733108991235"
+                ></td>
+<td><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E5%93%88%E5%B8%8C/1733108998939.png"
+                      alt="1733108998939"
+                ></td>
+</tr>
+<tr>
+<td>伪随机探测再散列</td>
+<td><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E5%93%88%E5%B8%8C/1733109005066.png"
+                      alt="1733109005066"
+                ></td>
+<td><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E5%93%88%E5%B8%8C/1733109010816.png"
+                      alt="1733109010816"
+                ></td>
+</tr>
+<tr>
+<td>链地址法</td>
+<td><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E5%93%88%E5%B8%8C/1733109018086.png"
+                      alt="1733109018086"
+                ></td>
+<td><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E5%93%88%E5%B8%8C/1733109023176.png"
+                      alt="1733109023176"
+                ></td>
+</tr>
+</tbody></table>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 哈希</li>
+        <li><strong>Author:</strong> time will tell</li>
+        <li><strong>Created at
+                :</strong> 2024-12-02 09:13:42</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-12-08 15:03:57
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://sbwrn.github.io/2024/12/02/哈希/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E6%8C%87%E5%8D%97/">#指南</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/12/02/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">第四章 处理器体系结构</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/11/28/%E5%8A%A8%E6%80%81%E6%9F%A5%E6%89%BE%E8%A1%A8/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">动态查找表</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">哈希</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E6%9F%A5%E6%89%BE%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">哈希查找表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.0.1.</span> <span class="nav-text">术语</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="nav-number">1.1.</span> <span class="nav-text">哈希的查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E5%BB%BA%E7%AB%8B"><span class="nav-number">1.2.</span> <span class="nav-text">哈希表的建立</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%9D%80%E6%B3%95"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">直接定址法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E5%88%86%E6%9E%90%E6%B3%95"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">数字分析法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B3%E6%96%B9%E5%8F%96%E4%B8%AD%E6%B3%95"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">平方取中法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%98%E5%8F%A0%E6%B3%95"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">折叠法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%99%A4%E7%95%99%E4%BD%99%E6%95%B0%E6%B3%95"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">除留余数法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%AA-%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%B3%95"><span class="nav-number">1.2.0.6.</span> <span class="nav-text">(伪)随机数法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%86%B2%E7%AA%81"><span class="nav-number">1.3.</span> <span class="nav-text">处理冲突</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%80%E6%94%BE%E5%AE%9A%E5%9D%80%E6%B3%95-%E7%A9%BA%E7%BC%BA%E7%BC%96%E5%9D%80%E6%B3%95"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">开放定址法(空缺编址法)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%8D%E5%93%88%E5%B8%8C%E6%B3%95"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">再哈希法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%93%BE%E5%9C%B0%E5%9D%80%E6%B3%95"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">链地址法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%85%AC%E5%85%B1%E6%BA%A2%E5%87%BA%E5%8C%BA%E6%B3%95"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">建立公共溢出区法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E5%BB%BA%E7%AB%8B%E3%80%81%E6%9F%A5%E6%89%BE%E5%8F%8A%E5%85%B6ASL%E5%88%86%E6%9E%90"><span class="nav-number">1.4.</span> <span class="nav-text">哈希表的建立、查找及其ASL分析</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">time will tell</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        38 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.1</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/build/js/libs/Swup.min.js"></script>
+
+<script src="/build/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/build/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/build/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/build/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/build/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/build/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/build/js/utils.js" type="module"></script>
+
+<script src="/build/js/main.js" type="module"></script>
+
+<script src="/build/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/build/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/build/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/build/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/build/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/build/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/build/js/tools/runtime.js"></script>
+
+    
+<script src="/build/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/build/js/libs/Typed.min.js"></script>
+
+  
+<script src="/build/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/build/js/libs/minimasonry.min.js"></script>
+
+    
+<script src="/build/js/plugins/masonry.js" type="module"></script>
+
+
+
+
+    
+<script src="/build/js/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/build/js/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/build/js/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/build/js/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/build/js/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/build/js/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
