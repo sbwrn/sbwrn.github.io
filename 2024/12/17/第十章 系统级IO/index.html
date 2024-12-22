@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="time will tell">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://sbwrn.github.io/2024/12/17/第十章 系统级io/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="10.1 Unix I&#x2F;O一个 Linux文件就是一个m个字节的序列:B1，B2, …, Bk, …，Bm-1 所有的I&#x2F;O设备(例如网络、磁盘和终端)都被模型化为文件，输入和输出被当作对应文件的读和写进行 通过如下统一一致的方式执行 打开文件一个应用程序通过要求内核打开相应的文件，标志访问一个I&#x2F;O 设备。内核返回一个叫做描述符的小的非负整数，它在后续对此文件的所有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第十章 系统级I&#x2F;O">
+<meta property="og:url" content="https://sbwrn.github.io/2024/12/17/%E7%AC%AC%E5%8D%81%E7%AB%A0%20%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="10.1 Unix I&#x2F;O一个 Linux文件就是一个m个字节的序列:B1，B2, …, Bk, …，Bm-1 所有的I&#x2F;O设备(例如网络、磁盘和终端)都被模型化为文件，输入和输出被当作对应文件的读和写进行 通过如下统一一致的方式执行 打开文件一个应用程序通过要求内核打开相应的文件，标志访问一个I&#x2F;O 设备。内核返回一个叫做描述符的小的非负整数，它在后续对此文件的所有">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734400579972.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734401254248.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734401312026.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734401528098.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734401715551.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734402026145.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734402136747.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734402930747.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404492966.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404565128.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404720450.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404834021.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404868840.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404894605.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734419152556.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734419211138.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734419672449.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734419804903.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734420038159.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734420232996.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734420674595.png">
+<meta property="og:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734420897770.png">
+<meta property="article:published_time" content="2024-12-17T01:37:03.900Z">
+<meta property="article:modified_time" content="2024-12-18T03:03:57.534Z">
+<meta property="article:author" content="anybody">
+<meta property="article:tag" content="指南">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sbwrn.github.io/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734400579972.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/segment.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/segment.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/segment.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            第十章 系统级I/O | 日薄西山
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"sbwrn.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"18px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"What makes us normal is knowing that we're not normal.","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/sbwrn/sbwrn.github.io","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.8.2","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"GITHUB":{"path":"https://github.com/sbwrn/sbwrn.github.io","icon":"fa-brands fa-github"},"GALLERY":{"icon":"fa-solid fa-images","path":"/masonry/"},"Links":{"icon":"fa-regular fa-link","submenus":{"Link1":"https://xxy1103.github.io/"}}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"time will tell everything+","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"MMM D, YYYY","excerpt_length":200,"categories":{"enable":true,"limit":300},"tags":{"enable":true,"limit":300}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                日薄西山
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                                        >
+                                    <i class="fa-brands fa-github fa-fw"></i>
+                                    GITHUB
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry/"
+                                        >
+                                    <i class="fa-solid fa-images fa-fw"></i>
+                                    GALLERY
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://xxy1103.github.io/">
+                                                    LINK1
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           target="_blank" rel="noopener" href="https://github.com/sbwrn/sbwrn.github.io"
+                        >
+                            <span>
+                                GITHUB
+                            </span>
+                            
+                                <i class="fa-brands fa-github fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry/"
+                        >
+                            <span>
+                                GALLERY
+                            </span>
+                            
+                                <i class="fa-solid fa-images fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://xxy1103.github.io/">LINK1</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">12</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">43</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">第十章 系统级I/O</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/sleeves.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">time will tell</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-12-17 09:37:03</span>
+        <span class="mobile">2024-12-17 09:37:03</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-12-18 11:03:57</span>
+            <span class="mobile">2024-12-18 11:03:57</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/csapp/">csapp</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%8C%87%E5%8D%97/">指南</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="10-1-Unix-I-O"><a href="#10-1-Unix-I-O" class="headerlink" title="10.1 Unix I&#x2F;O"></a>10.1 Unix I&#x2F;O</h1><p>一个 Linux文件就是一个m个字节的序列:<br>B1，B2, …, Bk, …，Bm-1</p>
+<p>所有的I&#x2F;O设备(例如网络、磁盘和终端)都被模型化为文件，输入和输出被当作对应文件的读和写进行</p>
+<p>通过如下统一一致的方式执行</p>
+<h3 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h3><p>一个应用程序通过要求内核打开相应的文件，标志访问一个I&#x2F;O 设备。内核返回一个叫做描述符的小的非负整数，它在后续对此文件的所有操作中标识这个文件。内核记录有关这个打开文件的所有信息，应用程序只需记住这个描述符。</p>
+<h3 id="Linuxshell创建进程时打开3个文件：标准输入（0）-输出（1）-错误（2）"><a href="#Linuxshell创建进程时打开3个文件：标准输入（0）-输出（1）-错误（2）" class="headerlink" title="Linuxshell创建进程时打开3个文件：标准输入（0）&#x2F;输出（1）&#x2F;错误（2）"></a>Linuxshell创建进程时打开3个文件：标准输入（0）&#x2F;输出（1）&#x2F;错误（2）</h3><p>头文件&lt; unistd.h&gt; 定义了常量 STDIN_ FILENO、 STDOUT_FILENO 和 STDERR_FILENO, 它们可用来代替显式的描述符值。</p>
+<h3 id="改变当前文件位置：初始值和偏移量"><a href="#改变当前文件位置：初始值和偏移量" class="headerlink" title="改变当前文件位置：初始值和偏移量"></a>改变当前文件位置：初始值和偏移量</h3><p>每个打开的文件，内核保持着一个文件位置 k, 初始为0 。这个文件位置是从文件开头起始的字节偏移量。通过执行 seek操作，可以显式地设置文件的当前位置为k。</p>
+<h3 id="读写文件：EOF符号"><a href="#读写文件：EOF符号" class="headerlink" title="读写文件：EOF符号"></a>读写文件：EOF符号</h3><p>读操作从文件复制 n（n&gt;0） 个字节到内存，，从当前文件位置k 开始，然后将K增加到k+n。当k大于等于文件字节时触发一个称为 end-of-file(EOF) 的条件。</p>
+<h3 id="关闭文件"><a href="#关闭文件" class="headerlink" title="关闭文件"></a>关闭文件</h3><p>当应用完成了对文件的访问之后，它就通知内核关闭这个文件。作为响应，内核释放文件打开时创建的数据结构，并将这个描述符恢复到可用的描述符池中。重点在于关闭所有打开的文件并释放它们的内存资源。</p>
+<h1 id="10-2-文件"><a href="#10-2-文件" class="headerlink" title="10.2 文件"></a>10.2 文件</h1><p>每个linux文件都有一个类型（type）表示系统中的角色</p>
+<ul>
+<li>普通文件（regular file）包含任意数据<br>文本文件：ASCII或Unicode字符的普通文件<br>二进制文件：所有其他文件<br>文本行：\n，换行符LF&#x2F;0x0a</li>
+<li>目录（directory）包含一组链接（link）文件<br>链接将文件名映射到一个文件，”.”该目录到自身的链接，”..”到层次结构中父目录的链接</li>
+<li>套接字（socket）用来与另一个进程进行跨网络通信的文件</li>
+</ul>
+<p>Linux内核将所有文件都组织成一个目录层次结构(directory hierarchy)，而每个进程都有一个当前工作目录(current working directory）来确定其在目录层次结构中的当前位置</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734400579972.png"
+                      alt="1734400579972"
+                ></p>
+<p>目录层次结构中的位置用路径名(pathname)来指定</p>
+<ul>
+<li>绝对路径名(absolute pathname)以一个斜杠开始，表示从根节点开始的路径。<br>在图10-1中，hel1o.c的绝对路径名为&#x2F;home&#x2F;droh&#x2F;hello.c</li>
+<li>相对路径名(relative pathname)以文件名开始，表示从当前工作目录开始的路径<br>在图10-1中，如果&#x2F;home&#x2F;droh是当前工作目录，那么hello.c的相对路径名就是.&#x2F;hel1o.c。反之，如果&#x2F;home&#x2F;bryant是当前工作目录，那么相对路径名就是..&#x2F;home&#x2F;droh&#x2F;hello.c.<strong>此处有待商酌</strong></li>
+</ul>
+<h1 id="10-3-打开和关闭文件"><a href="#10-3-打开和关闭文件" class="headerlink" title="10.3 打开和关闭文件"></a>10.3 打开和关闭文件</h1><p>进程通过调用open函数来打开一个已存在的文件或者创建一个新文件</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734401254248.png"
+                      alt="1734401254248"
+                ></p>
+<p>open 函数将 filename 转换为一个文件描述符，并且返回描述符数字。</p>
+<p>返回的描述符总是在进程中当前没有打开的最小描述符。flags参数指明了进程打算如何访问这个文件:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734401312026.png"
+                      alt="1734401312026"
+                ></p>
+<p>实际中这样调用</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fd =Open(&quot;foo.txt&quot;，O_RDONLY,0);</span><br></pre></td></tr></table></figure></div>
+
+<p>flags参数为写提供给一些额外的指示，也可以是一个或者更多位掩码的或:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734401528098.png"
+                      alt="1734401528098"
+                ></p>
+<p>实际中这样调用</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fd =Open(&quot;foo.txt&quot;,O_WRONLY|O_APPEND， 0)</span><br></pre></td></tr></table></figure></div>
+
+<p>mode 参数指定了新文件的访问权限位。</p>
+<p>每个进程都有一个umask，它通过调用umask函数来设置。当进程通过带某个mode参数的open函数调用来创建一个新文件时，文件的访问权限位被设置为 mode &amp;~umask。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734401715551.png"
+                      alt="1734401715551"
+                ></p>
+<p>访问权限位。在sys&#x2F;stat.h中定义</p>
+<p>我们可以这样调用</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">umask(DEF_UMASK),</span><br><span class="line">fd = Open(&quot;foo.txt&quot;,O_CREAT|O_TRUNC|O_WRONLY, DEF_MODE);</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="10-4-读写文件"><a href="#10-4-读写文件" class="headerlink" title="10.4 读写文件"></a>10.4 读写文件</h1><p>应用程序分别调用 read 和 write 函数来执行输入输出<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734402026145.png"
+                      alt="1734402026145"
+                ></p>
+<p>read 函数从描述符为 fd的当前文件位置复制最多 n 个字节到内存位置 buf。返回值 -1 表示一个错误，而返回值 0 表示 EOF 。否则，返回值表示的是实际传送的字节数量。<br>write 函数从内存位置 buf 复制至多 n 个字节到描述符 fd 的当前文件位置。</p>
+<p>调用一次一个字节从标准输入复制到标准输出<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734402136747.png"
+                      alt="1734402136747"
+                ></p>
+<p>调用 lseek 函数，应用程序能够显示地修改当前文件的位置</p>
+<blockquote>
+<p>size_t被定义位unsigned long，ssize_t被定义位long，read返回一个有符号的大小，因为出错时必须返回-1，这导致read的最大值减少了一半</p>
+</blockquote>
+<p>不足值体现了read和write传送的字节比要求的少，但这不一定表示有错误：</p>
+<ul>
+<li>读时遇到EOF</li>
+<li>从终端读文本行</li>
+<li>读和写网络套接字(socket)</li>
+</ul>
+<h1 id="10-5-用RIO包健壮地读写（Robust-I-O）"><a href="#10-5-用RIO包健壮地读写（Robust-I-O）" class="headerlink" title="10.5 用RIO包健壮地读写（Robust I&#x2F;O）"></a>10.5 用RIO包健壮地读写（Robust I&#x2F;O）</h1><p>RIO提供了两类不同的函数：</p>
+<ul>
+<li>无缓冲的输入输出函数，直接在内存和文件之间传送数据，没有应用级缓冲。（将二进制数据读写到网络和从网络读写二进制数据尤其有用）</li>
+<li>带缓冲的输入函数，允许高效地从文件中读取文本行和二进制数据，这些文件的内容缓存在应用级缓冲区内（类似于为printf这样的标准I&#x2F;O函数提供的缓冲区）</li>
+</ul>
+<p>接下来详细介绍这两种</p>
+<h2 id="10-5-1-RIO的无缓冲的输入输出函数"><a href="#10-5-1-RIO的无缓冲的输入输出函数" class="headerlink" title="10.5.1 RIO的无缓冲的输入输出函数"></a>10.5.1 RIO的无缓冲的输入输出函数</h2><p>无缓冲函数包括rio_readn和 rio_writen 函数，在内存和文件之间直接传送数据<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734402930747.png"
+                      alt="1734402930747"
+                ></p>
+<p>rio_readn 函数从描述符 fd的当前文件位置最多传送n个字节到内存位置 usrbuf.</p>
+<p>rio_writen函数从位置usrbuf传送n个字节到描述符 fd</p>
+<p>rio_read 函数在遇到 EOF 时只能返回一个不足值。rio_writen函数决不会返回不足值。</p>
+<p>对同一个描述符，可以任意交错地调用 rio_readn和 rio_writen。</p>
+<h2 id="10-5-2-RIO的带缓冲的输入函数"><a href="#10-5-2-RIO的带缓冲的输入函数" class="headerlink" title="10.5.2 RIO的带缓冲的输入函数"></a>10.5.2 RIO的带缓冲的输入函数</h2><p>rio_readlineb函数从一个内部读缓冲区复制一个文本行，当缓冲区变空时，会自动地调用read重新填满缓冲区。<br>实际情况是：rio_readlineb 函数从文件 rp读出下一个文本行(包括结尾的换行符)，将它复制到内存位置 usrbuf，并且用 NULL(零)字符来结束这个文本行。rio_readlineb 函数最多读 maxlen-1个字节，余下的一个字符留给结尾的 NULL字符。超过 maxlen-1字节的文本行将被截断，并用一个NULL字符结束。</p>
+<p>rio_readnb函数从文件rp最多读n个字节到内存位置usrbuf。对同一描述符，对rio_readlineb和rio_readnb的调用可以任意交叉进行。然而，对这些带缓冲的函数的调用却不应和无缓冲的rio_readn 函数交叉使用。</p>
+<p>对于一个应用程序，rio_read 函数和 Linux read 函数有同样的语义。在出错时，它返回值一1，并且适当地设置errno。在EOF时，它返回值0。如果要求的字节数超过了读缓冲区内未读的字节的数量，它会返回一个不足值。两个函数的相似性使得很容易通过用rio_read 代替read来创建不同类型的带缓冲的读函数。</p>
+<h1 id="10-6-读取文件元数据"><a href="#10-6-读取文件元数据" class="headerlink" title="10.6 读取文件元数据"></a>10.6 读取文件元数据</h1><p>应用程序能够通过调用 stat 和 fstat 函数，检索到关于文件的信息(有时也称为文件的元数据(metadata))。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404492966.png"
+                      alt="1734404492966"
+                ></p>
+<p>stat函数以一个文件名作为输入，并填写一个stat数据结构中的各个成员</p>
+<p>fstat函数是相似的，只不过是以文件描述符而不是文件名作为输入</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404565128.png"
+                      alt="1734404565128"
+                ></p>
+<p>st_size成员包含了文件的字节数大小。st_mode 成员则编码了文件访问许可位(图10-2访问权限位)和文件类型(10.2节)</p>
+<p>Linux在sys&#x2F;stat.h中定义了宏谓词来确定 st_mode 成员的文件类型:<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404720450.png"
+                      alt="1734404720450"
+                ></p>
+<h1 id="10-7-读取目录内容"><a href="#10-7-读取目录内容" class="headerlink" title="10.7 读取目录内容"></a>10.7 读取目录内容</h1><p>应用程序实验readdir系列函数来读取目录的内容</p>
+<h3 id="1、opendir"><a href="#1、opendir" class="headerlink" title="1、opendir"></a>1、opendir</h3><p>函数 opendir 以路径名为参数，返回指向目录流(directory stream)的指针。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404834021.png"
+                      alt="1734404834021"
+                ></p>
+<blockquote>
+<p>流是对条目有序列表的抽象，在这里是指目录项的列表。</p>
+</blockquote>
+<h3 id="2、readdir"><a href="#2、readdir" class="headerlink" title="2、readdir"></a>2、readdir</h3><p>每次对 readdir的调用返回的都是指向流 dirp中下一个目录项的指针，或者，如果没有更多目录项则返回NULL。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404868840.png"
+                      alt="1734404868840"
+                ></p>
+<p>或者说每个目录项都是一个结构，形式如下：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734404894605.png"
+                      alt="1734404894605"
+                ></p>
+<p>如果出错，则readdir返回NULL，并设置errno。唯一能区分错误和流结束情况的方法是检查自调用readdir以来errno是否被修改过。</p>
+<h3 id="3、closedir"><a href="#3、closedir" class="headerlink" title="3、closedir"></a>3、closedir</h3><p>函数closedir关闭流并释放其所有的资源</p>
+<h1 id="10-8-共享文件"><a href="#10-8-共享文件" class="headerlink" title="10.8 共享文件"></a>10.8 共享文件</h1><p>内核用三个相关的数据结构来表示打开的文件</p>
+<ul>
+<li>描述符表(descriptor table)：表项是由进程打开的文件描述符来索引的。每个打开的描述符表项指向文件表中的一个表项。</li>
+<li>文件表(file table)：打开文件的集合是由一张文件表来表示的，所有的进程共享这<br>张表。<br>每个文件表的表项组成(针对我们的目的)包括当前的文件位置、引用计数(reference count)(即当前指向该表项的描述符表项数)，以及一个指向v-node 表中对应表项的指针。</li>
+<li>v-node 表(v-node table)。同文件表一样，所有的进程共享这张 v-node 表。每个表项包含 stat 结构中的大多数信息，包括st_mode 和 st_size 成员。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734419152556.png"
+                      alt="1734419152556"
+                ></p>
+<p>但是多个描述符也可以通过不同的文件表表项来引用同一个文件<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734419211138.png"
+                      alt="1734419211138"
+                ></p>
+<p>父子进程共享文件时，子进程copy一个父进程描述符表的副本。父子进程共享相同的打开文件表合，因此共享相同的文件位置。同样的，在内核删除相应文件表表项之前，父子进程必须都关闭了它们的描述符。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734419672449.png"
+                      alt="1734419672449"
+                ></p>
+<h1 id="10-9-I-O重定向"><a href="#10-9-I-O重定向" class="headerlink" title="10.9 I&#x2F;O重定向"></a>10.9 I&#x2F;O重定向</h1><p><strong>定义：</strong> 重定向是指改变一个程序的标准输入、输出或错误输出流的目标。</p>
+<p>Linux shell提供了 I&#x2F;O重定向操作符，允许用户将磁盘文件和标准输入输出联系起来。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734419804903.png"
+                      alt="1734419804903"
+                ><br>这一段指令使得 shell加载和执行 ls程序，将标准输出重定向到磁盘文件 foo.txt。</p>
+<p>I&#x2F;O重定向工作一种方式是使用dup2函数<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734420038159.png"
+                      alt="1734420038159"
+                ></p>
+<p>dup2函数复制描述符表表项oldfd 到描述符表表项 newfd，覆盖描述符表表项 newfd 以前的内容。如果 newfd已经打开了，dup2会在复制 oldfd 之前关闭 newfd。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734420232996.png"
+                      alt="1734420232996"
+                ></p>
+<p>这样能将1和4都重定向到文件B上，此时文件A已经被关闭了，并且它的文件表和v-node 表表项也已经被删除了；文件B的引用计数已经增加了。从此以后，任何写到标准输出的数据都被重定向到文件B。</p>
+<h1 id="10-10-标准I-O"><a href="#10-10-标准I-O" class="headerlink" title="10.10 标准I&#x2F;O"></a>10.10 标准I&#x2F;O</h1><p>标准 I&#x2F;0库将一个打开的文件模型化为一个流。上文其实也有提到过流的定义：</p>
+<blockquote>
+<p>在这里一个流就是一个指向 FILE类型的结构的指针，类型为FILE的流是对文件描述符和流缓冲区的抽象</p>
+</blockquote>
+<p>每个ANSIC程序开始时都有三个打开的流stdin、stdout和 stderr，分别对应于标准输人、标准输出和标准错误:<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734420674595.png"
+                      alt="1734420674595"
+                ></p>
+<p>流缓冲区的目的和RIO读缓冲区的一样：就是使开销较高的LinuxI&#x2F;O系统调用的数量尽可能得小。</p>
+<h1 id="10-11-综合"><a href="#10-11-综合" class="headerlink" title="10.11 综合"></a>10.11 综合</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/image/%E7%AC%AC%E5%8D%81%E7%AB%A0%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/1734420897770.png"
+                      alt="1734420897770"
+                ></p>
+<ul>
+<li>G1:尽可能使用标准I&#x2F;〇。<br>对磁盘和终端设备I&#x2F;0来说，标准I&#x2F;O函数是首选方法。大多数C程序员在其整个职业生涯中只使用标准I&#x2F;0，从不受较低级的UnixI&#x2F;0函数的困扰(可能stat除外，因为在标准I&#x2F;0库中没有与它对应的函数)。只要可能，我们建议你也这样做。</li>
+<li>G2:不要使用 <code> scanf</code>或 <code>rio_readlineb</code>来读二进制文件。<br>像scanf或rio readlineb这样的函数是专门设计来读取文本文件的。学生通常会犯的一个错误就是用这些函数来读取二进制文件，这就使得他们的程序出现了诡异莫测的失败。比如，二进制文件可能散布着很多0xa字节，而这些字节又与终止文本行无关。</li>
+<li>G3:对网络套接字的I&#x2F;O使用RIO函数。<br>不幸的是，当我们试着将标准I&#x2F;O用于网络的输入输出时，出现了一些令人讨厌的问题。如同我们将在11.4节所见，Linux对网络的抽象是一种称为套接字的文件类型。就像所有的Linux文件一样套接字由文件描述符来引用，在这种情况下称为套接字描述符。应用程序进程通过读写套接字描述符来与运行在其他计算机的进程实现通信。</li>
+</ul>
+<p>标准 I&#x2F;O流，从某种意义上而言是全双工的，因为程序能够在同一个流上执行输入和输出。然而，对流的限制和对套接字的限制，有时候会互相冲突，因此有如下限制：</p>
+<ul>
+<li>限制一:跟在输出函数之后的输入函数。如果中间没有插人对fflush、fseek、fsetpos或者rewind的调用，一个输人函数不能跟随在一个输出函数之后。fflush 函数清空与流相关的缓冲区。后三个函数使用 Unix I&#x2F;O 1seek函数来重置当前的文件位置。</li>
+<li>限制二:跟在输入函数之后的输出函数。如果中间没有插入对fseek、fsetpos或者rewind的调用，一个输出函数不能跟随在一个输人函数之后，除非该输人函数遇到了一个文件结束。</li>
+</ul>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 第十章 系统级I/O</li>
+        <li><strong>Author:</strong> time will tell</li>
+        <li><strong>Created at
+                :</strong> 2024-12-17 09:37:03</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-12-18 11:03:57
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://sbwrn.github.io/2024/12/17/第十章 系统级IO/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E6%8C%87%E5%8D%97/">#指南</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/12/18/%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E9%93%BE%E6%8E%A5/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">第七章 链接</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/12/12/%E5%A4%96%E9%83%A8%E6%8E%92%E5%BA%8F/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">外部排序</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">第十章 系统级I/O</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#10-1-Unix-I-O"><span class="nav-number">1.</span> <span class="nav-text">10.1 Unix I&#x2F;O</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.1.</span> <span class="nav-text">打开文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linuxshell%E5%88%9B%E5%BB%BA%E8%BF%9B%E7%A8%8B%E6%97%B6%E6%89%93%E5%BC%803%E4%B8%AA%E6%96%87%E4%BB%B6%EF%BC%9A%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%EF%BC%880%EF%BC%89-%E8%BE%93%E5%87%BA%EF%BC%881%EF%BC%89-%E9%94%99%E8%AF%AF%EF%BC%882%EF%BC%89"><span class="nav-number">1.0.2.</span> <span class="nav-text">Linuxshell创建进程时打开3个文件：标准输入（0）&#x2F;输出（1）&#x2F;错误（2）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE%EF%BC%9A%E5%88%9D%E5%A7%8B%E5%80%BC%E5%92%8C%E5%81%8F%E7%A7%BB%E9%87%8F"><span class="nav-number">1.0.3.</span> <span class="nav-text">改变当前文件位置：初始值和偏移量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%EF%BC%9AEOF%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.0.4.</span> <span class="nav-text">读写文件：EOF符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.5.</span> <span class="nav-text">关闭文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-2-%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">10.2 文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-3-%E6%89%93%E5%BC%80%E5%92%8C%E5%85%B3%E9%97%AD%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">10.3 打开和关闭文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-4-%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">10.4 读写文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-5-%E7%94%A8RIO%E5%8C%85%E5%81%A5%E5%A3%AE%E5%9C%B0%E8%AF%BB%E5%86%99%EF%BC%88Robust-I-O%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">10.5 用RIO包健壮地读写（Robust I&#x2F;O）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#10-5-1-RIO%E7%9A%84%E6%97%A0%E7%BC%93%E5%86%B2%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E5%87%BD%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">10.5.1 RIO的无缓冲的输入输出函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-5-2-RIO%E7%9A%84%E5%B8%A6%E7%BC%93%E5%86%B2%E7%9A%84%E8%BE%93%E5%85%A5%E5%87%BD%E6%95%B0"><span class="nav-number">5.2.</span> <span class="nav-text">10.5.2 RIO的带缓冲的输入函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-6-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%85%83%E6%95%B0%E6%8D%AE"><span class="nav-number">6.</span> <span class="nav-text">10.6 读取文件元数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-7-%E8%AF%BB%E5%8F%96%E7%9B%AE%E5%BD%95%E5%86%85%E5%AE%B9"><span class="nav-number">7.</span> <span class="nav-text">10.7 读取目录内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81opendir"><span class="nav-number">7.0.1.</span> <span class="nav-text">1、opendir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81readdir"><span class="nav-number">7.0.2.</span> <span class="nav-text">2、readdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81closedir"><span class="nav-number">7.0.3.</span> <span class="nav-text">3、closedir</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-8-%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6"><span class="nav-number">8.</span> <span class="nav-text">10.8 共享文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-9-I-O%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">9.</span> <span class="nav-text">10.9 I&#x2F;O重定向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-10-%E6%A0%87%E5%87%86I-O"><span class="nav-number">10.</span> <span class="nav-text">10.10 标准I&#x2F;O</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-11-%E7%BB%BC%E5%90%88"><span class="nav-number">11.</span> <span class="nav-text">10.11 综合</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">time will tell</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        43 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
